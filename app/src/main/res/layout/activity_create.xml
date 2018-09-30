@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:theme="@style/Theme.App.Base" />
 
         </android.support.design.widget.TextInputLayout>
@@ -85,6 +85,28 @@
                 android:theme="@style/Theme.App.Base" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/fydate"
+            android:paddingBottom="2dp"
+            android:paddingTop="14dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Financial Year "/>
+
+        <Button
+            android:id="@+id/bookdate"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Books "/>
 
 
     </LinearLayout>
