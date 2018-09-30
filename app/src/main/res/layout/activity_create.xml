@@ -1,9 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.fullertonfinnovatica.Create">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="75dp"
+        android:src="@drawable/users" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nameinput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:paddingTop="14dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:theme="@style/Theme.App.Base" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/phoneinput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:theme="@style/Theme.App.Base" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/emailinput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email (optional)"
+                android:inputType="textEmailAddress"
+                android:theme="@style/Theme.App.Base" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addressinput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Business address"
+                android:inputType="textMultiLine"
+                android:theme="@style/Theme.App.Base" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/verify"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/yellow"
+        android:text="NEXT"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+
+</RelativeLayout>
