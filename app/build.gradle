@@ -34,6 +34,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    compile 'com.google.firebase:firebase-auth:16.0.3'
     compile 'com.android.support:appcompat-v7:27.+'
     compile 'com.android.support:design:27.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

@@ -108,6 +108,35 @@
             android:background="@android:color/transparent"
             android:text="Books "/>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/entercode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Verification code"
+                android:inputType="number"
+                android:theme="@style/Theme.App.Base" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/verifycode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Verify"/>
+
+        <Button
+            android:id="@+id/resendcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Resend code"/>
 
     </LinearLayout>
 
