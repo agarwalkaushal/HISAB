@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Create" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Login"></activity>
+        <activity android:name=".Login" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

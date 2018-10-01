@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -105,6 +106,11 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         verfiy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent i = new Intent(Create.this, Dashboard.class);
+                startActivity(i);
+
+                /*
                 name = nameField.getEditText().toString();
                 number = numberField.getEditText().toString();
                 address = addressField.getEditText().toString();
@@ -134,6 +140,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                 }
                 else
                     return;
+                    */
 
             }
         });
@@ -196,12 +203,14 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private void enableViews(View... views) {
         for (View v : views) {
             v.setEnabled(true);
+            v.setVisibility(View.VISIBLE);
         }
     }
 
     private void disableViews(View... views) {
         for (View v : views) {
             v.setEnabled(false);
+            v.setVisibility(View.INVISIBLE);
         }
     }
 }

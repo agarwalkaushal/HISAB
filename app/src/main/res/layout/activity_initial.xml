@@ -28,7 +28,7 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@drawable/custom_button_registration"
-        android:text="CREATE NEW BUSSINESS"/>
+        android:text="CREATE NEW BUSINESS"/>
 
     <Button
         android:id="@+id/login"

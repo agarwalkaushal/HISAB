@@ -32,7 +32,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Business name"
                 android:inputType="textCapWords"
                 android:theme="@style/Theme.App.Base" />
 
@@ -93,8 +93,9 @@
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:background="@android:color/transparent"
-            android:text="Financial Year "/>
+            android:text="Tap to set Financial Year "/>
 
         <Button
             android:id="@+id/bookdate"
@@ -105,8 +106,9 @@
             android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:background="@android:color/transparent"
-            android:text="Books "/>
+            android:text="Tap to choose Books start date"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/entercode"
@@ -148,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/yellow"
-        android:text="NEXT"
+        android:text="VERIFY PHONE NUMBER"
         android:textAlignment="center"
         android:textColor="@color/black" />
 
