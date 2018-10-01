@@ -107,15 +107,6 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(Create.this, Dashboard.class);
-                startActivity(i);
-
-                /*
-                name = nameField.getEditText().toString();
-                number = numberField.getEditText().toString();
-                address = addressField.getEditText().toString();
-                email = emailField.getEditText().toString();
-
                 if (name.length() == 0)
                     nameField.setError("Name is required!");
                 else
@@ -126,6 +117,26 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                 else
                     count++;
 
+                if(count==0) {
+                    Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(Create.this, Dashboard.class);
+                    startActivity(i);
+                    i.putExtra("Business name",name);
+                    i.putExtra("Phone number",number);
+                }
+                else
+                    return;
+
+                /*
+                name = nameField.getEditText().toString();
+                number = numberField.getEditText().toString();
+                address = addressField.getEditText().toString();
+                email = emailField.getEditText().toString();
+
+
+
+
+
                 if (address.length() == 0)
                     addressField.setError("Name is required!");
                 else
@@ -133,7 +144,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
 
                 if(count == 0)
                 {
-                    Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
+
                     phoneSignIn(number);
                     disableViews(nameField,addressField,emailField,verfiy);
                     enableViews(verfiyCode,resendCode,mVerificationField);

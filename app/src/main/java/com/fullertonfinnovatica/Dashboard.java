@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,25 +13,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView businessname;
+    private TextView phonenumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        String businessName = intent.getStringExtra("Business name");
+        String phoneNumber = intent.getStringExtra("Phone number");
+
+        businessname = (TextView) findViewById(R.id.businessname);
+        phonenumber = (TextView) findViewById(R.id.phonenumber);
+
+        businessname.setText(businessName);
+        phonenumber.setText(phoneNumber);
+
+        setTitle(businessName);
+
         setContentView(R.layout.activity_dashboard);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -80,17 +90,17 @@ public class Dashboard extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_account) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_finance) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_inventory) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_network) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_profile) {
+
+        } else if (id == R.id.nav_singout) {
 
         }
 
