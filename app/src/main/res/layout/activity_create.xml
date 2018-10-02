@@ -29,7 +29,8 @@
             android:paddingBottom="2dp"
             android:paddingTop="14dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/nameinputedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Business name"
@@ -45,7 +46,8 @@
             android:paddingBottom="2dp"
             android:paddingTop="4dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/phoneinputedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
@@ -61,7 +63,8 @@
             android:paddingBottom="2dp"
             android:paddingTop="4dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/emailinputedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email (optional)"
@@ -77,7 +80,8 @@
             android:paddingBottom="2dp"
             android:paddingTop="4dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addressinputedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Business address"
@@ -117,7 +121,8 @@
             android:paddingBottom="2dp"
             android:paddingTop="4dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/entercodeedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Verification code"

@@ -8,8 +8,8 @@
             android:title="Accounts" />
         <item
             android:id="@+id/nav_network"
-            android:icon="@drawable/network"
-            android:title="Netwroking" />
+            android:icon="@drawable/user"
+            android:title="Networking" />
         <item
             android:id="@+id/nav_inventory"
             android:icon="@drawable/trolley"

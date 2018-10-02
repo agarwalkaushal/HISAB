@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,24 +21,22 @@ public class Dashboard extends AppCompatActivity
 
     private TextView businessname;
     private TextView phonenumber;
+    private String businessName;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        String businessName = intent.getStringExtra("Business name");
-        String phoneNumber = intent.getStringExtra("Phone number");
-
-        businessname = (TextView) findViewById(R.id.businessname);
-        phonenumber = (TextView) findViewById(R.id.phonenumber);
-
-        businessname.setText(businessName);
-        phonenumber.setText(phoneNumber);
-
-        setTitle(businessName);
-
         setContentView(R.layout.activity_dashboard);
+
+        Intent intent = getIntent();
+        Bundle bd = intent.getExtras();
+        if(bd != null) {
+            businessName= bd.getString("name");
+            phoneNumber = bd.getString("number");
+
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,6 +49,15 @@ public class Dashboard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View parentView = navigationView.getHeaderView(0);
+        businessname = (TextView) parentView.findViewById(R.id.businessname);
+        phonenumber = (TextView) parentView.findViewById(R.id.phonenumber);
+
+        if(bd != null) {
+            getSupportActionBar().setTitle("Hello, "+businessName);
+            businessname.setText(businessName);
+            phonenumber.setText("+91-"+phoneNumber);
+        }
     }
 
     @Override

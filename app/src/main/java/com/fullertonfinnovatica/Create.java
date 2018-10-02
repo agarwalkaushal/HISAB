@@ -2,6 +2,7 @@ package com.fullertonfinnovatica;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,8 +53,14 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private TextInputLayout emailField;
     private TextInputLayout mVerificationField;
 
+    private TextInputEditText nameFieldEdit;
+    private TextInputEditText numberFieldEdit;
+    private TextInputEditText addressFieldEdit;
+    private TextInputEditText emailFieldEdit;
+    private TextInputEditText mVerificationFieldEdit;
+
     private int c=0;
-    private int count=0;
+    private int d=0;
 
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -77,11 +84,19 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         verfiy = (Button) findViewById(R.id.verify);
         verfiyCode = (Button) findViewById(R.id.verifycode);
         resendCode = (Button) findViewById(R.id.resendcode);
+
         nameField = (TextInputLayout) findViewById(R.id.nameinput);
         numberField = (TextInputLayout) findViewById(R.id.phoneinput);
         addressField = (TextInputLayout) findViewById(R.id.addressinput);
         emailField = (TextInputLayout) findViewById(R.id.emailinput);
         mVerificationField = (TextInputLayout) findViewById(R.id.entercode);
+
+        nameFieldEdit = (TextInputEditText) findViewById(R.id.nameinputedit);
+        numberFieldEdit = (TextInputEditText) findViewById(R.id.phoneinputedit);
+        addressFieldEdit = (TextInputEditText) findViewById(R.id.addressinputedit);
+        emailFieldEdit = (TextInputEditText) findViewById(R.id.emailinputedit);
+        mVerificationFieldEdit = (TextInputEditText) findViewById(R.id.entercodeedit);
+
 
         disableViews(verfiyCode,resendCode,mVerificationField);
 
@@ -103,26 +118,32 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
             }
         });
 
+        c=0;
+        d=0;
+
         verfiy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                name = nameFieldEdit.getText().toString();
+                number = numberFieldEdit.getText().toString();
+
                 if (name.length() == 0)
-                    nameField.setError("Name is required!");
+                    nameField.setError("Business name is required!");
                 else
-                    count++;
+                    c++;
 
                 if (number.length() == 0)
-                    numberField.setError("Name is required!");
+                    numberField.setError("Number is required!");
                 else
-                    count++;
+                    d++;
 
-                if(count==0) {
+                if(c>=1 && d>=1) {
                     Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(Create.this, Dashboard.class);
+                    i.putExtra("name",name);
+                    i.putExtra("number",number);
                     startActivity(i);
-                    i.putExtra("Business name",name);
-                    i.putExtra("Phone number",number);
                 }
                 else
                     return;

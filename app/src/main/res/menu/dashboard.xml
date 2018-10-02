@@ -5,5 +5,5 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:icon="@drawable/settings"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>
