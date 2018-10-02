@@ -8,7 +8,7 @@
             android:title="Accounts" />
         <item
             android:id="@+id/nav_network"
-            android:icon="@drawable/user"
+            android:icon="@drawable/team"
             android:title="Networking" />
         <item
             android:id="@+id/nav_inventory"
@@ -24,7 +24,7 @@
         <menu>
             <item
                 android:id="@+id/nav_profile"
-                android:icon="@drawable/user"
+                android:icon="@drawable/student"
                 android:title="Update profile" />
             <item
                 android:id="@+id/nav_singout"
