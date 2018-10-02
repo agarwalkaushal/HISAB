@@ -2,10 +2,6 @@ package com.fullertonfinnovatica;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity
@@ -32,8 +29,8 @@ public class Dashboard extends AppCompatActivity
 
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-        if(bd != null) {
-            businessName= bd.getString("name");
+        if (bd != null) {
+            businessName = bd.getString("name");
             phoneNumber = bd.getString("number");
 
         }
@@ -44,7 +41,7 @@ public class Dashboard extends AppCompatActivity
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         toggle.setDrawerIndicatorEnabled(false);
@@ -66,10 +63,10 @@ public class Dashboard extends AppCompatActivity
         businessname = (TextView) parentView.findViewById(R.id.businessname);
         phonenumber = (TextView) parentView.findViewById(R.id.phonenumber);
 
-        if(bd != null) {
-            getSupportActionBar().setTitle("Hello, "+businessName);
+        if (bd != null) {
+            getSupportActionBar().setTitle("Hello, " + businessName);
             businessname.setText(businessName);
-            phonenumber.setText("+91-"+phoneNumber);
+            phonenumber.setText("+91-" + phoneNumber);
         }
     }
 

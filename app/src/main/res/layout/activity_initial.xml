@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,26 +8,26 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/initial_1"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/splash" />
 
     <Button
         android:id="@+id/create_new"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="18sp"
-        android:textColor="@color/white"
         android:background="@drawable/custom_button_registration"
-        android:text="CREATE NEW BUSINESS"/>
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:text="CREATE NEW BUSINESS"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/login"
@@ -37,8 +36,7 @@
         android:layout_below="@id/create_new"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:textSize="14sp"
-
-        android:text="Already registered?"/>
+        android:text="Already registered?"
+        android:textSize="14sp" />
 
 </RelativeLayout>
