@@ -4,6 +4,10 @@
     <color name="colorPrimaryLight">#fcd9c5</color>
     <color name="colorPrimaryDark">#f79e69</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="radial1">#96b2e0f5</color>
+    <color name="radial2">#968effaa</color>
+    <color name="radial3">#96d79cff</color>
+    <color name="radial4">#967d86ff</color>
     <color name="white">#FFFFFF</color>
     <color name="yellow">#ffcf33</color>
     <color name="black">#000000</color>
