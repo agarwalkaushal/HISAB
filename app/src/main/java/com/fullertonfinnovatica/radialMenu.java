@@ -10,9 +10,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.Toast;
 
 /**
  * Created by HP on 03-10-2018.
@@ -112,20 +114,22 @@ public class radialMenu extends View {
         float currX = event.getX();
         float currY = event.getY();
 
+
+
         switch(event.getActionMasked()){
+
             case MotionEvent.ACTION_DOWN:
                 mLatestDownX = currX;
                 mLatestDownY = currY;
-
                 mPressed = true;
+
                 break;
+
             case MotionEvent.ACTION_MOVE:
-
-
                 if(Math.abs(currX - mLatestDownX) > mTouchSlop || Math.abs(currY - mLatestDownY) > mTouchSlop) mPressed = false;
                 break;
-            case MotionEvent.ACTION_UP:
 
+            case MotionEvent.ACTION_UP:
                 if(mPressed){
                     int dx = (int) currX - mCenterX;
                     int dy = (int) currY - mCenterY;
@@ -137,16 +141,18 @@ public class radialMenu extends View {
                         //get the angle to detect which slice is currently being click
                         double angle = Math.atan2(dy, dx);
 
-                        if(angle >= -quarterCircle && angle < 0){
-                            angle += quarterCircle;
-                        }else if(angle >= -Math.PI && angle < -quarterCircle){
-                            angle += Math.PI + Math.PI + quarterCircle;
-                        }else if(angle >= 0 && angle < Math.PI){
-                            angle += quarterCircle;
+                        Log.d("Angle", String.valueOf(angle));
+
+                        if(angle > -1.57 && angle < 0){
+                            Toast.makeText(getContext(), "Inventory", Toast.LENGTH_SHORT).show();
+                        }else if(angle > 1.57 && angle < 3.14){
+                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
+                        }else if(angle > 0 && angle < 1.57){
+                            Toast.makeText(getContext(), "Finances", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getContext(), "Networking", Toast.LENGTH_SHORT).show();
                         }
-
                         double rawSliceIndex = angle / (Math.PI * 2) * mSlices;
-
                         if(mOnSliceClickListener != null){
                             mOnSliceClickListener.onSlickClick((int) rawSliceIndex);
                         }
@@ -155,7 +161,6 @@ public class radialMenu extends View {
                 }
                 break;
         }
-
         return true;
     }
 
