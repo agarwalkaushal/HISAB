@@ -23,9 +23,6 @@ android {
 repositories {
     maven { url "https://dl.bintray.com/drummer-aidan/maven" }
     jcenter()
-    maven {
-        url "https://maven.google.com"
-    }
 }
 
 dependencies {

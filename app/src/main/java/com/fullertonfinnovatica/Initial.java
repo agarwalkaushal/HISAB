@@ -29,6 +29,7 @@ public class Initial extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Initial.this, Create.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -37,6 +38,7 @@ public class Initial extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Initial.this, Login.class);
                 startActivity(i);
+                finish();
             }
         });
     }

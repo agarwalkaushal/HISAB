@@ -3,13 +3,15 @@
     <color name="colorPrimary">#f5bb99</color>
     <color name="colorPrimaryLight">#fcd9c5</color>
     <color name="colorPrimaryDark">#f79e69</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="radial1">#96b2e0f5</color>
-    <color name="radial2">#968effaa</color>
-    <color name="radial3">#96d79cff</color>
-    <color name="radial4">#967d86ff</color>
+    <color name="colorAccent">#fff5f5</color>
+    <color name="radial1">#ade5ff</color>
+    <color name="radial2">#9fffb7</color>
+    <color name="radial3">#dba9fd</color>
+    <color name="radial4">#abb1ff</color>
     <color name="white">#FFFFFF</color>
+    <color name="whiteTint">#f4e7e7</color>
     <color name="yellow">#ffcf33</color>
+    <color name="green">#bbffbc</color>
     <color name="black">#000000</color>
     <color name="gray">#c8969393</color>
 </resources>

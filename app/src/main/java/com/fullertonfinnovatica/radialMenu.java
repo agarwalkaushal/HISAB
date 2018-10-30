@@ -46,16 +46,16 @@ public class radialMenu extends View {
     //color for the slices
     private int[] colors = new int[]{
             ContextCompat.getColor(getContext(),R.color.radial1),
-            ContextCompat.getColor(getContext(),R.color.radial2),
             ContextCompat.getColor(getContext(),R.color.radial3),
+            ContextCompat.getColor(getContext(),R.color.radial2),
             ContextCompat.getColor(getContext(), R.color.radial4)};
 
     //bitmap for the slices
     private Bitmap[] bitmaps = new Bitmap[]{
             ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.trolley)).getBitmap(),
             ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.debitcard)).getBitmap(),
-            ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.calculator)).getBitmap(),
-            ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.network)).getBitmap()};
+            ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.network)).getBitmap(),
+            ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.calculator)).getBitmap()};
 
     private int mCenterX;
     private int mCenterY;
@@ -146,11 +146,11 @@ public class radialMenu extends View {
                         if(angle > -1.57 && angle < 0){
                             Toast.makeText(getContext(), "Inventory", Toast.LENGTH_SHORT).show();
                         }else if(angle > 1.57 && angle < 3.14){
-                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Networking", Toast.LENGTH_SHORT).show();
                         }else if(angle > 0 && angle < 1.57){
                             Toast.makeText(getContext(), "Finances", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(getContext(), "Networking", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
                         }
                         double rawSliceIndex = angle / (Math.PI * 2) * mSlices;
                         if(mOnSliceClickListener != null){

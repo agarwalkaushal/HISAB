@@ -132,6 +132,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                     i.putExtra("name", name);
                     i.putExtra("number", number);
                     startActivity(i);
+                    finish();
                 } else
                     return;
 
