@@ -23,6 +23,10 @@
     <item android:title="Settings">
         <menu>
             <item
+                android:id="@+id/nav_GENERAL"
+                android:icon="@drawable/settings"
+                android:title="General" />
+            <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/student"
                 android:title="Update profile" />
