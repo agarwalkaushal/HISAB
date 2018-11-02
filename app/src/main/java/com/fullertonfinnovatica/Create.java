@@ -27,7 +27,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private String number;
     private String address;
     private String email;
-    private String mVerificationId;
+    private String phone_no;
 
     private Button fy;
     private Button books;
@@ -50,22 +50,14 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private int c = 0;
     private int d = 0;
 
-    private FirebaseAuth mAuth;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    private PhoneAuthProvider.ForceResendingToken mResendToken;
-
-    private static final int STATE_INITIALIZED = 1;
-    private static final int STATE_CODE_SENT = 2;
-    private static final int STATE_VERIFY_FAILED = 3;
-    private static final int STATE_VERIFY_SUCCESS = 4;
-    private static final int STATE_SIGNIN_FAILED = 5;
-    private static final int STATE_SIGNIN_SUCCESS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideStatusBar();
         setContentView(R.layout.activity_create);
+
+        phone_no = getIntent().getStringExtra("user_number");
 
         fy = (Button) findViewById(R.id.fydate);
         books = (Button) findViewById(R.id.bookdate);
@@ -74,7 +66,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         resendCode = (Button) findViewById(R.id.resendcode);
 
         nameField = (TextInputLayout) findViewById(R.id.nameinput);
-        numberField = (TextInputLayout) findViewById(R.id.phoneinput);
+        numberField = findViewById(R.id.phoneinput);
         addressField = (TextInputLayout) findViewById(R.id.addressinput);
         emailField = (TextInputLayout) findViewById(R.id.emailinput);
         mVerificationField = (TextInputLayout) findViewById(R.id.entercode);
@@ -85,6 +77,8 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         emailFieldEdit = (TextInputEditText) findViewById(R.id.emailinputedit);
         mVerificationFieldEdit = (TextInputEditText) findViewById(R.id.entercodeedit);
 
+        numberField.setHint(phone_no);
+        numberField.setEnabled(false);
 
         disableViews(verfiyCode, resendCode, mVerificationField);
 
@@ -185,15 +179,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
 
     }
 
-    private void phoneSignIn(String number) {
 
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                number,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
 
     private void showDatePickerDialog() {
         Calendar now = Calendar.getInstance();

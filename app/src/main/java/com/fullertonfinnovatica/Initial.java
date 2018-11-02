@@ -27,7 +27,7 @@ public class Initial extends AppCompatActivity {
         createNewBussiness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Initial.this, Create.class);
+                Intent i = new Intent(Initial.this, PhoneVerify.class);
                 startActivity(i);
                 finish();
             }
