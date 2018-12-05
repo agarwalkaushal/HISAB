@@ -1,6 +1,7 @@
 package com.fullertonfinnovatica;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,6 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Toast;
+
+import com.fullertonfinnovatica.Networking.NetworkingMain;
 
 /**
  * Created by HP on 03-10-2018.
@@ -146,7 +149,9 @@ public class radialMenu extends View {
                         if(angle > -1.57 && angle < 0){
                             Toast.makeText(getContext(), "Inventory", Toast.LENGTH_SHORT).show();
                         }else if(angle > 1.57 && angle < 3.14){
-                            Toast.makeText(getContext(), "Networking", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), NetworkingMain.class);
+                            getContext().startActivity(intent);
+
                         }else if(angle > 0 && angle < 1.57){
                             Toast.makeText(getContext(), "Finances", Toast.LENGTH_SHORT).show();
                         }else{

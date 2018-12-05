@@ -77,8 +77,8 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         emailFieldEdit = (TextInputEditText) findViewById(R.id.emailinputedit);
         mVerificationFieldEdit = (TextInputEditText) findViewById(R.id.entercodeedit);
 
-        numberField.setHint(phone_no);
-        numberField.setEnabled(false);
+        //numberField.setHint(phone_no);
+        //numberField.setEnabled(false);
 
         disableViews(verfiyCode, resendCode, mVerificationField);
 
@@ -125,7 +125,9 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                     Intent i = new Intent(Create.this, Dashboard.class);
                     i.putExtra("name", name);
                     i.putExtra("number", number);
-                    startActivity(i);
+                    Intent i2 = new Intent(Create.this, PhoneVerify.class);
+                    i2.putExtra("PhoneNo", number);
+                    startActivity(i2);
                     finish();
                 } else
                     return;

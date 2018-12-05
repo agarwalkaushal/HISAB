@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fullertonfinnovatica">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -28,9 +30,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Create" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Login" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PhoneVerify"/>
+        <activity
+            android:name=".Create"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".PhoneVerify" />
+        <activity android:name=".Networking.NetworkingMain"></activity>
     </application>
 
 </manifest>

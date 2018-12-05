@@ -54,6 +54,8 @@ public class PhoneVerify extends AppCompatActivity{
         verify.setVisibility(View.INVISIBLE);
         otp_user.setVisibility(View.INVISIBLE);
 
+        String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
+        phone_number.setText(prev_phoneNo);
 
         get_OTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +98,9 @@ public class PhoneVerify extends AppCompatActivity{
                 //     user action.
                 //Log.d(TAG, "onVerificationCompleted:" + credential);
                 Toast.makeText(getBaseContext(),"Verification complete..",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(),Dashboard.class);
+                startActivity(intent);
+                finish();
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
@@ -170,11 +175,12 @@ public class PhoneVerify extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(getBaseContext(),"Successfully verified..",Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getBaseContext(),"Successfully verified..",Toast.LENGTH_LONG).show();
 
-                            Intent intent = new Intent(getBaseContext(), Create.class);
-                            intent.putExtra("user_number", phone_number.getText().toString());
+                            Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                            //intent.putExtra("user_number", phone_number.getText().toString());
                             startActivity(intent);
+                            finish();
 
                             FirebaseUser user = task.getResult().getUser();
                             // [START_EXCLUDE]
