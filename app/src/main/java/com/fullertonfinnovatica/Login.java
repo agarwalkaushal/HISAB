@@ -20,6 +20,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Login.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
+                //TODO: Verify already registered number
             }
         });
     }

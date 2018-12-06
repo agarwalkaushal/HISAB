@@ -1,8 +1,18 @@
 <resources>
-    <string name="app_name">Fullerton Finnovatica</string>
 
+    <string name="app_name">Fullerton Finnovatica</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+
+    <string-array name="types_array">
+        <item>Purchase</item>
+        <item>Sold</item>
+        <item>Paid Rent</item>
+        <item>Paid TBA</item>
+        <item>TBA</item>
+        <item>TBA</item>
+        <item>TBA</item>
+    </string-array>
+
 </resources>

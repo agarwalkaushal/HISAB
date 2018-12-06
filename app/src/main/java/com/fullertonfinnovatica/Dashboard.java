@@ -1,7 +1,9 @@
 package com.fullertonfinnovatica;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +25,7 @@ public class Dashboard extends AppCompatActivity
     private String phoneNumber;
 
     private CardView transcation;
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +33,18 @@ public class Dashboard extends AppCompatActivity
 
         setContentView(R.layout.activity_dashboard);
 
+        if(prefs.getBoolean("login",false)==false){
+            prefs.edit().putBoolean("login",true).apply();
+        }
+
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
         if (bd != null) {
             businessName = bd.getString("name");
             phoneNumber = bd.getString("number");
-
         }
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.black));
@@ -124,6 +132,7 @@ public class Dashboard extends AppCompatActivity
         } else if (id == R.id.nav_singout) {
 
             Intent i = new Intent(Dashboard.this, Initial.class);
+            prefs.edit().putBoolean("login",false).apply();;
             startActivity(i);
             finish();
 
