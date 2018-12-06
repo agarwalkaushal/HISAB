@@ -3,9 +3,6 @@ package com.fullertonfinnovatica;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +23,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class PhoneVerify extends AppCompatActivity{
+public class PhoneVerify extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private boolean mVerificationInProgress = false;
@@ -34,53 +31,43 @@ public class PhoneVerify extends AppCompatActivity{
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    TextView phone_number,otp_user;
-    Button get_OTP,verify;
+    TextView phone_number, otp_user;
+    Button get_OTP, verify;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideStatusBar();
         setContentView(R.layout.activity_phone_verify);
         FirebaseApp.initializeApp(this);
 
         mAuth = FirebaseAuth.getInstance();
-
-        phone_number = findViewById(R.id.otp_phoneNo_textview);
-        get_OTP = findViewById(R.id.otp_phoneno_button);
         verify = findViewById(R.id.verifyOtp_button);
         otp_user = findViewById(R.id.otp);
 
         verify.setVisibility(View.INVISIBLE);
         otp_user.setVisibility(View.INVISIBLE);
 
-        String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
+        final String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
         phone_number.setText(prev_phoneNo);
 
-        get_OTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91" + prev_phoneNo,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                PhoneVerify.this,               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
 
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+91"+phone_number.getText().toString(),        // Phone number to verify
-                        60,                 // Timeout duration
-                        TimeUnit.SECONDS,   // Unit of timeout
-                        PhoneVerify.this,               // Activity (for callback binding)
-                        mCallbacks);        // OnVerificationStateChangedCallbacks
+        verify.setVisibility(View.VISIBLE);
+        otp_user.setVisibility(View.VISIBLE);
 
-                get_OTP.setVisibility(View.INVISIBLE);
-                phone_number.setVisibility(View.INVISIBLE);
-                verify.setVisibility(View.VISIBLE);
-                otp_user.setVisibility(View.VISIBLE);
-
-            }
-        });
 
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId,otp_user.getText().toString());
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
                 signInWithPhoneAuthCredential(phoneAuthCredential);
 
             }
@@ -97,8 +84,8 @@ public class PhoneVerify extends AppCompatActivity{
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
                 //Log.d(TAG, "onVerificationCompleted:" + credential);
-                Toast.makeText(getBaseContext(),"Verification complete..",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getBaseContext(),Dashboard.class);
+                Toast.makeText(getBaseContext(), "Verification complete..", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(), Dashboard.class);
                 startActivity(intent);
                 finish();
                 // [START_EXCLUDE silent]
@@ -117,7 +104,7 @@ public class PhoneVerify extends AppCompatActivity{
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 //Log.w(TAG, "onVerificationFailed", e);
-                Toast.makeText(getBaseContext(),"Verification failed..",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Verification failed..", Toast.LENGTH_LONG).show();
                 //t.setText(e.toString());
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
@@ -127,14 +114,14 @@ public class PhoneVerify extends AppCompatActivity{
                     // Invalid request
                     // [START_EXCLUDE]
                     //mPhoneNumberField.setError("Invalid phone number.");
-                    Toast.makeText(getBaseContext(),"Invalid Phone number..",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Invalid Phone number..", Toast.LENGTH_LONG).show();
                     // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
                     //Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
                     //      Snackbar.LENGTH_SHORT).show();
-                    Toast.makeText(getBaseContext(),"Too many requests..",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Too many requests..", Toast.LENGTH_LONG).show();
 
                     // [END_EXCLUDE]
                 }
@@ -152,7 +139,7 @@ public class PhoneVerify extends AppCompatActivity{
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 //Log.d(TAG, "onCodeSent:" + verificationId);
-                Toast.makeText(getBaseContext(),"Verification code sent..",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Verification code sent..", Toast.LENGTH_LONG).show();
 
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
@@ -193,13 +180,27 @@ public class PhoneVerify extends AppCompatActivity{
                                 // The verification code entered was invalid
                                 // [START_EXCLUDE silent]
                                 //mVerificationField.setError("Invalid code.");
-                                Toast.makeText(getBaseContext(),"Invalid OTP..",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Invalid OTP..", Toast.LENGTH_LONG).show();
                                 // [END_EXCLUDE]
                             }
 
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideStatusBar();
+    }
+
+    private void hideStatusBar() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
 }

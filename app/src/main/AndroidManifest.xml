@@ -36,7 +36,8 @@
         <activity
             android:name=".Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PhoneVerify" />
+        <activity android:name=".PhoneVerify"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Networking.NetworkingMain"></activity>
     </application>
 

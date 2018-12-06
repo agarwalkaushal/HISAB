@@ -38,6 +38,27 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <RadioGroup
+            android:id="@+id/radioType"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radioRetailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retailer"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioWholesaler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wholesaler" />
+
+        </RadioGroup>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/phoneinput"
             android:layout_width="match_parent"
@@ -112,38 +133,6 @@
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textSize="16sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/entercode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="2dp"
-            android:paddingTop="4dp">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/entercodeedit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Verification code"
-                android:inputType="number"
-                android:theme="@style/Theme.App.Base" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/verifycode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Verify" />
-
-        <Button
-            android:id="@+id/resendcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Resend code" />
-
     </LinearLayout>
 
     <Button
@@ -154,7 +143,7 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:text="VERIFY PHONE NUMBER"
+        android:text="PROCEED TO VERFIY PHONE NUMBER"
         android:textAlignment="center"
         android:textColor="@color/black" />
 
