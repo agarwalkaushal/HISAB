@@ -18,8 +18,8 @@ public class Initial extends AppCompatActivity {
         hideStatusBar();
         setContentView(R.layout.activity_initial);
 
-//        Intent i = new Intent(this,Dashboard.class);
-//        startActivity(i);
+        Intent i = new Intent(this,Dashboard.class);
+        startActivity(i);
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Adamcg.otf");
         createNewBussiness = (Button) findViewById(R.id.create_new);
