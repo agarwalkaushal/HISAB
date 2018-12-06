@@ -108,6 +108,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
 
                         Intent i = new Intent(Create.this, PhoneVerify.class);
                         i.putExtra("PhoneNo", number);
+                        i.putExtra("Name",name);
                         //TODO : Upload values to Backend
                         startActivity(i);
                         finish();

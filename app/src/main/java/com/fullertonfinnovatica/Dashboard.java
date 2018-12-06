@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,8 @@ public class Dashboard extends AppCompatActivity
     private TextView phonenumber;
     private String businessName;
     private String phoneNumber;
+
+    private CardView transcation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,18 @@ public class Dashboard extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View parentView = navigationView.getHeaderView(0);
+
         businessname = (TextView) parentView.findViewById(R.id.businessname);
         phonenumber = (TextView) parentView.findViewById(R.id.phonenumber);
+        transcation = (CardView) findViewById(R.id.transactionButton);
+
+        transcation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Dashboard.this, Transaction.class);
+                startActivity(i);
+            }
+        });
 
         if (bd != null) {
             getSupportActionBar().setTitle("Hello, " + businessName);

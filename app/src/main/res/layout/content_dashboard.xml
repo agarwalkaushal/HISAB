@@ -75,6 +75,7 @@
             android:layout_weight="1">
 
             <android.support.v7.widget.CardView
+                android:id="@+id/transactionButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="30dp"

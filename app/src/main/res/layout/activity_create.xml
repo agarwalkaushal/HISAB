@@ -59,6 +59,21 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="10dp"
+                android:text="+91"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/phoneinput"
             android:layout_width="match_parent"
@@ -70,11 +85,13 @@
                 android:id="@+id/phoneinputedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number"
+                android:hint="Enter 10 digit number"
                 android:inputType="phone"
                 android:theme="@style/Theme.App.Base" />
 
         </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/emailinput"

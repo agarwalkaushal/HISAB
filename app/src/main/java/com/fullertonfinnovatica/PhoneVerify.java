@@ -50,6 +50,7 @@ public class PhoneVerify extends AppCompatActivity {
         otp_user.setVisibility(View.INVISIBLE);
 
         final String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
+        final String prev_name = getIntent().getStringExtra("name");
         phone_number.setText(prev_phoneNo);
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -86,6 +87,8 @@ public class PhoneVerify extends AppCompatActivity {
                 //Log.d(TAG, "onVerificationCompleted:" + credential);
                 Toast.makeText(getBaseContext(), "Verification complete..", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                intent.putExtra("name",prev_name);
+                intent.putExtra("number",prev_phoneNo);
                 startActivity(intent);
                 finish();
                 // [START_EXCLUDE silent]
