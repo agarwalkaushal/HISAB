@@ -5,32 +5,38 @@
     android:layout_height="match_parent"
     tools:context=".Transaction">
 
-    <TextView
+    <LinearLayout
         android:id="@+id/chooseText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:text="Choose Transaction type"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/types_spinner"
-        android:layout_below="@id/chooseText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"></Spinner>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Choose Transaction type"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/types_spinner"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"></Spinner>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/purchase"
-        android:layout_below="@id/types_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/chooseText"
         android:orientation="vertical">
 
         <LinearLayout
@@ -39,8 +45,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="10dp"
+            android:paddingRight="20dp"
             android:paddingBottom="10dp">
 
             <TextView
@@ -50,6 +56,7 @@
                 android:layout_weight="2"
                 android:text="Item name"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="12sp" />
 
             <TextView
@@ -59,6 +66,7 @@
                 android:layout_weight="1"
                 android:text="Rate/item"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="12sp" />
 
             <TextView
@@ -68,15 +76,16 @@
                 android:layout_weight="1"
                 android:text="Quantity/item"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!--<ListView-->
-            <!--android:id="@+id/purchase_list"-->
-            <!--android:paddingLeft="20dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" >-->
-        <!--</ListView>-->
+        <ListView
+        android:id="@+id/purchase_list"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        </ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,43 +93,79 @@
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="20dp">
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
 
             <EditText
+                android:cursorVisible="true"
                 android:id="@+id/name"
-                android:inputType="text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
                 android:hint="Enter name"
+                android:inputType="text"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <EditText
+                android:cursorVisible="true"
                 android:id="@+id/rate"
-                android:inputType="number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:hint="Enter Rt."
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <EditText
+                android:cursorVisible="true"
                 android:id="@+id/quantity"
-                android:inputType="number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:hint="Enter Qt."
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseText"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="13dp"
+            android:text="Enter Rent Amount: "
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:hint="Rs."
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -135,47 +180,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
-            android:text="+ ADD ITEM"
-            />
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="+ ADD ITEM" />
 
         <Button
             android:id="@+id/done"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="DONE"
-            />
-    </LinearLayout>
+            android:background="@color/colorPrimary"
+            android:clickable="true"
 
-    <LinearLayout
-        android:id="@+id/rent"
-        android:layout_below="@id/types_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Enter Rent Amount: "
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/amount"
-            android:inputType="number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:hint="Enter Amt."
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:foreground="?attr/selectableItemBackground"
+            android:text="DONE" />
     </LinearLayout>
 </RelativeLayout>

@@ -40,10 +40,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="14dp"
+                android:paddingTop="13dp"
                 android:paddingBottom="10dp"
                 android:text="+91"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="18sp" />
 
             <EditText

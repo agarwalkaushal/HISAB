@@ -41,7 +41,7 @@
         <RadioGroup
             android:id="@+id/radioType"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
+            android:paddingBottom="4dp"
             android:paddingTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -63,7 +63,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
             <TextView
@@ -71,9 +71,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingTop="14dp"
-                android:paddingBottom="10dp"
                 android:paddingRight="4dp"
                 android:text="+91"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -86,10 +86,11 @@
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/phoneinputedit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
+                android:layout_height="match_parent"
                 android:hint="Enter 10 digit number"
                 android:inputType="phone"
+                android:paddingTop="4dp"
+                android:paddingBottom="2dp"
                 android:theme="@style/Theme.App.Base" />
 
         </android.support.design.widget.TextInputLayout>

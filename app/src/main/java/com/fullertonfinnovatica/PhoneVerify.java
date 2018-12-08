@@ -49,15 +49,39 @@ public class PhoneVerify extends AppCompatActivity {
         verify = findViewById(R.id.verify);
         otp_user = findViewById(R.id.otp);
 
-//        verify.setVisibility(View.INVISIBLE);
-//        otp_user.setVisibility(View.INVISIBLE);
 
         final String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
         final String prev_name = getIntent().getStringExtra("name");
 
 
-        Log.e("Phone number: ", prev_phoneNo);
+        Log.d("Name: ", prev_name);
 
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (otp_user.getText().toString().length() == 0) {
+                    otp_user.setError("Enter OTP then verfiy");
+                    return;
+                } else {
+
+                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                    intent.putExtra("name", prev_name);
+                    intent.putExtra("number", prev_phoneNo);
+                    startActivity(intent);
+                    finish();
+
+                    /*
+                    TODO: Phone verification to be done
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
+                    signInWithPhoneAuthCredential(phoneAuthCredential);
+                    }
+                    */
+                }
+            }
+        });
+
+        /*
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -74,19 +98,6 @@ public class PhoneVerify extends AppCompatActivity {
             }
         },2000);
 
-//        verify.setVisibility(View.VISIBLE);
-//        otp_user.setVisibility(View.VISIBLE);
-
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
-                signInWithPhoneAuthCredential(phoneAuthCredential);
-
-            }
-        });
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -204,6 +215,7 @@ public class PhoneVerify extends AppCompatActivity {
                         }
                     }
                 });
+        */
     }
 
     @Override

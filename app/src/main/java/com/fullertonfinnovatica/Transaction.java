@@ -2,6 +2,7 @@ package com.fullertonfinnovatica;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,9 +22,12 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        setContentView(R.layout.activity_transaction);
         rentLayout = (LinearLayout) findViewById(R.id.rent);
         rentLayout.setVisibility(View.INVISIBLE);
-        setContentView(R.layout.activity_transaction);
+
+        getSupportActionBar().setTitle(getString(R.string.transaction));
 
         //TODO: Edit action bar color & text or remove action bar whichever design suits better
 
@@ -38,24 +42,28 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         purchaseButtons = (LinearLayout) findViewById(R.id.purchase_buttons);
 
 
-        if(type == "Purchase" || type == "Sold")
-        {
-            purchaseLayout.setVisibility(View.VISIBLE);
-            purchaseButtons.setVisibility(View.VISIBLE);
-        }
-        else if(type == "Paid Rent" || type == "PAid TBA")
-        {
-            purchaseLayout.setVisibility(View.INVISIBLE);
-            purchaseButtons.setVisibility(View.INVISIBLE);
-            rentLayout.setVisibility(View.VISIBLE);
-        }
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         type = parent.getItemAtPosition(pos).toString();
-        Toast.makeText(this,type,Toast.LENGTH_SHORT).show();
+
+        Log.d("Pos", String.valueOf(pos));
+        if(pos == 0)
+        {
+
+            purchaseLayout.setVisibility(View.VISIBLE);
+            purchaseButtons.setVisibility(View.VISIBLE);
+            rentLayout.setVisibility(View.INVISIBLE);
+        }
+        else if(pos == 2)
+        {
+            purchaseLayout.setVisibility(View.INVISIBLE);
+            purchaseButtons.setVisibility(View.INVISIBLE);
+            rentLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

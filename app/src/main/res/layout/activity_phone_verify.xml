@@ -62,8 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:ems="10"
+        android:ems="8"
         android:hint="Enter OTP"
+        android:ellipsize="start"
+        android:gravity="center_horizontal"
         android:inputType="number" />
 
     <Button

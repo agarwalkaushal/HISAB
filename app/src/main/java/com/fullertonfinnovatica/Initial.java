@@ -24,8 +24,8 @@ public class Initial extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-        else
-            setContentView(R.layout.activity_initial);
+
+        setContentView(R.layout.activity_initial);
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Adamcg.otf");
         createNewBussiness = (Button) findViewById(R.id.create_new);

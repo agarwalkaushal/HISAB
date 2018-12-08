@@ -25,26 +25,20 @@ public class Dashboard extends AppCompatActivity
     private String phoneNumber;
 
     private CardView transcation;
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("login",false)==false){
             prefs.edit().putBoolean("login",true).apply();
         }
 
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-        if (bd != null) {
-            businessName = bd.getString("name");
-            phoneNumber = bd.getString("number");
-        }
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.black));
@@ -84,11 +78,16 @@ public class Dashboard extends AppCompatActivity
             }
         });
 
+        //When user creates new business
         if (bd != null) {
+            businessName = bd.getString("name");
+            phoneNumber = bd.getString("number");
             getSupportActionBar().setTitle("Hello, " + businessName);
             businessname.setText(businessName);
             phonenumber.setText("+91-" + phoneNumber);
         }
+
+        //TODO : Change if user logs in, get value from Backend
     }
 
     @Override
@@ -116,7 +115,9 @@ public class Dashboard extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
