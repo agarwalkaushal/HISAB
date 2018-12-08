@@ -45,7 +45,7 @@ public class PhoneVerify extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         mAuth = FirebaseAuth.getInstance();
-        verify = findViewById(R.id.verifyOtp_button);
+        verify = findViewById(R.id.verify);
         otp_user = findViewById(R.id.otp);
 
         verify.setVisibility(View.INVISIBLE);
