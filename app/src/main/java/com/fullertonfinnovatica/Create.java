@@ -102,7 +102,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
 
                 if (name.length() != 0)
                 {
-                    if(number.length() != 0)
+                    if(number.length() == 10)
                     {
                         Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
 
@@ -114,7 +114,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                         finish();
                     }
                     else {
-                        numberField.setError("Number is required!");
+                        numberField.setError("Please enter 10 digit number!");
                         return;
                     }
                 }

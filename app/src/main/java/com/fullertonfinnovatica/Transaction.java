@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -12,9 +13,16 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
     String type;
 
+    private LinearLayout purchaseLayout;
+    private LinearLayout purchaseButtons;
+    private LinearLayout rentLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        rentLayout = (LinearLayout) findViewById(R.id.rent);
+        rentLayout.setVisibility(View.INVISIBLE);
         setContentView(R.layout.activity_transaction);
 
         //TODO: Edit action bar color & text or remove action bar whichever design suits better
@@ -26,13 +34,20 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
+        purchaseButtons = (LinearLayout) findViewById(R.id.purchase_buttons);
+
+
         if(type == "Purchase" || type == "Sold")
         {
-            // TODO : set visibility of Purchase scenario
+            purchaseLayout.setVisibility(View.VISIBLE);
+            purchaseButtons.setVisibility(View.VISIBLE);
         }
         else if(type == "Paid Rent" || type == "PAid TBA")
         {
-
+            purchaseLayout.setVisibility(View.INVISIBLE);
+            purchaseButtons.setVisibility(View.INVISIBLE);
+            rentLayout.setVisibility(View.VISIBLE);
         }
     }
 

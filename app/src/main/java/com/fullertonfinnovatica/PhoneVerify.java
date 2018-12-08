@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +33,8 @@ public class PhoneVerify extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    TextView phone_number, otp_user;
-    Button get_OTP, verify;
+    EditText otp_user;
+    Button verify;
 
 
     @Override
@@ -51,7 +53,9 @@ public class PhoneVerify extends AppCompatActivity {
 
         final String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
         final String prev_name = getIntent().getStringExtra("name");
-        phone_number.setText(prev_phoneNo);
+
+        Log.e("Phone number: ", prev_phoneNo);
+
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + prev_phoneNo,        // Phone number to verify
