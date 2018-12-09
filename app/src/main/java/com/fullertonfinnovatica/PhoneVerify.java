@@ -36,6 +36,8 @@ public class PhoneVerify extends AppCompatActivity {
 
     EditText otp_user;
     Button verify;
+    String prev_phoneNo, prev_name;
+
 
 
     @Override
@@ -50,38 +52,11 @@ public class PhoneVerify extends AppCompatActivity {
         otp_user = findViewById(R.id.otp);
 
 
-        final String prev_phoneNo = getIntent().getStringExtra("PhoneNo");
-        final String prev_name = getIntent().getStringExtra("name");
+        prev_phoneNo = getIntent().getStringExtra("PhoneNo");
+        prev_name = getIntent().getStringExtra("name");
 
 
         Log.d("Name: ", prev_name);
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (otp_user.getText().toString().length() == 0) {
-                    otp_user.setError("Enter OTP then verfiy");
-                    return;
-                } else {
-
-                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
-                    intent.putExtra("name", prev_name);
-                    intent.putExtra("number", prev_phoneNo);
-                    startActivity(intent);
-                    finish();
-
-                    /*
-                    TODO: Phone verification to be done
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
-                    signInWithPhoneAuthCredential(phoneAuthCredential);
-                    }
-                    */
-                }
-            }
-        });
-
-        /*
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -98,6 +73,28 @@ public class PhoneVerify extends AppCompatActivity {
             }
         },2000);
 
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (otp_user.getText().toString().length() == 0) {
+                    otp_user.setError("Enter OTP then verfiy");
+                    return;
+                } else {
+
+//                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
+//                    intent.putExtra("name", prev_name);
+//                    intent.putExtra("number", prev_phoneNo);
+//                    startActivity(intent);
+//                    finish();
+
+                    //TODO: Phone verification to be done
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
+                    signInWithPhoneAuthCredential(phoneAuthCredential);
+                }
+            }
+        });
+
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -113,7 +110,7 @@ public class PhoneVerify extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Verification complete..", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getBaseContext(), Dashboard.class);
                 intent.putExtra("name",prev_name);
-                intent.putExtra("number",prev_phoneNo);
+//                intent.putExtra("number",prev_phoneNo);
                 startActivity(intent);
                 finish();
                 // [START_EXCLUDE silent]
@@ -132,7 +129,7 @@ public class PhoneVerify extends AppCompatActivity {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 //Log.w(TAG, "onVerificationFailed", e);
-                Toast.makeText(getBaseContext(), "Verification failed..", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Verification failed.. "+e.toString(), Toast.LENGTH_LONG).show();
                 //t.setText(e.toString());
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
@@ -194,6 +191,8 @@ public class PhoneVerify extends AppCompatActivity {
 
                             Intent intent = new Intent(getBaseContext(), Dashboard.class);
                             //intent.putExtra("user_number", phone_number.getText().toString());
+                            intent.putExtra("name",prev_name);
+                            intent.putExtra("number",prev_phoneNo);
                             startActivity(intent);
                             finish();
 
@@ -215,7 +214,6 @@ public class PhoneVerify extends AppCompatActivity {
                         }
                     }
                 });
-        */
     }
 
     @Override
