@@ -40,7 +40,8 @@
             android:name=".PhoneVerify"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Networking.NetworkingMain" />
-        <activity android:name=".Transaction"></activity>
+        <activity android:name=".Transaction" />
+        <activity android:name=".Networking.NetworkingDetailsScreen"></activity>
     </application>
 
 </manifest>
