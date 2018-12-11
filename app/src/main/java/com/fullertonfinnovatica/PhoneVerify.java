@@ -38,8 +38,6 @@ public class PhoneVerify extends AppCompatActivity {
     Button verify;
     String prev_phoneNo, prev_name;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +52,6 @@ public class PhoneVerify extends AppCompatActivity {
 
         prev_phoneNo = getIntent().getStringExtra("PhoneNo");
         prev_name = getIntent().getStringExtra("name");
-
-
-        Log.d("Name: ", prev_name);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -110,7 +105,7 @@ public class PhoneVerify extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Verification complete..", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getBaseContext(), Dashboard.class);
                 intent.putExtra("name",prev_name);
-//                intent.putExtra("number",prev_phoneNo);
+                intent.putExtra("number",prev_phoneNo);
                 startActivity(intent);
                 finish();
                 // [START_EXCLUDE silent]

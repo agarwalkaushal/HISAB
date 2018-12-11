@@ -62,8 +62,8 @@ public class DataAdapter extends ArrayAdapter<DataRow> {
         lastPosition = position;
 
         viewHolder.itemName.setText(dataModel.getItemName());
-        viewHolder.itemRate.setText(dataModel.getQuantityItem());
-        viewHolder.itemQuantity.setText(dataModel.getRateItem());
+        viewHolder.itemRate.setText(String.valueOf(dataModel.getRateItem()));
+        viewHolder.itemQuantity.setText(String.valueOf(dataModel.getQuantityItem()));
 
         // Return the completed view to render on screen
         return convertView;
