@@ -82,15 +82,15 @@ public class PhoneVerify extends AppCompatActivity {
                     return;
                 } else {
 
-//                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
-//                    intent.putExtra("name", prev_name);
-//                    intent.putExtra("number", prev_phoneNo);
-//                    startActivity(intent);
-//                    finish();
+                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                    intent.putExtra("name", prev_name);
+                    intent.putExtra("number", prev_phoneNo);
+                    startActivity(intent);
+                    finish();
 
                     //TODO: Phone verification to be done
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
-                    signInWithPhoneAuthCredential(phoneAuthCredential);
+//                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
+//                    signInWithPhoneAuthCredential(phoneAuthCredential);
                 }
             }
         });

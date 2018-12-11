@@ -1,6 +1,8 @@
 package com.fullertonfinnovatica.Networking;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Handler;
@@ -14,8 +16,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +54,8 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
     Call<List<NetworkingModel>> call;
     NetworkingAPI networkingAPI;
     Retrofit retrofit;
+
+    List<NetworkingModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,18 +98,44 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
                 @Override
                 public void onResponse(Call<List<NetworkingModel>> call, Response<List<NetworkingModel>> response) {
 
-                List<NetworkingModel> list = response.body();
+                list = response.body();
                 //Toast.makeText(getBaseContext(),""+list.size(),Toast.LENGTH_LONG).show();
                 dataAdapter = new NetworkingAdapter(list, getBaseContext());
                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                 recyclerView1.setAdapter(dataAdapter);
+
+                    recyclerView1.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(),
+                            recyclerView1, new ClickListener() {
+                        @Override
+                        public void onClick(View view, final int position) {
+                            //Values are passing to activity & to fragment as well
+                            Toast.makeText(NetworkingMain.this, "Single Click on position :"+position,
+                                    Toast.LENGTH_SHORT).show();
+
+                            NetworkingModel pojo;
+
+                            pojo = list.get(position);
+                            Intent in = new Intent(NetworkingMain.this,NetworkingDetailsScreen.class);
+                            in.putExtra("b_name", pojo.getBname());
+                            in.putExtra("b_lat",pojo.getLatitude());
+                            in.putExtra("b_long",pojo.getLongitude());
+                            in.putExtra("b_pno",pojo.getPno());
+                            startActivity(in);
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+                            Toast.makeText(NetworkingMain.this, "Long press on position :"+position,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }));
 
                 }
 
                 @Override
                 public void onFailure(Call<List<NetworkingModel>> call, Throwable t) {
 
-                    Toast.makeText(getBaseContext(),""+t.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),"API failure"+t.getMessage(),Toast.LENGTH_LONG).show();
 
                 }
         });
@@ -113,6 +146,7 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
     }
 
+    @SuppressLint("MissingPermission")
     private void displayLocation() {
 
         mLastLocation = LocationServices.FusedLocationApi
@@ -186,6 +220,56 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
                 + connectionResult.getErrorCode());
 
+    }
+
+    public static interface ClickListener{
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+    }
+
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private ClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener){
+
+            this.clicklistener=clicklistener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child=recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child=rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clicklistener!=null && gestureDetector.onTouchEvent(e)){
+                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 
 }
