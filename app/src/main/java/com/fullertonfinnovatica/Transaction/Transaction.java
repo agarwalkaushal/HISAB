@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,6 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
     private TextView total;
 
     private LinearLayout purchaseLayout;
-    private LinearLayout purchaseButtons;
     private LinearLayout rentLayout;
 
     private static DataAdapter dataAdapter;
@@ -42,6 +43,10 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
     private ListView listView;
 
     private Button addButton;
+    private Button doneButton;
+
+    private RadioButton cashSelected;
+    private RadioButton creditSelected;
 
     ArrayList<DataRow> dataRows = new ArrayList<>();
 
@@ -53,9 +58,8 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         setContentView(R.layout.activity_transaction);
 
         rentLayout = (LinearLayout) findViewById(R.id.rent);
-        rentLayout.setVisibility(View.INVISIBLE);
+        rentLayout.setVisibility(View.GONE);
         purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
-        purchaseButtons = (LinearLayout) findViewById(R.id.purchase_buttons);
 
         name = (EditText) findViewById(R.id.name);
         rate = (EditText) findViewById(R.id.rate);
@@ -64,6 +68,11 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         total = (TextView) findViewById(R.id.total);
 
         addButton = (Button) findViewById(R.id.add);
+        doneButton = (Button) findViewById(R.id.done);
+
+        cashSelected = (RadioButton) findViewById(R.id.cash);
+        creditSelected = (RadioButton) findViewById(R.id.credit);
+        cashSelected.setText("CASH");
 
         Spinner spinner = (Spinner) findViewById(R.id.types_spinner);
 
@@ -109,18 +118,16 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         // An item was selected. You can retrieve the selected item using
         type = parent.getItemAtPosition(pos).toString();
 
-        Log.d("Pos", String.valueOf(pos));
         if(pos == 0)
         {
-
+            addButton.setVisibility(View.VISIBLE);
             purchaseLayout.setVisibility(View.VISIBLE);
-            purchaseButtons.setVisibility(View.VISIBLE);
-            rentLayout.setVisibility(View.INVISIBLE);
+            rentLayout.setVisibility(View.GONE);
         }
         else if(pos == 2)
         {
-            purchaseLayout.setVisibility(View.INVISIBLE);
-            purchaseButtons.setVisibility(View.INVISIBLE);
+            purchaseLayout.setVisibility(View.GONE);
+            addButton.setVisibility(View.GONE);
             rentLayout.setVisibility(View.VISIBLE);
         }
     }
@@ -134,5 +141,27 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         dataRows.add(new DataRow(itemName,itemRate,itemQuantity));
         total.setText("Rs. "+String.valueOf(totalAmount));
         dataAdapter.notifyDataSetChanged();
+    }
+
+    public void onRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.cash:
+                if (checked){
+                    cashSelected.setText("CASH");
+                    creditSelected.setText("");
+                    //TODO: set layout invisible
+                }
+                    break;
+            case R.id.credit:
+                if (checked){
+                    creditSelected.setText("CREDIT");
+                    cashSelected.setText("");
+                    //TODO: set layout visible
+                }
+                    break;
+        }
     }
 }

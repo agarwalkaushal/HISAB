@@ -6,179 +6,220 @@
     tools:context=".Transaction.Transaction">
 
     <LinearLayout
-        android:id="@+id/chooseText"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:text="Choose Transaction type"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/types_spinner"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"></Spinner>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/purchase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chooseText"
         android:orientation="vertical">
 
         <LinearLayout
-
+            android:id="@+id/chooseText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="30dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="2"
-                android:text="Item name"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Rate/item"
+                android:paddingLeft="20dp"
+                android:text="Choose Transaction type"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="12sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <TextView
+            <Spinner
+                android:id="@+id/types_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="Quantity/item"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <ListView
-        android:id="@+id/purchase_list"
-        android:paddingLeft="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        </ListView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="Total:"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/total"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textStyle="bold|italic"
-                android:textSize="12sp" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"></Spinner>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/purchase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/chooseText"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:text="Item name"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Rate/item"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="Quantity/item"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/purchase_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"></ListView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="Total:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:cursorVisible="true"
+                    android:hint="Enter name"
+                    android:inputType="textCapCharacters"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/rate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:cursorVisible="true"
+                    android:hint="Enter Rt."
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:cursorVisible="true"
+                    android:hint="Enter Qt."
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chooseText"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp">
 
-            <EditText
-                android:cursorVisible="true"
-                android:id="@+id/name"
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="2"
-                android:hint="Enter name"
-                android:inputType="textCapCharacters"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <EditText
-                android:cursorVisible="true"
-                android:id="@+id/rate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:hint="Enter Rt."
-                android:inputType="number"
+                android:paddingTop="13dp"
+                android:text="Enter Rent Amount: "
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:cursorVisible="true"
-                android:id="@+id/quantity"
+                android:id="@+id/amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:hint="Enter Qt."
+                android:hint="Rs."
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chooseText"
+        android:layout_below="@id/main"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="30dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp">
 
@@ -186,26 +227,56 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="13dp"
-            android:text="Enter Rent Amount: "
-            android:textStyle="bold"
+            android:paddingTop="3dp"
+            android:text="Transaction mode"
             android:textColor="@color/black"
-            android:textSize="13sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/amount"
+
+        <RadioGroup
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:hint="Rs."
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:background="@drawable/switch_out_line"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:padding="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/cash"
+                android:background="@drawable/toggle_widget_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:checked="true"
+                android:textColor="@color/black"
+                android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:padding="3dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:id="@+id/credit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/purchase_buttons"
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -228,7 +299,6 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:clickable="true"
-
             android:foreground="?attr/selectableItemBackground"
             android:text="DONE" />
     </LinearLayout>
