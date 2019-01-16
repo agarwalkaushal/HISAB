@@ -9,16 +9,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Inventory.InventoryAPI;
+import com.fullertonfinnovatica.Inventory.InventoryModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class Create extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class Create extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, Callback<SignUpModel> {
 
     private String date;
     private String fydate;
@@ -47,6 +60,9 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private TextInputEditText emailFieldEdit;
     private int c = 0;
 
+    SignUpAPI apiInterface;
+    JSONObject paramObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +85,13 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
         addressFieldEdit = (TextInputEditText) findViewById(R.id.addressinputedit);
         emailFieldEdit = (TextInputEditText) findViewById(R.id.emailinputedit);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SignUpAPI.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        apiInterface = retrofit.create(SignUpAPI.class);
 
         fy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +132,22 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                         Intent i = new Intent(Create.this, PhoneVerify.class);
                         i.putExtra("PhoneNo", number);
                         i.putExtra("name",name);
-                        //TODO : Upload values to Backend
+                        //TODO : Upload values to Backend -> Done!
+                        try {
+                            paramObject = new JSONObject();
+                            paramObject.put("bname", name);
+                            paramObject.put("btype", type);
+                            paramObject.put("pno", number);
+                            paramObject.put("email", email);
+                            paramObject.put("baddress", address);
+                            paramObject.put("fyear", fydate);
+                            paramObject.put("booksdate", booksdate);
+                            sendData(paramObject);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         startActivity(i);
                         finish();
                     }
@@ -124,6 +162,14 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                 }
             }
         });
+    }
+
+    @Override
+    public void onResponse(Call<SignUpModel> call, Response<SignUpModel> response) {
+    }
+
+    @Override
+    public void onFailure(Call<SignUpModel> call, Throwable t) {
     }
 
     @Override
@@ -164,6 +210,15 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    void sendData(JSONObject j){
+
+
+        Call<SignUpModel> userCall = apiInterface.getUse(j.toString());
+        userCall.enqueue(this);
+        Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();
+
     }
 
     /*
