@@ -34,7 +34,7 @@ public class InventoryMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getBaseContext(), InventoryView.class);
+                Intent i = new Intent(getBaseContext(), InventoryCategories.class);
                 startActivity(i);
 
             }

@@ -13,6 +13,7 @@ import com.fullertonfinnovatica.Networking.NetworkingAdapter;
 import com.fullertonfinnovatica.Networking.NetworkingModel;
 import com.fullertonfinnovatica.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,15 +27,20 @@ public class InventoryView extends AppCompatActivity {
     RecyclerView recyclerView1;
     InventoryAdapter dataAdapter;
     Call<List<InventoryModel>> call;
+    List<InventoryModel> filtered_list = new ArrayList<>();
     InventoryAPI inventoryAPI;
     Retrofit retrofit;
 
     List<InventoryModel> list;
 
+    String category;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
+
+        category = getIntent().getStringExtra("invcat");
 
         recyclerView1 = findViewById(R.id.recycler_inventory);
 
@@ -51,8 +57,13 @@ public class InventoryView extends AppCompatActivity {
             public void onResponse(Call<List<InventoryModel>> call, Response<List<InventoryModel>> response) {
 
                 list = response.body();
+                for(int i=0;i<list.size();i++){
+                    if(list.get(i).inventory_category.equals(category)){
+                        filtered_list.add(list.get(i));
+                    }
+                }
                 //Toast.makeText(getBaseContext(),""+list.size(),Toast.LENGTH_LONG).show();
-                dataAdapter = new InventoryAdapter(list, getBaseContext());
+                dataAdapter = new InventoryAdapter(filtered_list, getBaseContext());
                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                 recyclerView1.setAdapter(dataAdapter);
 
