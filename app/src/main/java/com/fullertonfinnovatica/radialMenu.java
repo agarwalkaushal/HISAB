@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,7 +16,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Toast;
 
-import com.fullertonfinnovatica.Inventory.InventoryMain;
+import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 
 /**
@@ -149,7 +148,7 @@ public class radialMenu extends View {
 
                         if(angle > -1.57 && angle < 0){
                             Toast.makeText(getContext(), "Inventory", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), InventoryMain.class);
+                            Intent intent = new Intent(getContext(), InventoryCategories.class);
                             getContext().startActivity(intent);
                         }else if(angle > 1.57 && angle < 3.14){
                             Intent intent = new Intent(getContext(), NetworkingMain.class);

@@ -6,10 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".Inventory.InventoryCategories">
 
+    <LinearLayout
+        android:id="@+id/emptyInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="10dp"
+            android:src="@drawable/goods"/>
+        <TextView
+            android:id="@+id/inventoryEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Inventory Empty"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/invCategoryRecycler">
     </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/cart_black"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:layout_margin="16dp" />
+
 
 </FrameLayout>
