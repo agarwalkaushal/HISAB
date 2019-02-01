@@ -42,7 +42,7 @@ public class InventoryCategories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_categories);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ff0000'>Inventory</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Inventory</font>"));
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -146,7 +146,26 @@ public class InventoryCategories extends AppCompatActivity {
         c8.pic_name = "stationery";
         c8.background_color = "violet";
 
+        InventoryCategoriesModel c9 = new InventoryCategoriesModel();
+        c9.Inventory_name = "Medical Care";
+        c9.pic_name = "supplement";
+        c9.background_color = "gray";
+
+        InventoryCategoriesModel c10 = new InventoryCategoriesModel();
+        c10.Inventory_name = "Others";
+        c10.pic_name = "shopping_bag";
+        c10.background_color = "black";
+
         list.add(c1);
+        list.add(c2);
+        list.add(c3);
+        list.add(c4);
+        list.add(c5);
+        list.add(c6);
+        list.add(c7);
+        list.add(c8);
+        list.add(c9);
+        list.add(c10);
 
     }
 

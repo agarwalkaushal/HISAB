@@ -14,9 +14,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:elevation="4dp"
-        card_view:contentPadding="6dp">
+        card_view:contentPadding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,20 +22,22 @@
             android:orientation="vertical">
 
             <ImageView
+                android:padding="10dp"
                 android:id="@+id/imgCategory"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/catName"
-                android:paddingTop="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="#ffffff" />
+                android:textColor="@color/white" />
 
 
         </LinearLayout>

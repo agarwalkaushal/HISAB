@@ -1,9 +1,11 @@
 package com.fullertonfinnovatica.Inventory;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +44,14 @@ public class InventoryCategoriesAdapter extends RecyclerView.Adapter<InventoryCa
 
         InventoryCategoriesModel modelList = list.get(i);
 
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/COMIC.TTF");
+        recyclerViewHolder.name.setTypeface(font);
         recyclerViewHolder.name.setText(modelList.getInventory_name());
         Glide.with(context).load(context.getResources().getIdentifier(modelList.getPic_name(), "drawable", context.getPackageName()))
                 .error(R.drawable.back)
                 .into(recyclerViewHolder.img);
 
+        Log.e("Color: ", String.valueOf(context.getResources().getIdentifier(modelList.getBackground_color(),"color",context.getPackageName())));
         recyclerViewHolder.card.setCardBackgroundColor(
                 context.getResources().getIdentifier(modelList.getBackground_color(),"color",context.getPackageName()));
 
@@ -69,6 +74,7 @@ public class InventoryCategoriesAdapter extends RecyclerView.Adapter<InventoryCa
             name = (TextView) view.findViewById(R.id.catName);
             img = view.findViewById(R.id.imgCategory);
             card = (CardView) view.findViewById(R.id.card_view);
+
 
         }
     }

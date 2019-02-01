@@ -24,12 +24,16 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Inventory Empty"
+            android:textSize="24dp"
             android:layout_gravity="center"/>
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/invCategoryRecycler">
