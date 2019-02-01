@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,6 +36,7 @@ public class InventoryCategories extends AppCompatActivity {
     InventoryCategoriesAdapter dataAdapter;
     LinearLayout emptyInventory;
     TextView inventoryEmpty;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,17 @@ public class InventoryCategories extends AppCompatActivity {
         recyclerView = findViewById(R.id.invCategoryRecycler);
         emptyInventory = (LinearLayout) findViewById(R.id.emptyInventory);
         inventoryEmpty = (TextView) findViewById(R.id.inventoryEmpty);
+
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(InventoryCategories.this, InventoryAdd.class);
+                startActivity(intent);
+
+            }
+        });
 
         if(prefs.getBoolean("empty",true)==true){
 
@@ -94,25 +107,46 @@ public class InventoryCategories extends AppCompatActivity {
     void addCategories(){
 
         InventoryCategoriesModel c1 = new InventoryCategoriesModel();
-        c1.Inventory_name = "Food";
-        c1.pic_name = "abc";
+        c1.Inventory_name = "Home needs";
+        c1.pic_name = "brush";
+        c1.background_color = "crimson";
 
         InventoryCategoriesModel c2 = new InventoryCategoriesModel();
-        c2.Inventory_name = "Stationary";
-        c2.pic_name = "abc";
+        c2.Inventory_name = "Grocery";
+        c2.pic_name = "groceries";
+        c2.background_color = "red";
 
         InventoryCategoriesModel c3 = new InventoryCategoriesModel();
-        c3.Inventory_name = "Cosmetics";
-        c3.pic_name = "abc";
+        c3.Inventory_name = "Fruits & Vegetables";
+        c3.pic_name = "fruit";
+        c3.background_color = "orange";
 
         InventoryCategoriesModel c4 = new InventoryCategoriesModel();
-        c4.Inventory_name = "Others";
-        c4.pic_name = "abc";
+        c4.Inventory_name = "Beverages";
+        c4.pic_name = "milk_bottle";
+        c4.background_color = "yellow";
+
+        InventoryCategoriesModel c5 = new InventoryCategoriesModel();
+        c5.Inventory_name = "Bread Dairy and Eggs";
+        c5.pic_name = "breakfast";
+        c5.background_color = "lemon";
+
+        InventoryCategoriesModel c6 = new InventoryCategoriesModel();
+        c6.Inventory_name = "Personal Care";
+        c6.pic_name = "make_up";
+        c6.background_color = "green";
+
+        InventoryCategoriesModel c7 = new InventoryCategoriesModel();
+        c7.Inventory_name = "Kids Utilities";
+        c7.pic_name = "baby_bottle";
+        c7.background_color = "blue";
+
+        InventoryCategoriesModel c8 = new InventoryCategoriesModel();
+        c8.Inventory_name = "Stationery";
+        c8.pic_name = "stationery";
+        c8.background_color = "violet";
 
         list.add(c1);
-        list.add(c2);
-        list.add(c3);
-        list.add(c4);
 
     }
 

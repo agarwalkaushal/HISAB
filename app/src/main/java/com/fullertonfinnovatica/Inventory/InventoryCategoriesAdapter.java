@@ -2,6 +2,7 @@ package com.fullertonfinnovatica.Inventory;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +43,12 @@ public class InventoryCategoriesAdapter extends RecyclerView.Adapter<InventoryCa
         InventoryCategoriesModel modelList = list.get(i);
 
         recyclerViewHolder.name.setText(modelList.getInventory_name());
-        Glide.with(context).load(modelList.getPic_name())
+        Glide.with(context).load(context.getResources().getIdentifier(modelList.getPic_name(), "drawable", context.getPackageName()))
                 .error(R.drawable.back)
                 .into(recyclerViewHolder.img);
+
+        recyclerViewHolder.card.setCardBackgroundColor(
+                context.getResources().getIdentifier(modelList.getBackground_color(),"color",context.getPackageName()));
 
 
     }
@@ -58,11 +62,13 @@ public class InventoryCategoriesAdapter extends RecyclerView.Adapter<InventoryCa
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         ImageView img;
+        CardView card;
 
         public RecyclerViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.catName);
             img = view.findViewById(R.id.imgCategory);
+            card = (CardView) view.findViewById(R.id.card_view);
 
         }
     }

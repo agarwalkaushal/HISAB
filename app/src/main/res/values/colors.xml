@@ -10,8 +10,14 @@
     <color name="radial4">#abb1ff</color>
     <color name="white">#FFFFFF</color>
     <color name="whiteTint">#f4e7e7</color>
+    <color name="crimson">#993939</color>
+    <color name="red">#f57c7c</color>
+    <color name="orange">#FFA500</color>
     <color name="yellow">#ffcf33</color>
+    <color name="lemon">#FFFACD</color>
     <color name="green">#bbffbc</color>
+    <color name="blue">#add8e6</color>
+    <color name="violet">#D8BFD8</color>
     <color name="black">#000000</color>
     <color name="gray">#c8969393</color>
     <color name="transparent">#20000000</color>

@@ -16,7 +16,6 @@
         android:layout_marginBottom="6dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:elevation="4dp"
-        card_view:cardCornerRadius="10dp"
         card_view:contentPadding="6dp">
 
         <LinearLayout
