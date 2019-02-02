@@ -51,10 +51,8 @@ public class InventoryCategoriesAdapter extends RecyclerView.Adapter<InventoryCa
                 .error(R.drawable.back)
                 .into(recyclerViewHolder.img);
 
-        Log.e("Color: ", String.valueOf(context.getResources().getIdentifier(modelList.getBackground_color(),"color",context.getPackageName())));
-        recyclerViewHolder.card.setCardBackgroundColor(
-                context.getResources().getIdentifier(modelList.getBackground_color(),"color",context.getPackageName()));
-
+        int[] colorArray= context.getResources().getIntArray(R.array.color_names);
+        recyclerViewHolder.card.setCardBackgroundColor(colorArray[i]);
 
     }
 

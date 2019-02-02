@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Inventory Empty"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:layout_gravity="center"/>
     </LinearLayout>
 

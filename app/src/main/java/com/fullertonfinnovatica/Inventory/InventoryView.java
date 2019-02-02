@@ -1,11 +1,15 @@
 package com.fullertonfinnovatica.Inventory;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.Networking.NetworkingAPI;
@@ -24,7 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InventoryView extends AppCompatActivity {
 
+    LinearLayout emptyInventory;
     RecyclerView recyclerView1;
+    TextView inventoryEmpty;
     InventoryAdapter dataAdapter;
     Call<List<InventoryModel>> call;
     List<InventoryModel> filtered_list = new ArrayList<>();
@@ -33,16 +39,31 @@ public class InventoryView extends AppCompatActivity {
 
     List<InventoryModel> list;
 
-    String category;
+    String type;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
+        type = getIntent().getStringExtra("Inventory type");
+        name = getIntent().getStringExtra("Inventory name");
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
 
-        category = getIntent().getStringExtra("invcat");
 
         recyclerView1 = findViewById(R.id.recycler_inventory);
+        emptyInventory = findViewById(R.id.emptyInventory);
+        inventoryEmpty = findViewById(R.id.inventoryEmpty);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/COMIC.TTF");
+        inventoryEmpty.setTypeface(font);
+
+        //Condition that inventory is empty
+        recyclerView1.setVisibility(View.INVISIBLE);
+        /*else
+
+        emptyInventory.setVisibility(View.INVISIBLE);
+
+
 
         retrofit = new Retrofit.Builder().baseUrl(InventoryAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -76,6 +97,6 @@ public class InventoryView extends AppCompatActivity {
 
             }
         });
-
+*/
     }
 }

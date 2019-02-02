@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -90,7 +92,8 @@ public class InventoryCategories extends AppCompatActivity {
                     pojo = list.get(position);
 
                     Intent in = new Intent(InventoryCategories.this, InventoryView.class);
-                    in.putExtra("b_name", pojo.getInventory_name());
+                    in.putExtra("Inventory type", pojo.getPic_name());
+                    in.putExtra("Inventory name",pojo.getInventory_name());
                     startActivity(in);
                 }
 
@@ -101,6 +104,25 @@ public class InventoryCategories extends AppCompatActivity {
                 }
             }));
         }
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(InventoryCategories.this, view, "transition");
+                int revealX = (int) (view.getX() + view.getWidth() / 2);
+                int revealY = (int) (view.getY() + view.getHeight() / 2);
+                Intent intent = new Intent(InventoryCategories.this, InventoryAdd.class);
+                intent.putExtra(InventoryAdd.EXTRA_CIRCULAR_REVEAL_X, revealX);
+                intent.putExtra(InventoryAdd.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+
+                ActivityCompat.startActivity(InventoryCategories.this, intent, options.toBundle());
+
+
+            }
+        });
 
     }
 

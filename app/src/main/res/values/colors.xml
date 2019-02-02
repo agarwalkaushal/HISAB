@@ -21,4 +21,17 @@
     <color name="black">#000000</color>
     <color name="gray">#c8969393</color>
     <color name="transparent">#20000000</color>
+
+    <array name="color_names">
+        <item>@color/crimson</item>
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/yellow</item>
+        <item>@color/lemon</item>
+        <item>@color/green</item>
+        <item>@color/blue</item>
+        <item>@color/violet</item>
+        <item>@color/gray</item>
+        <item>@color/black</item>
+    </array>
 </resources>
