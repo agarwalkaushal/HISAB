@@ -137,39 +137,39 @@ public class InventoryCategories extends AppCompatActivity {
 
         InventoryCategoriesModel c2 = new InventoryCategoriesModel();
         c2.Inventory_name = inventoryCategories[1];
-        c2.pic_name = inventoryTags[0];
+        c2.pic_name = inventoryTags[1];
 
         InventoryCategoriesModel c3 = new InventoryCategoriesModel();
         c3.Inventory_name = inventoryCategories[2];
-        c3.pic_name = inventoryTags[0];
+        c3.pic_name = inventoryTags[2];
 
         InventoryCategoriesModel c4 = new InventoryCategoriesModel();
         c4.Inventory_name = inventoryCategories[3];
-        c4.pic_name = inventoryTags[0];
+        c4.pic_name = inventoryTags[3];
 
         InventoryCategoriesModel c5 = new InventoryCategoriesModel();
         c5.Inventory_name = inventoryCategories[4];
-        c5.pic_name = inventoryTags[0];
+        c5.pic_name = inventoryTags[4];
 
         InventoryCategoriesModel c6 = new InventoryCategoriesModel();
         c6.Inventory_name = inventoryCategories[5];
-        c6.pic_name = inventoryTags[0];
+        c6.pic_name = inventoryTags[5];
 
         InventoryCategoriesModel c7 = new InventoryCategoriesModel();
         c7.Inventory_name = inventoryCategories[6];
-        c7.pic_name = inventoryTags[0];
+        c7.pic_name = inventoryTags[6];
 
         InventoryCategoriesModel c8 = new InventoryCategoriesModel();
         c8.Inventory_name = inventoryCategories[7];
-        c8.pic_name = inventoryTags[0];
+        c8.pic_name = inventoryTags[7];
 
         InventoryCategoriesModel c9 = new InventoryCategoriesModel();
         c9.Inventory_name = inventoryCategories[8];
-        c9.pic_name = inventoryTags[0];
+        c9.pic_name = inventoryTags[8];
 
         InventoryCategoriesModel c10 = new InventoryCategoriesModel();
         c10.Inventory_name = inventoryCategories[9];
-        c10.pic_name = inventoryTags[0];
+        c10.pic_name = inventoryTags[9];
 
         list.add(c1);
         list.add(c2);

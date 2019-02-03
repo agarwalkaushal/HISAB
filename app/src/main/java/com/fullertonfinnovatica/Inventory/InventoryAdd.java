@@ -37,7 +37,7 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
-    
+
     EditText ed_product_name, ed_product_qty, ed_product_cost,ed_product_thrld;
     Button add;
     String product_name, product_qty, product_cost, product_cat,product_thrld;
