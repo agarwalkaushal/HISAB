@@ -10,8 +10,8 @@
     <color name="radial4">#abb1ff</color>
     <color name="white">#FFFFFF</color>
     <color name="whiteTint">#f4e7e7</color>
-    <color name="crimson">#993939</color>
-    <color name="red">#f57c7c</color>
+    <color name="pink">#FFB6C1</color>
+    <color name="red">#F08080</color>
     <color name="orange">#FFA500</color>
     <color name="yellow">#ffcf33</color>
     <color name="lemon">#FFFACD</color>
@@ -23,7 +23,7 @@
     <color name="transparent">#20000000</color>
 
     <array name="color_names">
-        <item>@color/crimson</item>
+        <item>@color/pink</item>
         <item>@color/red</item>
         <item>@color/orange</item>
         <item>@color/yellow</item>
@@ -32,6 +32,6 @@
         <item>@color/blue</item>
         <item>@color/violet</item>
         <item>@color/gray</item>
-        <item>@color/black</item>
+        <item>@color/white</item>
     </array>
 </resources>
