@@ -290,7 +290,8 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:text="+ ADD ITEM" />
+            android:text="+ ADD ITEM"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/done"
@@ -300,6 +301,7 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:text="DONE" />
+            android:text="DONE"
+            android:textStyle="bold"/>
     </LinearLayout>
 </RelativeLayout>

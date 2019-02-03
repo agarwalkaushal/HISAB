@@ -10,6 +10,7 @@
     <color name="radial4">#abb1ff</color>
     <color name="white">#FFFFFF</color>
     <color name="whiteTint">#f4e7e7</color>
+    <color name="lightGray">#cee6e6e6</color>
     <color name="pink">#FFB6C1</color>
     <color name="red">#F08080</color>
     <color name="orange">#FFA500</color>

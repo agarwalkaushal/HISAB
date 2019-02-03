@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,23 +37,36 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
-
-    EditText ed_product_name, ed_product_qty, ed_product_cost;
+    
+    EditText ed_product_name, ed_product_qty, ed_product_cost,ed_product_thrld;
     Button add;
-    String product_name, product_qty, product_cost;
+    String product_name, product_qty, product_cost, product_cat,product_thrld;
     InventoryAPI apiInterface;
     JSONObject paramObject;
     View rootLayout;
+    RadioButton ed_product_cat;
+    RadioGroup product_category;
+
     int revealX;
     int revealY;
-
+    int c=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_add);
-        final Intent intent = getIntent();
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Add Product</font>"));
+
         rootLayout = findViewById(R.id.add);
+        ed_product_cost = findViewById(R.id.product_rate);
+        ed_product_qty = findViewById(R.id.product_quantity);
+        ed_product_name = findViewById(R.id.product_name);
+        ed_product_thrld = findViewById(R.id.product_threshold);
+        product_category = findViewById(R.id.product_category);
+        add = findViewById(R.id.add_product);
+
+        final Intent intent = getIntent();
         if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                 intent.hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
                 intent.hasExtra(EXTRA_CIRCULAR_REVEAL_Y)) {
@@ -74,12 +90,6 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
             rootLayout.setVisibility(View.VISIBLE);
         }
 
-
-        ed_product_cost = findViewById(R.id.product_cost);
-        ed_product_qty = findViewById(R.id.product_qty);
-        ed_product_name = findViewById(R.id.product_name);
-        add = findViewById(R.id.add_product);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(InventoryAPI.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -95,7 +105,24 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
                 product_cost = ed_product_cost.getText().toString();
                 product_qty = ed_product_qty.getText().toString();
                 product_name = ed_product_name.getText().toString();
+                product_thrld = ed_product_thrld.getText().toString();
+                int selectedId = product_category.getCheckedRadioButtonId();
+                ed_product_cat = (RadioButton) findViewById(selectedId);
 
+                String[] inventoryCategories = getResources().getStringArray(R.array.inventory_categories);
+                String[] inventoryTags = getResources().getStringArray(R.array.inventory_tags);
+
+                for(String i : inventoryCategories)
+                {
+
+                    if(i.compareTo(ed_product_cat.getText().toString())==0)
+                    {
+                        product_cat = inventoryTags[c];
+                        c=0;
+                        break;
+                    }
+                    c++;
+                }
             }
         });
 
@@ -106,8 +133,8 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
             paramObject.put("inventory_category", "Food");
             paramObject.put("inventory_cost", "15");
             paramObject.put("inventory_qty", "100");
-            TextView t = findViewById(R.id.abcc);
-            t.setText(paramObject.toString());
+            //TextView t = findViewById(R.id.abcc);
+            //t.setText(paramObject.toString());
             Call<InventoryModel> userCall = apiInterface.getUser(paramObject.toString());
             userCall.enqueue(this);
             Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();

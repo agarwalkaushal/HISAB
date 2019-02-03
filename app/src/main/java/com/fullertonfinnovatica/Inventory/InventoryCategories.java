@@ -128,45 +128,48 @@ public class InventoryCategories extends AppCompatActivity {
 
     void addCategories(){
 
+        String[] inventoryCategories = this.getResources().getStringArray(R.array.inventory_categories);
+        String[] inventoryTags = this.getResources().getStringArray(R.array.inventory_tags);
+
         InventoryCategoriesModel c1 = new InventoryCategoriesModel();
-        c1.Inventory_name = "Home needs";
-        c1.pic_name = "brush";
+        c1.Inventory_name = inventoryCategories[0];
+        c1.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c2 = new InventoryCategoriesModel();
-        c2.Inventory_name = "Grocery";
-        c2.pic_name = "groceries";
+        c2.Inventory_name = inventoryCategories[1];
+        c2.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c3 = new InventoryCategoriesModel();
-        c3.Inventory_name = "Fruits & Vegetables";
-        c3.pic_name = "fruit";
+        c3.Inventory_name = inventoryCategories[2];
+        c3.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c4 = new InventoryCategoriesModel();
-        c4.Inventory_name = "Beverages";
-        c4.pic_name = "milk_bottle";
+        c4.Inventory_name = inventoryCategories[3];
+        c4.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c5 = new InventoryCategoriesModel();
-        c5.Inventory_name = "Samagri";
-        c5.pic_name = "om";
+        c5.Inventory_name = inventoryCategories[4];
+        c5.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c6 = new InventoryCategoriesModel();
-        c6.Inventory_name = "Personal Care";
-        c6.pic_name = "make_up";
+        c6.Inventory_name = inventoryCategories[5];
+        c6.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c7 = new InventoryCategoriesModel();
-        c7.Inventory_name = "Kids Utilities";
-        c7.pic_name = "baby_bottle";
+        c7.Inventory_name = inventoryCategories[6];
+        c7.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c8 = new InventoryCategoriesModel();
-        c8.Inventory_name = "Stationery";
-        c8.pic_name = "stationery";
+        c8.Inventory_name = inventoryCategories[7];
+        c8.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c9 = new InventoryCategoriesModel();
-        c9.Inventory_name = "Medical Care";
-        c9.pic_name = "supplement";
+        c9.Inventory_name = inventoryCategories[8];
+        c9.pic_name = inventoryTags[0];
 
         InventoryCategoriesModel c10 = new InventoryCategoriesModel();
-        c10.Inventory_name = "Others";
-        c10.pic_name = "shopping_bag";
+        c10.Inventory_name = inventoryCategories[9];
+        c10.pic_name = inventoryTags[0];
 
         list.add(c1);
         list.add(c2);

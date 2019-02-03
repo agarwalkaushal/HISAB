@@ -3,6 +3,7 @@ package com.fullertonfinnovatica.Transaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +62,7 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_transaction);
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
         rentLayout = (LinearLayout) findViewById(R.id.rent);
         rentLayout.setVisibility(View.GONE);
         purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
@@ -82,10 +83,6 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         Spinner spinner = (Spinner) findViewById(R.id.types_spinner);
 
         listView=(ListView)findViewById(R.id.purchase_list);
-
-        getSupportActionBar().setTitle(getString(R.string.transaction));
-
-        //TODO: Edit action bar color & text or remove action bar whichever design suits better
 
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

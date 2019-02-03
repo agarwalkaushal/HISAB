@@ -11,64 +11,227 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Product Name : " />
+            android:textColor="@color/black"
+            android:text="Product Name" />
 
         <EditText
             android:id="@+id/product_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:textCursorDrawable="@null"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="25dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1.5"
+            android:text="Product Cost"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"></LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Quantity"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"></LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="Threshold"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding = "8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Quantity : " />
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <EditText
-            android:id="@+id/product_qty"
-            android:layout_width="wrap_content"
+            android:id="@+id/product_rate"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:textCursorDrawable="@null"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:layout_weight="1.5"
+             />
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"></LinearLayout>
+
+        <EditText
+            android:id="@+id/product_quantity"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@null"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"></LinearLayout>
+        <EditText
+            android:id="@+id/product_threshold"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@null"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+             />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding = "8dp">
+        android:textColor="@color/black"
+        android:text="Tags" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Cost : " />
+    <RadioGroup
+        android:id="@+id/product_category"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/product_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/abcc"/>
+            <RadioButton
+                android:id = "@+id/cat1"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat1"/>
 
-    </LinearLayout>
+            <RadioButton
+                android:id = "@+id/cat2"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat2"/>
+
+            <RadioButton
+                android:id = "@+id/cat4"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat4"/>
+
+            <RadioButton
+                android:id = "@+id/cat3"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat3"/>
+
+            <RadioButton
+                android:id = "@+id/cat6"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat6"/>
+
+            <RadioButton
+                android:id = "@+id/cat5"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat5"/>
+            <RadioButton
+                android:id = "@+id/cat7"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat7"/>
+
+            <RadioButton
+                android:id = "@+id/cat8"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat8"/>
+
+            <RadioButton
+                android:id = "@+id/cat9"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat9"/>
+            <RadioButton
+                android:id = "@+id/cat10"
+                android:checked="true"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:text="@string/cat10"/>
+
+    </RadioGroup>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -81,7 +244,9 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimary"
-            android:text="Add" />
+            android:text="ADD"
+            android:textStyle="bold"/>
     </RelativeLayout>
+
 
 </LinearLayout>

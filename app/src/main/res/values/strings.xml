@@ -5,6 +5,18 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="transaction"><font fgcolor="#111111">Transaction</font></string>
+
+    <string name="cat1">Home Utilities</string>
+    <string name="cat2">Grocery</string>
+    <string name="cat3">Fruits &amp; Vegetables</string>
+    <string name="cat4">Beverages</string>
+    <string name="cat5">Samagri</string>
+    <string name="cat6">Personal Care</string>
+    <string name="cat7">Kids Utilities</string>
+    <string name="cat8">Stationery</string>
+    <string name="cat9">Medical Care</string>
+    <string name="cat10">Others</string>
+
     <string-array name="types_array">
         <item>Purchase</item>
         <item>Sold</item>
@@ -13,6 +25,32 @@
         <item>TBA</item>
         <item>TBA</item>
         <item>TBA</item>
+    </string-array>
+
+    <string-array name="inventory_categories">
+        <item>@string/cat1</item>
+        <item>@string/cat2</item>
+        <item>@string/cat3</item>
+        <item>@string/cat4</item>
+        <item>@string/cat5</item>
+        <item>@string/cat6</item>
+        <item>@string/cat7</item>
+        <item>@string/cat8</item>
+        <item>@string/cat9</item>
+        <item>@string/cat10</item>
+    </string-array>
+
+    <string-array name="inventory_tags">
+        <item>brush</item>
+        <item>groceries</item>
+        <item>fruit</item>
+        <item>milk_bottle</item>
+        <item>om</item>
+        <item>make_up</item>
+        <item>baby_bottle</item>
+        <item>stationery</item>
+        <item>supplement</item>
+        <item>shopping_bag</item>
     </string-array>
 
 </resources>
