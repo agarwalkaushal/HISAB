@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_notifications"
         android:title="Notifications"
-        android:icon="@drawable/notifications_bell_button"
+        android:icon="@drawable/notification_slant"
         app:showAsAction="always" />
 </menu>

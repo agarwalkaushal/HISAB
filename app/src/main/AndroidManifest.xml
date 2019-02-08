@@ -15,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".Dashboard"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -23,6 +25,8 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".Initial"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -32,17 +36,62 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".Create"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".PhoneVerify"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Networking.NetworkingMain" />
-        <activity android:name=".Transaction.Transaction" />
-        <activity android:name=".Networking.NetworkingDetailsScreen" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Networking.NetworkingMain" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Transaction.Transaction" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Networking.NetworkingDetailsScreen" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Inventory.InventoryAdd" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Inventory.InventoryView" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Inventory.InventoryCategories" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Profile" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Transaction.TransactionView" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Settings"></activity>
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".Networking.NetworkingShopsViewMap"
+            android:label="@string/title_activity_networking_shops_view_map"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -51,13 +100,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBVEJlSiNVvpBAZh8nL1v_-ZsIHL6ZKUcQ" />
 
-        <activity android:name=".Inventory.InventoryAdd" />
-        <activity android:name=".Inventory.InventoryView" />
-        <activity android:name=".Inventory.InventoryCategories" />
-        <activity
-            android:name=".Networking.NetworkingShopsViewMap"
-            android:label="@string/title_activity_networking_shops_view_map"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

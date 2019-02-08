@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -65,7 +66,7 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networking_main);
         setTitle("Networking");
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Networking</font>"));
         recyclerView1=findViewById(R.id.networking_recycler);
 
         if (ContextCompat.checkSelfPermission(NetworkingMain.this,

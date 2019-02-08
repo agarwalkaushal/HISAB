@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_account"
-            android:icon="@drawable/calculator"
+            android:icon="@drawable/writing"
             android:title="Accounts" />
         <item
             android:id="@+id/nav_network"
@@ -16,14 +16,14 @@
             android:title="Inventory" />
         <item
             android:id="@+id/nav_finance"
-            android:icon="@drawable/debitcard"
+            android:icon="@drawable/money"
             android:title="Finance" />
     </group>
 
     <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/nav_GENERAL"
+                android:id="@+id/nav_general"
                 android:icon="@drawable/settings"
                 android:title="General" />
             <item

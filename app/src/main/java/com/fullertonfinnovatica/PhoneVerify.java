@@ -1,8 +1,10 @@
 package com.fullertonfinnovatica;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -78,8 +80,9 @@ public class PhoneVerify extends AppCompatActivity {
                 } else {
 
                     Intent intent = new Intent(getBaseContext(), Dashboard.class);
-                    intent.putExtra("name", prev_name);
-                    intent.putExtra("number", prev_phoneNo);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PhoneVerify.this);
+                    prefs.edit().putString("name",prev_name).apply();
+                    prefs.edit().putString("number",prev_phoneNo).apply();
                     startActivity(intent);
                     finish();
 

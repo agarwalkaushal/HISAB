@@ -147,7 +147,6 @@ public class radialMenu extends View {
                         Log.d("Angle", String.valueOf(angle));
 
                         if(angle > -1.57 && angle < 0){
-                            Toast.makeText(getContext(), "Inventory", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), InventoryCategories.class);
                             getContext().startActivity(intent);
                         }else if(angle > 1.57 && angle < 3.14){
@@ -155,8 +154,11 @@ public class radialMenu extends View {
                             getContext().startActivity(intent);
 
                         }else if(angle > 0 && angle < 1.57){
-                            Toast.makeText(getContext(), "Finances", Toast.LENGTH_SHORT).show();
+                            // TODO: Intent to Finances activity, package created but not activity
+                            Toast.makeText(getContext(), "Finance", Toast.LENGTH_SHORT).show();
+
                         }else{
+                            // TODO: Intent to Accounts activity, package created but not activity
                             Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
                         }
                         double rawSliceIndex = angle / (Math.PI * 2) * mSlices;
