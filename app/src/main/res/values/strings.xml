@@ -52,5 +52,6 @@
         <item>supplement</item>
         <item>shopping_bag</item>
     </string-array>
+    <string name="title_activity_networking_shops_view_map">NetworkingShopsViewMap</string>
 
 </resources>

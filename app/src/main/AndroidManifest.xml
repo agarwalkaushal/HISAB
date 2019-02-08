@@ -53,7 +53,11 @@
 
         <activity android:name=".Inventory.InventoryAdd" />
         <activity android:name=".Inventory.InventoryView" />
-        <activity android:name=".Inventory.InventoryCategories"></activity>
+        <activity android:name=".Inventory.InventoryCategories" />
+        <activity
+            android:name=".Networking.NetworkingShopsViewMap"
+            android:label="@string/title_activity_networking_shops_view_map"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

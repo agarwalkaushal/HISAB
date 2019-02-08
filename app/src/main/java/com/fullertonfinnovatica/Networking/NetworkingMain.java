@@ -1,6 +1,7 @@
 package com.fullertonfinnovatica.Networking;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -55,12 +56,15 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
     NetworkingAPI networkingAPI;
     Retrofit retrofit;
 
+    ProgressDialog progressDoalog;
+
     List<NetworkingModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networking_main);
+        setTitle("Networking");
 
         recyclerView1=findViewById(R.id.networking_recycler);
 
@@ -89,6 +93,13 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
         displayLocation();
 
+        progressDoalog = new ProgressDialog(NetworkingMain.this);
+        progressDoalog.setCancelable(false);
+        progressDoalog.setMessage("Fetching your location..");
+        progressDoalog.setTitle("Finding shops Around You");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDoalog.show();
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -97,6 +108,8 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
                 @Override
                 public void onResponse(Call<List<NetworkingModel>> call, Response<List<NetworkingModel>> response) {
+
+                    progressDoalog.hide();
 
                 list = response.body();
                 //Toast.makeText(getBaseContext(),""+list.size(),Toast.LENGTH_LONG).show();
@@ -125,8 +138,8 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
                         @Override
                         public void onLongClick(View view, int position) {
-                            Toast.makeText(NetworkingMain.this, "Long press on position :"+position,
-                                    Toast.LENGTH_LONG).show();
+//                            Toast.makeText(NetworkingMain.this, "Long press on position :"+position,
+//                                    Toast.LENGTH_LONG).show();
                         }
                     }));
 

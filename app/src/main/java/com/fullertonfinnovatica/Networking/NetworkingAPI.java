@@ -12,7 +12,7 @@ public interface NetworkingAPI {
     String BASE_URL = "https://api.myjson.com/bins/";
 
 //    @GET("points")
-    @GET("asdfq")
+    @GET("t6ky8")
     Call<List<NetworkingModel>> getBirds();
 
 }

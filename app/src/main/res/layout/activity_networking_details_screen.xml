@@ -16,12 +16,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bname"/>
+        android:id="@+id/bname"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/blat"/>
+        android:id="@+id/blat"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,6 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bpno"/>
+        android:id="@+id/bpno"
+        android:paddingLeft="10dp"/>
 
 </LinearLayout>
