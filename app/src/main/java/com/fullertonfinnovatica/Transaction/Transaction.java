@@ -34,15 +34,20 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
     private String itemName;
     private String itemQuantity;
     private String itemRate;
+    private String creditName;
+    private String creditNumber;
 
     private EditText name;
     private EditText rate;
     private EditText quantity;
+    private EditText nameCredit;
+    private EditText numberCredit;
 
     private TextView total;
 
     private LinearLayout purchaseLayout;
     private LinearLayout rentLayout;
+    private LinearLayout creditCredentials;
 
     private static DataAdapter dataAdapter;
 
@@ -63,6 +68,8 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
         setContentView(R.layout.activity_transaction);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
+        creditCredentials = (LinearLayout) findViewById(R.id.credit_view);
+        creditCredentials.setVisibility(View.GONE);
         rentLayout = (LinearLayout) findViewById(R.id.rent);
         rentLayout.setVisibility(View.GONE);
         purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
@@ -70,6 +77,8 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         name = (EditText) findViewById(R.id.name);
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
+        nameCredit = (EditText) findViewById(R.id.credit_name);
+        numberCredit = (EditText) findViewById(R.id.credit_number);
 
         total = (TextView) findViewById(R.id.total);
 
@@ -178,14 +187,14 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                 if (checked){
                     cashSelected.setText("CASH");
                     creditSelected.setText("");
-                    //TODO: set layout invisible
+                    creditCredentials.setVisibility(View.GONE);
                 }
                     break;
             case R.id.credit:
                 if (checked){
                     creditSelected.setText("CREDIT");
                     cashSelected.setText("");
-                    //TODO: set layout visible
+                    creditCredentials.setVisibility(View.VISIBLE);
                 }
                     break;
         }

@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
-                android:text="Choose Transaction type"
+                android:text="Choose type"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <Spinner
@@ -95,41 +95,6 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"></ListView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="Total:"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold|italic" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -177,6 +142,42 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="Total:"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -211,9 +212,11 @@
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/transaction_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/main"
@@ -228,9 +231,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingTop="3dp"
-            android:text="Transaction mode"
+            android:text="Mode"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
 
@@ -242,37 +245,101 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:padding="3dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
                 android:id="@+id/cash"
-                android:background="@drawable/toggle_widget_background"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:checked="true"
-                android:textColor="@color/black"
-                android:onClick="onRadioButtonClicked"/>
-
-            <RadioButton
-                android:padding="3dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginLeft="1dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:padding="3dp"
+                android:textColor="@color/black" />
+
+            <RadioButton
                 android:id="@+id/credit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/toggle_widget_background"
                 android:button="@null"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:padding="3dp"
+                android:textColor="@color/black" />
         </RadioGroup>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/credit_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transaction_mode"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingTop="30dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="13dp"
+                android:text="Name: "
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/credit_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:inputType="textCapWords"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="13dp"
+                android:text="Number: "
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/credit_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -291,7 +358,7 @@
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:text="+ ADD ITEM"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/done"
@@ -302,6 +369,6 @@
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:text="DONE"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
