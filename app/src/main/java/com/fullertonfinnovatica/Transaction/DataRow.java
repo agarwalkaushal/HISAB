@@ -3,10 +3,10 @@ package com.fullertonfinnovatica.Transaction;
 public class DataRow {
 
     String itemName;
-    int rateItem;
-    int quantityItem;
+    double rateItem;
+    double quantityItem;
 
-    public DataRow(String itemName, int rateItem, int quantityItem)
+    public DataRow(String itemName, double rateItem, double quantityItem)
     {
         this.itemName = itemName;
         this.rateItem = rateItem;
@@ -18,12 +18,12 @@ public class DataRow {
         return itemName;
     }
 
-    public int getRateItem()
+    public double getRateItem()
     {
         return rateItem;
     }
 
-    public  int getQuantityItem()
+    public  double getQuantityItem()
     {
         return quantityItem;
     }

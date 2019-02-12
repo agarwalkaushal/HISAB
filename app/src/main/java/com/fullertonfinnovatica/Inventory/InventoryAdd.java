@@ -3,7 +3,9 @@ package com.fullertonfinnovatica.Inventory;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -57,6 +59,8 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_add);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Add Product</font>"));
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor prefEditor = prefs.edit();
 
         rootLayout = findViewById(R.id.add);
         ed_product_cost = findViewById(R.id.product_rate);
@@ -123,18 +127,25 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
                     }
                     c++;
                 }
+
+                //TODO: Sent data
+
+                //Storing Inventory names in disk
+                String product = prefs.getString("products","Milk,");
+                product = product + product_name + ",";
+                prefEditor.putString("products",product);
+                prefEditor.commit();
+                finish();
             }
         });
 
         try {
             paramObject = new JSONObject();
-            paramObject.put("mobile_no", "8558855896");
-            paramObject.put("inventory_name", "GoodDay");
-            paramObject.put("inventory_category", "Food");
-            paramObject.put("inventory_cost", "15");
-            paramObject.put("inventory_qty", "100");
-            //TextView t = findViewById(R.id.abcc);
-            //t.setText(paramObject.toString());
+            paramObject.put("inventory_name", product_name);
+            paramObject.put("inventory_category", product_category);
+            paramObject.put("inventory_cost", product_cost);
+            paramObject.put("inventory_qty",product_qty);
+
             Call<InventoryModel> userCall = apiInterface.getUser(paramObject.toString());
             userCall.enqueue(this);
             Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();

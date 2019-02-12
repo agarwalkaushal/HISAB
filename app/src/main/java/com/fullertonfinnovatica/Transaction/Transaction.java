@@ -1,15 +1,19 @@
 package com.fullertonfinnovatica.Transaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,10 +29,12 @@ import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Transaction extends AppCompatActivity  implements AdapterView.OnItemSelectedListener {
 
-    private int totalAmount = 0;
+    private double totalAmount = 0;
 
     private String type;
     private String itemName;
@@ -36,8 +42,10 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
     private String itemRate;
     private String creditName;
     private String creditNumber;
+    private String product;
+    private String[] products;
 
-    private EditText name;
+    private AutoCompleteTextView name;
     private EditText rate;
     private EditText quantity;
     private EditText nameCredit;
@@ -53,7 +61,6 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
     private ListView listView;
 
-    private Button addButton;
     private Button doneButton;
 
     private RadioButton cashSelected;
@@ -68,13 +75,27 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
         setContentView(R.layout.activity_transaction);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefEditor = prefs.edit();
+
+        product = prefs.getString("products","Milk,");
+        products = product.split(",");
+
+        Log.e("Products",product);
+
+        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, products);
+
+        name = (AutoCompleteTextView) findViewById(R.id.name);
+        name.setThreshold(1);
+        name.setAdapter(products_adapter);
+
         creditCredentials = (LinearLayout) findViewById(R.id.credit_view);
         creditCredentials.setVisibility(View.GONE);
         rentLayout = (LinearLayout) findViewById(R.id.rent);
         rentLayout.setVisibility(View.GONE);
         purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
 
-        name = (EditText) findViewById(R.id.name);
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
         nameCredit = (EditText) findViewById(R.id.credit_name);
@@ -82,7 +103,6 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
         total = (TextView) findViewById(R.id.total);
 
-        addButton = (Button) findViewById(R.id.add);
         doneButton = (Button) findViewById(R.id.done);
 
         cashSelected = (RadioButton) findViewById(R.id.cash);
@@ -102,26 +122,96 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         dataAdapter = new DataAdapter(dataRows,this);
         listView.setAdapter(dataAdapter);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                itemName = name.getText().toString();
-                itemRate = rate.getText().toString();
-                itemQuantity = quantity.getText().toString();
-
-                if(itemName.length()!=0 && itemRate.length()!=0 && itemQuantity.length()!=0)
+        name.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    addItem(itemName,Integer.parseInt(itemRate),Integer.parseInt(itemQuantity));
-                    name.getText().clear();
-                    rate.getText().clear();
-                    quantity.getText().clear();
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_ENTER:
+                            addItem();
+                            return true;
+                        default:
+                            break;
+                    }
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Enter all fields", Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
 
+        rate.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_ENTER:
+                            addItem();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        quantity.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_ENTER:
+                            addItem();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //TODO: Check for current layout and see if all details are entered properly
+
+                Date currentTime = Calendar.getInstance().getTime();
+                Toast.makeText(getBaseContext(), "Time: "+currentTime.toString(), Toast.LENGTH_LONG).show();
+                
+                //TODO: Send transaction to server and update inventory
+                finish();
+            }
+        });
+
+    }
+
+
+    private void addItem()
+    {
+        itemName = name.getText().toString();
+        itemRate = rate.getText().toString();
+        itemQuantity = quantity.getText().toString();
+
+        if(itemName.length()!=0 && itemRate.length()!=0 && itemQuantity.length()!=0)
+        {
+            addItem(itemName,Double.parseDouble(itemRate),Double.parseDouble(itemQuantity));
+            name.getText().clear();
+            rate.getText().clear();
+            quantity.getText().clear();
+        }
+        else
+            Toast.makeText(getApplicationContext(), "Enter all fields", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -155,14 +245,12 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
         if(pos == 0)
         {
-            addButton.setVisibility(View.VISIBLE);
             purchaseLayout.setVisibility(View.VISIBLE);
             rentLayout.setVisibility(View.GONE);
         }
         else if(pos == 2)
         {
             purchaseLayout.setVisibility(View.GONE);
-            addButton.setVisibility(View.GONE);
             rentLayout.setVisibility(View.VISIBLE);
         }
     }
@@ -171,7 +259,7 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         // Another interface callback
     }
 
-    public void addItem(String itemName, int itemRate, int itemQuantity) {
+    public void addItem(String itemName, double itemRate, double itemQuantity) {
         totalAmount+= itemQuantity*itemRate;
         dataRows.add(new DataRow(itemName,itemRate,itemQuantity));
         total.setText("Rs. "+String.valueOf(totalAmount));
@@ -198,5 +286,22 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                 }
                     break;
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefEditor = prefs.edit();
+
+        product = prefs.getString("products","Milk,");
+        products = product.split(",");
+
+        Log.e("Products",product);
+
+        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, products);
+        name.setAdapter(products_adapter);
     }
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.fullertonfinnovatica.Networking.NetworkingAPI;
 import com.fullertonfinnovatica.Networking.NetworkingAdapter;
 import com.fullertonfinnovatica.Networking.NetworkingModel;
 import com.fullertonfinnovatica.R;
+import com.fullertonfinnovatica.Transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +101,29 @@ public class InventoryView extends AppCompatActivity {
             }
         });
 */
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.inventory, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.edit_product) {
+            // TODO: Edit product details and update in server
+            Toast.makeText(getApplicationContext(), "Edit Inventory", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

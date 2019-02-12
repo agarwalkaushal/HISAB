@@ -105,7 +105,7 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -115,6 +115,7 @@
                     android:hint="Enter name"
                     android:inputType="textCapCharacters"
                     android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
                     android:textSize="12sp" />
 
                 <EditText
@@ -125,8 +126,9 @@
                     android:layout_weight="1"
                     android:cursorVisible="true"
                     android:hint="Enter Rt."
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
                     android:textSize="12sp" />
 
                 <EditText
@@ -137,8 +139,9 @@
                     android:layout_weight="1"
                     android:cursorVisible="true"
                     android:hint="Enter Qt."
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -350,17 +353,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="+ ADD ITEM"
-            android:textStyle="bold" />
-
-        <Button
             android:id="@+id/done"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -370,5 +362,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:text="DONE"
             android:textStyle="bold" />
+
     </LinearLayout>
+
 </RelativeLayout>
