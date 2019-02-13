@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
+import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
 import com.fullertonfinnovatica.Transaction.Transaction;
 import com.fullertonfinnovatica.Transaction.TransactionView;
 
@@ -193,7 +194,7 @@ public class Dashboard extends AppCompatActivity
             this.startActivity(intent);
 
         } else if (id == R.id.nav_network) {
-            Intent intent = new Intent(this, NetworkingMain.class);
+            Intent intent = new Intent(this, NetworkingShopsViewMap.class);
             this.startActivity(intent);
 
         } else if (id == R.id.nav_profile) {

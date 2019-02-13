@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
+import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
 
 /**
  * Created by HP on 03-10-2018.
@@ -150,7 +151,7 @@ public class radialMenu extends View {
                             Intent intent = new Intent(getContext(), InventoryCategories.class);
                             getContext().startActivity(intent);
                         }else if(angle > 1.57 && angle < 3.14){
-                            Intent intent = new Intent(getContext(), NetworkingMain.class);
+                            Intent intent = new Intent(getContext(), NetworkingShopsViewMap.class);
                             getContext().startActivity(intent);
 
                         }else if(angle > 0 && angle < 1.57){
