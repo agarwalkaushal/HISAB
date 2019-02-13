@@ -1,6 +1,8 @@
 package com.fullertonfinnovatica.Networking;
 
-public class NetworkingModel {
+import java.io.Serializable;
+
+public class NetworkingModel implements Serializable {
 
     String bname, pno, latitude, longitude;
 

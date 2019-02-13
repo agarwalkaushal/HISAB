@@ -32,6 +32,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,11 +54,6 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
     RecyclerView recyclerView1;
     NetworkingAdapter dataAdapter;
-    Call<List<NetworkingModel>> call;
-    NetworkingAPI networkingAPI;
-    Retrofit retrofit;
-
-    ProgressDialog progressDoalog;
 
     List<NetworkingModel> list;
 
@@ -65,7 +61,6 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networking_main);
-        setTitle("Networking");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Networking</font>"));
         recyclerView1=findViewById(R.id.networking_recycler);
 
@@ -79,12 +74,9 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
         }
 
-        retrofit = new Retrofit.Builder().baseUrl(NetworkingAPI.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        networkingAPI = retrofit.create(NetworkingAPI.class);
-        call = networkingAPI.getBirds();
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("NETWORKING_BUNDLE");
+        list = (ArrayList<NetworkingModel>) args.getSerializable("NETWORKING_ARRAYLIST");
 
         if (checkPlayServices()) {
 
@@ -92,67 +84,43 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
             buildGoogleApiClient();
         }
 
-        displayLocation();
 
-        progressDoalog = new ProgressDialog(NetworkingMain.this);
-        progressDoalog.setCancelable(false);
-        progressDoalog.setMessage("Fetching your location..");
-        progressDoalog.setTitle("Finding shops Around You");
-        progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDoalog.show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-            call.enqueue(new Callback<List<NetworkingModel>>() {
 
-                @Override
-                public void onResponse(Call<List<NetworkingModel>> call, Response<List<NetworkingModel>> response) {
-
-                    progressDoalog.hide();
-
-                list = response.body();
-                //Toast.makeText(getBaseContext(),""+list.size(),Toast.LENGTH_LONG).show();
+                displayLocation();
                 dataAdapter = new NetworkingAdapter(list, getBaseContext());
                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                 recyclerView1.setAdapter(dataAdapter);
 
-                    recyclerView1.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(),
-                            recyclerView1, new ClickListener() {
-                        @Override
-                        public void onClick(View view, final int position) {
-                            //Values are passing to activity & to fragment as well
-                            Toast.makeText(NetworkingMain.this, "Single Click on position :"+position,
-                                    Toast.LENGTH_SHORT).show();
+                recyclerView1.addOnItemTouchListener(new RecyclerTouchListener(getBaseContext(),
+                        recyclerView1, new ClickListener() {
+                    @Override
+                    public void onClick(View view, final int position) {
+                        //Values are passing to activity & to fragment as well
+//                        Toast.makeText(NetworkingMain.this, "Single Click on position :"+position,
+//                                Toast.LENGTH_SHORT).show();
 
-                            NetworkingModel pojo;
+                        NetworkingModel pojo;
 
-                            pojo = list.get(position);
-                            Intent in = new Intent(NetworkingMain.this,NetworkingDetailsScreen.class);
-                            in.putExtra("b_name", pojo.getBname());
-                            in.putExtra("b_lat",pojo.getLatitude());
-                            in.putExtra("b_long",pojo.getLongitude());
-                            in.putExtra("b_pno",pojo.getPno());
-                            startActivity(in);
-                        }
+                        pojo = list.get(position);
+                        Intent in = new Intent(NetworkingMain.this,NetworkingDetailsScreen.class);
+                        in.putExtra("b_name", pojo.getBname());
+                        in.putExtra("b_lat",pojo.getLatitude());
+                        in.putExtra("b_long",pojo.getLongitude());
+                        in.putExtra("b_pno",pojo.getPno());
+                        startActivity(in);
+                    }
 
-                        @Override
-                        public void onLongClick(View view, int position) {
+                    @Override
+                    public void onLongClick(View view, int position) {
 //                            Toast.makeText(NetworkingMain.this, "Long press on position :"+position,
 //                                    Toast.LENGTH_LONG).show();
-                        }
-                    }));
-
-                }
-
-                @Override
-                public void onFailure(Call<List<NetworkingModel>> call, Throwable t) {
-
-                    Toast.makeText(getBaseContext(),"API failure"+t.getMessage(),Toast.LENGTH_LONG).show();
-
-                }
-        });
+                    }
+                }));
 
 
             }
@@ -220,7 +188,7 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Toast.makeText(getBaseContext(),"Connected",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(),"Connected",Toast.LENGTH_LONG).show();
     }
 
     @Override

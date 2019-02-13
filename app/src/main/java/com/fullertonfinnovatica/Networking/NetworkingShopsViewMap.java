@@ -20,6 +20,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,9 +98,10 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "These are the nearby shops", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Intent intent = new Intent(getBaseContext(), NetworkingMain.class);
+                Bundle args = new Bundle();
+                args.putSerializable("NETWORKING_ARRAYLIST",(Serializable)list);
+                intent.putExtra("NETWORKING_BUNDLE",args);
                 startActivity(intent);
             }
         });
