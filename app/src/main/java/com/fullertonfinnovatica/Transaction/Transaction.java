@@ -142,6 +142,29 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
             }
         });
 
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)
+                {
+                    String inputName = name.getText().toString();
+                    int c=0;
+                    for(String i : products)
+                    {
+                        if(i.compareTo(inputName)==0) {
+                            c++;
+                            break;
+                        }
+                    }
+                    if(c==0) {
+                        name.setError("Name error");
+                        Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+        });
+
         rate.setOnKeyListener(new View.OnKeyListener()
         {
             public boolean onKey(View v, int keyCode, KeyEvent event)
@@ -188,7 +211,7 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
                 Date currentTime = Calendar.getInstance().getTime();
                 Toast.makeText(getBaseContext(), "Time: "+currentTime.toString(), Toast.LENGTH_LONG).show();
-                
+
                 //TODO: Send transaction to server and update inventory
                 finish();
             }
