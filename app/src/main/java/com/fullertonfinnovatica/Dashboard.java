@@ -29,6 +29,8 @@ import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
 import com.fullertonfinnovatica.Transaction.Transaction;
 import com.fullertonfinnovatica.Transaction.TransactionView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +52,7 @@ public class Dashboard extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
+        FirebaseApp.initializeApp(this);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("login",false)==false){
@@ -208,7 +211,8 @@ public class Dashboard extends AppCompatActivity
         }  else if (id == R.id.nav_singout) {
 
             Intent i = new Intent(Dashboard.this, Initial.class);
-            prefs.edit().putBoolean("login",false).apply();;
+            prefs.edit().putBoolean("login",false).apply();
+            FirebaseAuth.getInstance().signOut();
             startActivity(i);
             finish();
         }
