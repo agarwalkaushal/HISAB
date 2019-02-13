@@ -67,6 +67,8 @@ public class PhoneVerify extends AppCompatActivity {
                         PhoneVerify.this,               // Activity (for callback binding)
                         mCallbacks);        // OnVerificationStateChangedCallbacks
 
+                mVerificationInProgress = true;
+
             }
         },2000);
 
@@ -79,16 +81,16 @@ public class PhoneVerify extends AppCompatActivity {
                     return;
                 } else {
 
-                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PhoneVerify.this);
-                    prefs.edit().putString("name",prev_name).apply();
-                    prefs.edit().putString("number",prev_phoneNo).apply();
-                    startActivity(intent);
-                    finish();
 
-                    //TODO: Phone verification to be done
-//                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
-//                    signInWithPhoneAuthCredential(phoneAuthCredential);
+//                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
+//                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PhoneVerify.this);
+//                    prefs.edit().putString("name",prev_name).apply();
+//                    prefs.edit().putString("number",prev_phoneNo).apply();
+//                    startActivity(intent);
+//                    finish();
+
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVerificationId, otp_user.getText().toString());
+                    signInWithPhoneAuthCredential(phoneAuthCredential);
                 }
             }
         });
@@ -102,24 +104,11 @@ public class PhoneVerify extends AppCompatActivity {
                 // 1 - Instant verification. In some cases the phone number can be instantly
                 //     verified without needing to send or enter a verification code.
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verificaiton without
+                //     detect the incoming verification SMS and perform verification without
                 //     user action.
-                //Log.d(TAG, "onVerificationCompleted:" + credential);
-                Toast.makeText(getBaseContext(), "Verification complete..", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getBaseContext(), Dashboard.class);
-                intent.putExtra("name",prev_name);
-                intent.putExtra("number",prev_phoneNo);
-                startActivity(intent);
-                finish();
-                // [START_EXCLUDE silent]
-                mVerificationInProgress = false;
-                // [END_EXCLUDE]
 
-                // [START_EXCLUDE silent]
-                // Update the UI and attempt sign in with the phone credential
-                //updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
-                //signInWithPhoneAuthCredential(credential);
+                mVerificationInProgress = false;
+                signInWithPhoneAuthCredential(credential);
             }
 
             @Override
@@ -134,25 +123,12 @@ public class PhoneVerify extends AppCompatActivity {
                 // [END_EXCLUDE]
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                    // [START_EXCLUDE]
-                    //mPhoneNumberField.setError("Invalid phone number.");
                     Toast.makeText(getBaseContext(), "Invalid Phone number..", Toast.LENGTH_LONG).show();
-                    // [END_EXCLUDE]
-                } else if (e instanceof FirebaseTooManyRequestsException) {
+                    }
+                    else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    // [START_EXCLUDE]
-                    //Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
-                    //      Snackbar.LENGTH_SHORT).show();
                     Toast.makeText(getBaseContext(), "Too many requests..", Toast.LENGTH_LONG).show();
-
-                    // [END_EXCLUDE]
                 }
-
-                // Show a message and update the UI
-                // [START_EXCLUDE]
-                //updateUI(STATE_VERIFY_FAILED);
-                // [END_EXCLUDE]
             }
 
             @Override
@@ -161,21 +137,17 @@ public class PhoneVerify extends AppCompatActivity {
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
-                //Log.d(TAG, "onCodeSent:" + verificationId);
+
                 Toast.makeText(getBaseContext(), "Verification code sent..", Toast.LENGTH_LONG).show();
 
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
-
-                // [START_EXCLUDE]
-                // Update UI
-                //updateUI(STATE_CODE_SENT);
-                // [END_EXCLUDE]
             }
         };
 
     }
+
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
@@ -185,12 +157,12 @@ public class PhoneVerify extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCredential:success");
-                            //Toast.makeText(getBaseContext(),"Successfully verified..",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(),"Successfully verified..",Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent(getBaseContext(), Dashboard.class);
-                            //intent.putExtra("user_number", phone_number.getText().toString());
-                            intent.putExtra("name",prev_name);
-                            intent.putExtra("number",prev_phoneNo);
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PhoneVerify.this);
+                            prefs.edit().putString("name",prev_name).apply();
+                            prefs.edit().putString("number",prev_phoneNo).apply();
                             startActivity(intent);
                             finish();
 
