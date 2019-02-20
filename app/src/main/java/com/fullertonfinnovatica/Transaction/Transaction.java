@@ -27,12 +27,24 @@ import android.widget.Toast;
 import com.fullertonfinnovatica.Inventory.InventoryAdd;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.R;
+import com.fullertonfinnovatica.SignUpAPI;
+import com.fullertonfinnovatica.SignUpModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Transaction extends AppCompatActivity  implements AdapterView.OnItemSelectedListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class Transaction extends AppCompatActivity  implements AdapterView.OnItemSelectedListener, Callback<InventoryModel> {
 
     private double totalAmount = 0;
 
@@ -68,6 +80,10 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
     ArrayList<DataRow> dataRows = new ArrayList<>();
 
+    TransactionAPIs apiInterface1, apiInterface2, apiInterface3, apiInterface4;
+    JSONObject paramObject;
+    String typeOfTrans, modeOfTrans;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +94,34 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefEditor = prefs.edit();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(TransactionAPIs.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface1 = retrofit.create(TransactionAPIs.class);
+
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl(TransactionAPIs.BASE_URL2)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface2 = retrofit2.create(TransactionAPIs.class);
+
+        Retrofit retrofit3 = new Retrofit.Builder()
+                .baseUrl(TransactionAPIs.BASE_URL3)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface3 = retrofit3.create(TransactionAPIs.class);
+
+        Retrofit retrofit4 = new Retrofit.Builder()
+                .baseUrl(TransactionAPIs.BASE_URL4)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface4 = retrofit4.create(TransactionAPIs.class);
 
         product = prefs.getString("products","Milk,");
         products = product.split(",");
@@ -213,10 +257,33 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                 Toast.makeText(getBaseContext(), "Time: "+currentTime.toString(), Toast.LENGTH_LONG).show();
 
                 //TODO: Send transaction to server and update inventory
+                try {
+                    //fromname, toname, date, transmode, creditamount, debitamount
+                    paramObject = new JSONObject();
+                    paramObject.put("fromname", typeOfTrans);
+                    paramObject.put("toname", modeOfTrans);
+                    paramObject.put("date", currentTime.toString());
+                    paramObject.put("transmode", modeOfTrans);
+                    paramObject.put("creditamount", Integer.valueOf(rate.getText().toString())*Integer.valueOf(quantity.getText().toString()));
+                    paramObject.put("debitamount", Integer.valueOf(rate.getText().toString())*Integer.valueOf(quantity.getText().toString()));
+                    sendData(paramObject);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 finish();
             }
         });
 
+    }
+
+    @Override
+    public void onResponse(Call<InventoryModel> call, Response<InventoryModel> response) {
+    }
+
+    @Override
+    public void onFailure(Call<InventoryModel> call, Throwable t) {
     }
 
 
@@ -270,11 +337,13 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         {
             purchaseLayout.setVisibility(View.VISIBLE);
             rentLayout.setVisibility(View.GONE);
+            typeOfTrans = "Purchase";
         }
         else if(pos == 2)
         {
             purchaseLayout.setVisibility(View.GONE);
             rentLayout.setVisibility(View.VISIBLE);
+            typeOfTrans = "Paid Rent";
         }
     }
 
@@ -299,6 +368,7 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                     cashSelected.setText("CASH");
                     creditSelected.setText("");
                     creditCredentials.setVisibility(View.GONE);
+                    modeOfTrans = "Cash";
                 }
                     break;
             case R.id.credit:
@@ -306,6 +376,7 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                     creditSelected.setText("CREDIT");
                     cashSelected.setText("");
                     creditCredentials.setVisibility(View.VISIBLE);
+                    modeOfTrans = "Credit";
                 }
                     break;
         }
@@ -327,4 +398,21 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
         ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, products);
         name.setAdapter(products_adapter);
     }
+
+    void sendData(JSONObject j){
+
+
+        Call<InventoryModel> userCall1 = apiInterface1.sendInventory(j.toString());
+        Call<InventoryModel> userCall2 = apiInterface2.sendInventory(j.toString());
+        Call<InventoryModel> userCall3 = apiInterface3.sendInventory(j.toString());
+        Call<InventoryModel> userCall4 = apiInterface4.sendInventory(j.toString());
+
+        userCall1.enqueue(this);
+        userCall2.enqueue(this);
+        userCall3.enqueue(this);
+        userCall4.enqueue(this);
+        Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();
+
+    }
+
 }
