@@ -53,5 +53,6 @@
         <item>shopping_bag</item>
     </string-array>
     <string name="title_activity_networking_shops_view_map">NetworkingShopsViewMap</string>
+    <string name="title_activity_accounts_main">AccountsMain</string>
 
 </resources>

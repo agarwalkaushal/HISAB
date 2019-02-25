@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.AccountsEntry;
+import com.fullertonfinnovatica.Accounts.AccountsMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
@@ -160,8 +162,11 @@ public class radialMenu extends View {
 
                         }else{
                             // TODO: Intent to Accounts activity, package created but not activity
-                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), AccountsMain.class);
+                            getContext().startActivity(intent);
                         }
+
                         double rawSliceIndex = angle / (Math.PI * 2) * mSlices;
                         if(mOnSliceClickListener != null){
                             mOnSliceClickListener.onSlickClick((int) rawSliceIndex);
