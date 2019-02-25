@@ -1,9 +1,613 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Transaction.TransactionView">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 10050/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 8500/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 100/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="CREDIT"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 4020/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 2030/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="CREDIT"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 560/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="CREDIT"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 20000/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="23-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 3400/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="24-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 15500/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/funds" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardElevation="4dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon" />
+
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25-01-2019"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 5600/-"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="CREDIT"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+</ScrollView>

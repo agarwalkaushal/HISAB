@@ -2,9 +2,12 @@ package com.fullertonfinnovatica.Analytics;
 
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -39,10 +42,15 @@ public class AnalyticsMain extends AppCompatActivity {
     PieChart hourBasedPieChart;
     LineChart yearBasedLineChart;
 
+    TextView tsp_name;
+    TextView tsd_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics_main);
+
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+"Analytics"+"</font>"));
 
         dayBasedBarChart = findViewById(R.id.chart);
         dayBasedBarChart.setTouchEnabled(true);
@@ -52,6 +60,15 @@ public class AnalyticsMain extends AppCompatActivity {
         yearBasedLineChart = findViewById(R.id.chart3);
         yearBasedLineChart.setScaleEnabled(true);
         yearBasedLineChart.setTouchEnabled(true);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/COMIC.TTF");
+
+
+        tsp_name = findViewById(R.id.textView);
+        tsd_name = findViewById(R.id.textView2);
+
+        tsp_name.setTypeface(font);
+        tsd_name.setTypeface(font);
 
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, 30f));

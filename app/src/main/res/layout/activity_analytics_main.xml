@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
@@ -37,7 +38,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/fire_large"
+                    android:src="@drawable/top_rated"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -46,7 +47,6 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
@@ -55,7 +55,9 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Top Selling product:"
+                    android:textSize="14sp"
+
+                    android:text="Top Selling product"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -73,7 +75,9 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="Good Day"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -110,7 +114,6 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
@@ -119,7 +122,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Top Selling day:"
+                    android:textSize="14sp"
+                    android:text="Top Selling day"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -127,7 +131,7 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -137,7 +141,9 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="Saturday"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -155,11 +161,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:orientation="vertical">
             <TextView
+                android:paddingBottom="10dp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sale based on time:"/>
+                android:text="Sale based on yesterday"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart2"
@@ -178,11 +189,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="5dp"
         android:orientation="vertical">
         <TextView
+            android:paddingBottom="10dp"
+            android:textSize="14sp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sale of the week:"/>
+            android:text="Sale of last week"
+            android:textColor="@color/black"/>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
@@ -201,11 +217,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:orientation="vertical">
             <TextView
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sales trend for the year:"/>
+                android:text="Sales trend monthly"
+                android:textColor="@color/black"/>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart3"

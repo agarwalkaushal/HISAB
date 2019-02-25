@@ -141,8 +141,6 @@ public class Dashboard extends AppCompatActivity
         messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Messages View, activity not created
-                Toast.makeText(getApplicationContext(), "Messages", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Dashboard.this, AnalyticsMain.class);
                 startActivity(intent);
             }

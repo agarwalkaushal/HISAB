@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,9 @@ public class Login extends AppCompatActivity {
         hideStatusBar();
         setContentView(R.layout.activity_login);
         proceed = (Button) findViewById(R.id.proceed);
+        Intent intent = new Intent(getBaseContext(), Dashboard.class);
+        startActivity(intent);
+        finish();
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -133,14 +133,14 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/chat" />
+                        android:src="@drawable/statistics" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingTop="5dp"
-                        android:text="Messages"
+                        android:text="Analytics"
                         android:textColor="@color/black"
                         android:textSize="10sp" />
                 </LinearLayout>
