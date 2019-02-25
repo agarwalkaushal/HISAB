@@ -101,7 +101,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBVEJlSiNVvpBAZh8nL1v_-ZsIHL6ZKUcQ" />
 
-        <activity android:name=".Analytics.AnalyticsMain"></activity>
+        <activity android:name=".Analytics.AnalyticsMain" />
+        <activity
+            android:name=".Accounts.AccountsMain"
+            android:label="@string/title_activity_accounts_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Accounts.AccountsEntry"></activity>
     </application>
 
 </manifest>
