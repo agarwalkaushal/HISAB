@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,13 +46,19 @@ public class InventoryView extends AppCompatActivity {
     String type;
     String name;
 
+    ImageView item_icon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
-        type = getIntent().getStringExtra("Inventory type");
         name = getIntent().getStringExtra("Inventory name");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
+
+        /*
+        type = getIntent().getStringExtra("Inventory type");
+        name = getIntent().getStringExtra("Inventory name");
+
 
 
         recyclerView1 = findViewById(R.id.recycler_inventory);
@@ -62,6 +69,8 @@ public class InventoryView extends AppCompatActivity {
 
         //Condition that inventory is empty
         recyclerView1.setVisibility(View.INVISIBLE);
+        */
+
         /*else
 
         emptyInventory.setVisibility(View.INVISIBLE);
