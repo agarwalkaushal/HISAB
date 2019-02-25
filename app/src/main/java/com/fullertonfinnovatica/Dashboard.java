@@ -24,6 +24,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Analytics.AnalyticsMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
@@ -142,6 +143,8 @@ public class Dashboard extends AppCompatActivity
             public void onClick(View v) {
                 //TODO: Messages View, activity not created
                 Toast.makeText(getApplicationContext(), "Messages", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Dashboard.this, AnalyticsMain.class);
+                startActivity(intent);
             }
         });
 
