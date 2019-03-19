@@ -56,19 +56,20 @@ public class InventoryView extends AppCompatActivity {
         setContentView(R.layout.activity_inventory_view);
 
         name = getIntent().getStringExtra("Inventory name");
+        Log.e("Name",name);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
         items = findViewById(R.id.items);
         emptyInventory = findViewById(R.id.emptyInventory);
 
-        if(name == "Grocery")
+        if(name.equals("Grocery"))
         {
-            emptyInventory.setVisibility(View.INVISIBLE);
+                emptyInventory.setVisibility(View.GONE);
             items.setVisibility(View.VISIBLE);
         }
         else
         {
             emptyInventory.setVisibility(View.VISIBLE);
-            items.setVisibility(View.INVISIBLE);
+            items.setVisibility(View.GONE);
         }
 
         /*

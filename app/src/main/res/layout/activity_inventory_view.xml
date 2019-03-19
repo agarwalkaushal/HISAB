@@ -9,6 +9,12 @@
     tools:context=".Inventory.InventoryView">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <LinearLayout
         android:id="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -700,6 +706,7 @@
             android:text="Inventory Empty"
             android:textSize="24sp"
             android:layout_gravity="center"/>
+    </LinearLayout>
     </LinearLayout>
 
 <!--
