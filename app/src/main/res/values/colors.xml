@@ -23,6 +23,7 @@
     <color name="gray">#c8969393</color>
     <color name="transparent">#20000000</color>
 
+    <color name="red_shade">#FF5722</color>
     <color name="red_shade1">#fb7575</color>
     <color name="red_shade2">#f08080</color>
     <color name="red_shade3">#eb8585</color>
@@ -44,6 +45,8 @@
     <color name="green_shade8">#cdedce</color>
     <color name="green_shade9">#d0ead0</color>
     <color name="green_shade10">#d3e7d3</color>
+    <color name="green_shade11">#ADFF2F</color>
+
 
 
     <array name="color_names">

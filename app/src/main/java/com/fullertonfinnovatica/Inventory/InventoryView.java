@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InventoryView extends AppCompatActivity {
 
+    LinearLayout items;
     LinearLayout emptyInventory;
     RecyclerView recyclerView1;
     TextView inventoryEmpty;
@@ -52,8 +54,22 @@ public class InventoryView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
+
         name = getIntent().getStringExtra("Inventory name");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
+        items = findViewById(R.id.items);
+        emptyInventory = findViewById(R.id.emptyInventory);
+
+        if(name == "Grocery")
+        {
+            emptyInventory.setVisibility(View.INVISIBLE);
+            items.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            emptyInventory.setVisibility(View.VISIBLE);
+            items.setVisibility(View.INVISIBLE);
+        }
 
         /*
         type = getIntent().getStringExtra("Inventory type");

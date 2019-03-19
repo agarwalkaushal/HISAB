@@ -10,14 +10,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <View
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_weight=".0625"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/red_rectangle" />
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_weight=".4375"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="DEBIT" />
+
+            <View
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_weight=".0625"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/green_rectangle" />
+
+            <TextView
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_weight=".4375"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="CREDIT" />
+        </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/red_shade"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -29,22 +75,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="12-01-2019"
                         android:textStyle="bold" />
 
@@ -52,23 +98,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 10050/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -78,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/red_shade"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -89,22 +136,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="13-01-2019"
                         android:textStyle="bold" />
 
@@ -112,23 +159,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 8500/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -138,6 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -149,22 +197,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="15-01-2019"
                         android:textStyle="bold" />
 
@@ -172,25 +220,24 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 100/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="CREDIT"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
+                    android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -199,6 +246,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/red_shade"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -210,22 +258,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="16-01-2019"
                         android:textStyle="bold" />
 
@@ -233,23 +281,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 4020/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -259,6 +307,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -270,22 +319,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="18-01-2019"
                         android:textStyle="bold" />
 
@@ -293,25 +342,24 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 2030/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="CREDIT"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
+                    android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -320,6 +368,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -331,22 +380,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="20-01-2019"
                         android:textStyle="bold" />
 
@@ -354,25 +403,24 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 560/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="CREDIT"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
+                    android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -381,6 +429,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/red_shade"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -392,22 +441,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="21-01-2019"
                         android:textStyle="bold" />
 
@@ -415,23 +464,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 20000/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -441,6 +490,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -452,22 +502,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="23-01-2019"
                         android:textStyle="bold" />
 
@@ -475,23 +525,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 3400/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -501,6 +551,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -512,22 +563,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="24-01-2019"
                         android:textStyle="bold" />
 
@@ -535,23 +586,23 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 15500/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
                     android:src="@drawable/funds" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -561,6 +612,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:backgroundTint="@color/green_shade11"
             app:cardElevation="4dp"
             card_view:cardCornerRadius="2dp"
             card_view:contentPadding="10dp">
@@ -572,22 +624,22 @@
                 <LinearLayout
 
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:src="@drawable/icon" />
 
                     <TextView
-                        android:padding="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
                         android:text="25-01-2019"
                         android:textStyle="bold" />
 
@@ -595,25 +647,24 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="0dp"
-                    android:layout_weight="1.75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.75"
+                    android:padding="5dp"
                     android:text="₹ 5600/-"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="21sp"/>
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:padding="5dp"
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="CREDIT"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_weight=".75"
+                    android:padding="5dp"
+                    android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
