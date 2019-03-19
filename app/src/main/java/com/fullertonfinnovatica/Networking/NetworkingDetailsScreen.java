@@ -2,6 +2,7 @@ package com.fullertonfinnovatica.Networking;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
@@ -27,6 +28,7 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networking_details_screen);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Details</font>"));
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -47,10 +49,10 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         t_name = findViewById(R.id.bname);
         t_pno = findViewById(R.id.bpno);
 
-        t_lat.setText(lat);
-        t_pno.setText(pno);
-        t_lon.setText(lon);
-        t_name.setText(name);
+        t_lat.setText("Latitude: "+lat);
+        t_pno.setText("Phone no: "+pno);
+        t_lon.setText("Longitude: "+lon);
+        t_name.setText("Name: "+name);
     }
 
 

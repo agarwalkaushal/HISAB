@@ -55,4 +55,20 @@
     <string name="title_activity_networking_shops_view_map">NetworkingShopsViewMap</string>
     <string name="title_activity_accounts_main">AccountsMain</string>
 
+    <string-array name="months_spinner">
+        <item>Choose month</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
 </resources>
