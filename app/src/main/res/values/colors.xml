@@ -13,10 +13,12 @@
     <color name="lightGray">#cee6e6e6</color>
     <color name="pink">#FFB6C1</color>
     <color name="red">#F08080</color>
+    <color name="red_orignal">#D44638</color>
     <color name="orange">#FFA500</color>
     <color name="yellow">#ffcf33</color>
     <color name="lemon">#FFFACD</color>
     <color name="green">#bbffbc</color>
+    <color name="green_orignal">#4CAF50</color>
     <color name="blue">#add8e6</color>
     <color name="violet">#D8BFD8</color>
     <color name="black">#000000</color>
