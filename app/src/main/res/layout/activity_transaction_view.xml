@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:paddingBottom="10dp"
-        android:layout_marginLeft="30dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,6 +21,7 @@
             android:orientation="horizontal">
 
             <View
+                android:layout_marginLeft="35dp"
                 android:padding="10dp"
                 android:layout_width="0dp"
                 android:layout_weight=".0625"
@@ -63,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/red_shade"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -105,7 +105,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 10050/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -124,9 +124,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/red_shade"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -166,7 +166,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 8500/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/red_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -185,9 +185,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -227,7 +227,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 100/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -237,6 +237,7 @@
                     android:layout_gravity="center"
                     android:layout_weight=".75"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -246,9 +247,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/red_shade"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -288,7 +289,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 4020/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -307,9 +308,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -349,7 +350,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 2030/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/red_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -359,7 +360,8 @@
                     android:layout_gravity="center"
                     android:layout_weight=".75"
                     android:padding="5dp"
-                    android:text="CREDIT" />
+                    android:text="CREDIT"
+                    android:textStyle="bold"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -368,9 +370,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -410,7 +412,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 560/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -420,6 +422,7 @@
                     android:layout_gravity="center"
                     android:layout_weight=".75"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -429,9 +432,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/red_shade"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -471,7 +474,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 20000/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/red_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -490,9 +493,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -532,7 +535,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 3400/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -551,9 +554,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -593,7 +596,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 15500/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -612,9 +615,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/green_shade11"
+            android:backgroundTint="@color/white"
             app:cardElevation="4dp"
-            card_view:cardCornerRadius="2dp"
+            card_view:cardCornerRadius="8dp"
             card_view:contentPadding="10dp">
 
             <LinearLayout
@@ -654,7 +657,7 @@
                     android:layout_weight="1.75"
                     android:padding="5dp"
                     android:text="₹ 5600/-"
-                    android:textColor="@color/black"
+                    android:textColor="@color/red_orignal"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -664,6 +667,7 @@
                     android:layout_gravity="center"
                     android:layout_weight=".75"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:text="CREDIT" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
