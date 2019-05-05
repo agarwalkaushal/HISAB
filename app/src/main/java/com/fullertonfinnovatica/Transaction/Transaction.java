@@ -256,21 +256,23 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
                 Date currentTime = Calendar.getInstance().getTime();
                 Toast.makeText(getBaseContext(), "Time: "+currentTime.toString(), Toast.LENGTH_LONG).show();
 
-                //TODO: Send transaction to server and update inventory
-                try {
-                    //fromname, toname, date, transmode, creditamount, debitamount
-                    paramObject = new JSONObject();
-                    paramObject.put("fromname", typeOfTrans);
-                    paramObject.put("toname", modeOfTrans);
-                    paramObject.put("date", currentTime.toString());
-                    paramObject.put("transmode", modeOfTrans);
-                    paramObject.put("creditamount", Integer.valueOf(rate.getText().toString())*Integer.valueOf(quantity.getText().toString()));
-                    paramObject.put("debitamount", Integer.valueOf(rate.getText().toString())*Integer.valueOf(quantity.getText().toString()));
-                    sendData(paramObject);
+                if(totalAmount!=0) {
+                    //TODO: Send transaction to server and update inventory
+                    try {
+                        //fromname, toname, date, transmode, creditamount, debitamount
+                        paramObject = new JSONObject();
+                        paramObject.put("fromname", typeOfTrans);
+                        paramObject.put("toname", modeOfTrans);
+                        paramObject.put("date", currentTime.toString());
+                        paramObject.put("transmode", modeOfTrans);
+                        paramObject.put("creditamount", Integer.valueOf(rate.getText().toString()) * Integer.valueOf(quantity.getText().toString()));
+                        paramObject.put("debitamount", Integer.valueOf(rate.getText().toString()) * Integer.valueOf(quantity.getText().toString()));
+                        sendData(paramObject);
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 finish();
             }
