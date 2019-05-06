@@ -28,7 +28,7 @@ public class AccountsMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            Intent intent = new Intent(getBaseContext(), AccountsEntry.class);
+            Intent intent = new Intent(getBaseContext(), JournalRetrieve.class);
             startActivity(intent);
 
             }
