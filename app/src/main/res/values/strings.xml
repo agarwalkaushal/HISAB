@@ -19,12 +19,9 @@
 
     <string-array name="types_array">
         <item>Purchase</item>
-        <item>Sold</item>
         <item>Paid Rent</item>
+        <item>Sold</item>
         <item>Paid TBA</item>
-        <item>TBA</item>
-        <item>TBA</item>
-        <item>TBA</item>
     </string-array>
 
     <string-array name="inventory_categories">

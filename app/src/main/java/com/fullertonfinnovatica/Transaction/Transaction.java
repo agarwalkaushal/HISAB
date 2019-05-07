@@ -347,6 +347,17 @@ public class Transaction extends AppCompatActivity  implements AdapterView.OnIte
             rentLayout.setVisibility(View.VISIBLE);
             typeOfTrans = "Paid Rent";
         }
+        else if(pos == 3)
+        {
+            purchaseLayout.setVisibility(View.VISIBLE);
+            rentLayout.setVisibility(View.GONE);
+            typeOfTrans = "Sold";
+        }else
+        {
+            purchaseLayout.setVisibility(View.GONE);
+            rentLayout.setVisibility(View.VISIBLE);
+            typeOfTrans = "Paid Rent";
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
