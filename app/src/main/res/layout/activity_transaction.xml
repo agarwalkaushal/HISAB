@@ -44,6 +44,73 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/chooseSubType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/subTypeText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Choose type"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/sub_types_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                ></Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chooseCommissionType"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/radioCommission"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:gravity="center"
+                    android:id="@+id/received"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:text="Received"
+                    android:textSize="14sp"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:gravity="center"
+                    android:id="@+id/given"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:textSize="14sp"
+                    android:text="Given" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/purchase"
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
@@ -195,7 +262,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rent"
+            android:id="@+id/amountInput"
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingTop="13dp"
-                android:text="Enter Rent Amount: "
+                android:text="Enter Amount: "
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -224,6 +291,37 @@
                 android:layout_weight="1"
                 android:hint="Rs."
                 android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id = "@+id/sub_type_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="13dp"
+                android:text="Name: "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sub_type_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:inputType="textCapWords"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>

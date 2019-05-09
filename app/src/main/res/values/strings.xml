@@ -19,9 +19,25 @@
 
     <string-array name="types_array">
         <item>Purchase</item>
-        <item>Paid Rent</item>
-        <item>Sold</item>
-        <item>Paid TBA</item>
+        <item>Sale</item>
+        <item>Purchase Return</item>
+        <item>Sale Return</item>
+        <item>Payment Done</item>
+        <item>Payment Received</item>
+        <item>Commission</item>
+        <item>Drawings</item>
+    </string-array>
+
+    <string-array name="pay_types">
+        <item>Rent</item>
+        <item>Salary</item>
+        <item>Settlement</item>
+    </string-array>
+
+    <string-array name="drawing_types">
+        <item>Cash</item>
+        <item>Bank</item>
+        <item>Goods</item>
     </string-array>
 
     <string-array name="inventory_categories">
