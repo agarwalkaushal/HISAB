@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -24,6 +25,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.AccountsAPI;
+import com.fullertonfinnovatica.Accounts.JournalEntryModel;
+import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Inventory.InventoryAdd;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.R;
@@ -34,10 +38,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.UnsupportedEncodingException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +55,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Callback<InventoryModel> {
+public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private double totalAmount = 0;
 
@@ -99,8 +109,10 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     ArrayList<DataRow> dataRows = new ArrayList<>();
 
-    TransactionAPIs apiInterface1, apiInterface2, apiInterface3, apiInterface4;
-    JSONObject paramObject;
+    Call<JournalEntryModel> entryCall;
+    Call<LoginModel> loginCall;
+    TransactionAPIs apiInterface;
+    Retrofit retrofit;
 
 
     @Override
@@ -113,33 +125,19 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefEditor = prefs.edit();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(TransactionAPIs.BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiInterface1 = retrofit.create(TransactionAPIs.class);
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
-        Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl(TransactionAPIs.BASE_URL2)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+        OkHttpClient cleint = new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(cookieManager))
                 .build();
-        apiInterface2 = retrofit2.create(TransactionAPIs.class);
 
-        Retrofit retrofit3 = new Retrofit.Builder()
-                .baseUrl(TransactionAPIs.BASE_URL3)
-                .addConverterFactory(ScalarsConverterFactory.create())
+        retrofit = new Retrofit.Builder().baseUrl(AccountsAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(cleint)
                 .build();
-        apiInterface3 = retrofit3.create(TransactionAPIs.class);
 
-        Retrofit retrofit4 = new Retrofit.Builder()
-                .baseUrl(TransactionAPIs.BASE_URL4)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiInterface4 = retrofit4.create(TransactionAPIs.class);
+        apiInterface = retrofit.create(TransactionAPIs.class);
 
         product = prefs.getString("products", "Milk,");
         products = product.split(",");
@@ -291,40 +289,59 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 Log.e("Total Amount: ", String.valueOf(totalAmount));
 
                 if (totalAmount != 0) {
-                    Date currentTime = Calendar.getInstance().getTime();
-                    Toast.makeText(getBaseContext(), currentTime.toString() + typeOfTrans + subType + totalAmount + modeOfTrans + creditName + creditNumber, Toast.LENGTH_LONG).show();
-                    Log.e("Done click: ", currentTime.toString() + typeOfTrans + subType + totalAmount + modeOfTrans + creditName + creditNumber);
-                    /*TODO: Send transaction to server and update inventory
+                    String pattern = "MM/dd/yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    final String dateee = simpleDateFormat.format(new Date());
 
-                    try {
-                        //fromname, toname, date, transmode, creditamount, debitamount
-                        paramObject = new JSONObject();
-                        paramObject.put("fromname", typeOfTrans);
-                        paramObject.put("toname", modeOfTrans);
-                        paramObject.put("date", currentTime.toString());
-                        paramObject.put("transmode", modeOfTrans);
-                        paramObject.put("creditamount", Integer.valueOf(rate.getText().toString()) * Integer.valueOf(quantity.getText().toString()));
-                        paramObject.put("debitamount", Integer.valueOf(rate.getText().toString()) * Integer.valueOf(quantity.getText().toString()));
-                        sendData(paramObject);
+                    Toast.makeText(getBaseContext(), dateee + typeOfTrans + subType + totalAmount + modeOfTrans + creditName + creditNumber, Toast.LENGTH_LONG).show();
+                    Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount +"Mode of transaction: "+ modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
+                    /*TODO: Send transaction to server and update inventory*/
+
+                    loginCall = apiInterface.login("demouserid","demo");
+
+                    loginCall.enqueue(new Callback<LoginModel>() {
+                        @Override
+                        public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+
+                            if(typeOfTrans.contains("purchase")) {
+                                entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                            }
+                            else{
+                                entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for "+modeOfTrans);
+                            }
+
+                            entryCall.enqueue(new Callback<JournalEntryModel>() {
+                                @Override
+                                public void onResponse(Call<JournalEntryModel> call, Response<JournalEntryModel> response) {
+
+                                    Toast.makeText(getBaseContext(), "Entry successfully made..", Toast.LENGTH_LONG).show();
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<JournalEntryModel> call, Throwable t) {
+
+                                    Toast.makeText(getBaseContext(), "An error occured: "+t.toString(), Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginModel> call, Throwable t) {
+
+                        }
+                    });
 
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    */
                 }
                 finish();
             }
         });
 
-    }
-
-    @Override
-    public void onResponse(Call<InventoryModel> call, Response<InventoryModel> response) {
-    }
-
-    @Override
-    public void onFailure(Call<InventoryModel> call, Throwable t) {
     }
 
 
@@ -592,20 +609,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         name.setAdapter(products_adapter);
     }
 
-    void sendData(JSONObject j) {
-
-
-        Call<InventoryModel> userCall1 = apiInterface1.sendInventory(j.toString());
-        Call<InventoryModel> userCall2 = apiInterface2.sendInventory(j.toString());
-        Call<InventoryModel> userCall3 = apiInterface3.sendInventory(j.toString());
-        Call<InventoryModel> userCall4 = apiInterface4.sendInventory(j.toString());
-
-        userCall1.enqueue(this);
-        userCall2.enqueue(this);
-        userCall3.enqueue(this);
-        userCall4.enqueue(this);
-        Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();
-
+    public static String getAuthToken(String userName, String password) {
+        byte[] data = new byte[0];
+        try {
+            data = (userName + ":" + password).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
+        return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
     }
 
 }
