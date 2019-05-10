@@ -294,22 +294,21 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     final String dateee = simpleDateFormat.format(new Date());
 
                     Toast.makeText(getBaseContext(), dateee + typeOfTrans + subType + totalAmount + modeOfTrans + creditName + creditNumber, Toast.LENGTH_LONG).show();
-                    Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount +"Mode of transaction: "+ modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
+                    Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
                     /*TODO: Send transaction to server and update inventory*/
 
-                    loginCall = apiInterface.login("demouserid","demo");
+                    loginCall = apiInterface.login("demouserid", "demo");
 
                     loginCall.enqueue(new Callback<LoginModel>() {
                         @Override
                         public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-                            if(typeOfTrans.contains("purchase")) {
+                            if (typeOfTrans.contains("purchase")) {
                                 entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                         "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                            }
-                            else{
+                            } else {
                                 entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for "+modeOfTrans);
+                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
                             }
 
                             entryCall.enqueue(new Callback<JournalEntryModel>() {
@@ -323,7 +322,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 @Override
                                 public void onFailure(Call<JournalEntryModel> call, Throwable t) {
 
-                                    Toast.makeText(getBaseContext(), "An error occured: "+t.toString(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
 
                                 }
                             });
@@ -336,9 +335,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         }
                     });
 
+                    finish();
 
                 }
-                finish();
             }
         });
 

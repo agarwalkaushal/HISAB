@@ -39,12 +39,12 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
 
         JournalEntryModel modelList = list.get(i);
 
-        recyclerViewHolder.to.setText(modelList.getTo());
-        recyclerViewHolder.from.setText(modelList.getFrom());
-        recyclerViewHolder.date.setText(modelList.getDate());
-        recyclerViewHolder.credit.setText(modelList.getCredit());
-        recyclerViewHolder.debit.setText(modelList.getDebit());
-        recyclerViewHolder.narration.setText(modelList.getNarration());
+        recyclerViewHolder.date.setText(modelList.getDate().substring(4));
+        recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
+
+        if(modelList.getNarration().contains("purchase")){
+            recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
+        }
 
     }
 
@@ -54,17 +54,13 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
     }
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        TextView to, from, date, credit, debit, narration;
+        TextView date, credit;
 
         public RecyclerViewHolder(View view) {
             super(view);
 
-            to = (TextView) view.findViewById(R.id.to);
-            from = (TextView) view.findViewById(R.id.from);
             date = view.findViewById(R.id.date);
             credit = view.findViewById(R.id.credit);
-            debit = view.findViewById(R.id.debit);
-            narration = view.findViewById(R.id.narration);
 
         }
     }

@@ -7,60 +7,64 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:elevation="4dp">
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/white"
+        card_view:cardCornerRadius="8dp"
+        card_view:contentPadding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="fill_parent">
 
-            <TextView
-                android:id="@+id/from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
+            <LinearLayout
 
-            <TextView
-                android:id="@+id/to"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:src="@drawable/icon" />
 
-            <TextView
-                android:id="@+id/debit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:text="12-01-2019"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/credit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="1.75"
+                android:padding="5dp"
+                android:text="₹ 10050/-"
+                android:textColor="@color/green_orignal"
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/narration"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
-
-
+                android:layout_gravity="center"
+                android:layout_weight=".75"
+                android:padding="5dp"
+                android:src="@drawable/funds" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

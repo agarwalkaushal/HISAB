@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.Networking.NetworkingAdapter;
 import com.fullertonfinnovatica.R;
@@ -71,13 +72,15 @@ public class JournalRetrieve extends AppCompatActivity {
                         dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                         recyclerView1.setAdapter(dataAdapter);
-                        //Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
+                        Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
 
 
                     }
 
                     @Override
                     public void onFailure(Call<JournalEntryListModel> call, Throwable t) {
+
+                        Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
 
                     }
                 });
