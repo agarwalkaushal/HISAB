@@ -3,6 +3,7 @@ package com.fullertonfinnovatica.Accounts;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
 
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
+
+        Log.e("From: ",modelList.getFrom());
 
         if(modelList.getNarration().contains("purchase")){
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));

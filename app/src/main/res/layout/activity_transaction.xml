@@ -95,7 +95,8 @@
                     android:buttonTint="@color/black"
                     android:text="Received"
                     android:textSize="14sp"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"/>
 
                 <RadioButton
                     android:gravity="center"
@@ -105,7 +106,8 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/black"
                     android:textSize="14sp"
-                    android:text="Given" />
+                    android:text="Given"
+                    android:onClick="onRadioButtonClicked"/>
 
             </RadioGroup>
         </LinearLayout>

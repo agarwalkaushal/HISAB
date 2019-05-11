@@ -107,6 +107,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private Spinner spinner;
     private Spinner subTypesSpinner;
 
+    private RadioGroup radioCommission;
+    private RadioButton commissionType;
+
     ArrayList<DataRow> dataRows = new ArrayList<>();
 
     Call<JournalEntryModel> entryCall;
@@ -293,9 +296,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     final String dateee = simpleDateFormat.format(new Date());
 
-                    Toast.makeText(getBaseContext(), dateee + typeOfTrans + subType + totalAmount + modeOfTrans + creditName + creditNumber, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber, Toast.LENGTH_LONG).show();
                     Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
-                    /*TODO: Send transaction to server and update inventory*/
 
                     loginCall = apiInterface.login("demouserid", "demo");
 
@@ -338,6 +340,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     finish();
 
                 }
+                else
+                    Toast.makeText(getBaseContext(), "Please enter all required fields or press back to exit", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -501,6 +506,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 credit = false;
 
                 typeOfTrans = "Commission";
+                subType = "Received";
 
             } else {
 
@@ -558,6 +564,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         totalAmount += itemQuantity * itemRate;
         dataRows.add(new DataRow(itemName, itemRate, itemQuantity));
         total.setText("Rs. " + String.valueOf(totalAmount));
+        // TODO: Update inventory here
         dataAdapter.notifyDataSetChanged();
     }
 
@@ -588,6 +595,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     modeOfTrans = "Cheque";
                     creditLayoutStatus = false;
                 }
+                break;
+            case R.id.given:
+                subType = "Given";
+                break;
+            case R.id.received:
+                subType = "Received";
                 break;
         }
     }
