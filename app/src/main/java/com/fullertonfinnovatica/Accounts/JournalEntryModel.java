@@ -1,8 +1,11 @@
 package com.fullertonfinnovatica.Accounts;
 
+import java.util.List;
+
 public class JournalEntryModel {
 
-    String from, to, date, debit, credit, narration;
+    String from, to, date, debit, credit;
+    List<String> narration;
 
     public String getFrom() {
         return from;
@@ -44,11 +47,11 @@ public class JournalEntryModel {
         this.credit = credit;
     }
 
-    public String getNarration() {
+    public List<String> getNarration() {
         return narration;
     }
 
-    public void setNarration(String narration) {
+    public void setNarration(List<String> narration) {
         this.narration = narration;
     }
 }

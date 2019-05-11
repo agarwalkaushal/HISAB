@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.AccountsAPI;
 import com.fullertonfinnovatica.Accounts.JournalEntryListModel;
@@ -36,7 +37,7 @@ public class TransactionView extends AppCompatActivity {
     Retrofit retrofit;
 
     RecyclerView recyclerView1;
-    JournalRetrieveAdapter dataAdapter;
+    TransactionAdapter dataAdapter;
 
     List<JournalEntryModel> list;
 
@@ -73,14 +74,18 @@ public class TransactionView extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JournalEntryListModel> call, Response<JournalEntryListModel> response) {
                         list = response.body().getContacts();
+                        Log.e("roor", String.valueOf(list));
                         recyclerView1 = findViewById(R.id.transViewRecycler);
-                        dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
+                        dataAdapter = new TransactionAdapter(list, getBaseContext());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                         recyclerView1.setAdapter(dataAdapter);
                     }
 
                     @Override
                     public void onFailure(Call<JournalEntryListModel> call, Throwable t) {
+
+                        //Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
+                        Log.e("roor", t.toString());
 
                     }
                 });
