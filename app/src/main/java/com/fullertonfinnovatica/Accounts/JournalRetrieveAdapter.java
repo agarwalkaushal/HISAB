@@ -30,7 +30,7 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_journal_retrieve, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_journal, viewGroup, false);
         JournalRetrieveAdapter.RecyclerViewHolder recyclerViewHolder = new JournalRetrieveAdapter.RecyclerViewHolder(view);
         return recyclerViewHolder;
     }
@@ -40,14 +40,16 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
 
         JournalEntryModel modelList = list.get(i);
 
-        recyclerViewHolder.date.setText(modelList.getDate().substring(4));
-        recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
+        String[] dateArray = modelList.getDate().split(" ");
+        recyclerViewHolder.date.setText(dateArray[1] + " " + dateArray[2]);
+        recyclerViewHolder.year.setText(dateArray[3]);
+        recyclerViewHolder.credit_amt.setText(modelList.getCredit());
+        recyclerViewHolder.debit_amt.setText(modelList.getDebit());
+        recyclerViewHolder.first.setText(modelList.getTo());
+        recyclerViewHolder.second.setText(modelList.getFrom());
 
-        Log.e("From: ",modelList.getFrom());
 
-        if(modelList.getNarration().contains("purchase")){
-            recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
-        }
+
 
     }
 
@@ -57,13 +59,18 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
     }
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        TextView date, credit;
+        TextView date, year, credit_amt, debit_amt, first, second;
 
         public RecyclerViewHolder(View view) {
             super(view);
 
             date = view.findViewById(R.id.date);
-            credit = view.findViewById(R.id.credit);
+            year = view.findViewById(R.id.year);
+            credit_amt = view.findViewById(R.id.amount_credit);
+            debit_amt = view.findViewById(R.id.amount_debit);
+            first = view.findViewById(R.id.first);
+            second = view.findViewById(R.id.second);
+
 
         }
     }
