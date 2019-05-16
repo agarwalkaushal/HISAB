@@ -4,6 +4,7 @@ import com.fullertonfinnovatica.Accounts.JournalEntryListModel;
 import com.fullertonfinnovatica.Accounts.JournalEntryModel;
 import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.SignUpModel;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,6 +26,19 @@ public interface TransactionAPIs {
     @FormUrlEncoded
     @POST("journal/add")
     Call<JournalEntryModel> journalEntry(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
+
+    @FormUrlEncoded
+    @POST("ledger")
+    Call<JsonObject> ledgerPost(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
+
+    @FormUrlEncoded
+    @POST("ledger")
+    Call<JsonObject> pnlPost(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
+
+    @FormUrlEncoded
+    @POST("ledger")
+    Call<JsonObject> trialPost(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
+
 
     @GET("journal")
     Call<JournalEntryListModel> journalRetrieveExp(@Header("authorization") String header);

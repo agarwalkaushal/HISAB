@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.R;
+import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -82,11 +84,18 @@ public class JournalEntry extends AppCompatActivity {
                         entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                 from, to, date, debit, credit, narration);
 
-//                        Log.e("blablaa", "Kabir"+ " " +"Munir"+ " " + "11/29/2012"+ " " + "250"+ " " + "500"+ " " + "vhs");
-
+//                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+//                                from, to, date, debit, credit, narration);
+//
+//                        try {
+//                            ledgerPostCall.execute();
+//                            Log.e("nll", "Posted");
+//                        } catch (IOException e) {
+//                            Log.e("nll", e.toString());
+//                        }
 
 //                        entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-//                                "Kabir", "Munir", "11/29/2012", "250", "500", "vhs");
+//                                from, to, date, debit, credit, narration);
 
 
                         entryCall.enqueue(new Callback<JournalEntryModel>() {

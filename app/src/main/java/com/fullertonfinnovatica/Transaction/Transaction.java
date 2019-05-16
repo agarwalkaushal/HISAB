@@ -33,11 +33,13 @@ import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.SignUpAPI;
 import com.fullertonfinnovatica.SignUpModel;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -113,6 +115,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     ArrayList<DataRow> dataRows = new ArrayList<>();
 
     Call<JournalEntryModel> entryCall;
+    Call<JsonObject> ledgerPostCall;
+    Call<JsonObject> pnlPostCall;
+    Call<JsonObject> trialPostCall;
     Call<LoginModel> loginCall;
     TransactionAPIs apiInterface;
     Retrofit retrofit;
@@ -308,24 +313,68 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             if (typeOfTrans.contains("purchase")) {
                                 entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                         "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                                ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                                pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                                trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
                             } else {
                                 entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                                ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                                pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                                trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                         modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
                             }
 
                             entryCall.enqueue(new Callback<JournalEntryModel>() {
                                 @Override
                                 public void onResponse(Call<JournalEntryModel> call, Response<JournalEntryModel> response) {
-
                                     Toast.makeText(getBaseContext(), "Entry successfully made..", Toast.LENGTH_LONG).show();
+                                }
+                                @Override
+                                public void onFailure(Call<JournalEntryModel> call, Throwable t) {
+                                    Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            });
 
+                            ledgerPostCall.enqueue(new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    Log.e("apiCheck", "Ledger post success");
                                 }
 
                                 @Override
-                                public void onFailure(Call<JournalEntryModel> call, Throwable t) {
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    Log.e("apiCheck", "Ledger post fail " + t.toString());
+                                }
+                            });
 
-                                    Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
+                            pnlPostCall.enqueue(new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    Log.e("apiCheck", "P&L post success");
+                                }
 
+                                @Override
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    Log.e("apiCheck", "P&L post fail "+t.toString());
+                                }
+                            });
+
+                            trialPostCall.enqueue(new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    Log.e("apiCheck", "Trial post success");
+                                }
+
+                                @Override
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    Log.e("apiCheck", "Trial post fail "+t.toString());
                                 }
                             });
 
