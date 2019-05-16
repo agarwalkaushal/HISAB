@@ -38,6 +38,9 @@ public class Ledger extends AppCompatActivity {
         setContentView(R.layout.activity_ledger);
 
         debit_amt = new String[10000];
+        debit_name = new String[10000];
+        credit_name = new String[10000];
+        credit_amt = new String[10000];
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -75,26 +78,39 @@ public class Ledger extends AppCompatActivity {
                             account_name = String.valueOf(account.get("name"));
 
                             JsonArray debitsArray = ledger.getAsJsonArray("debits");
+                            JsonArray creditsArray = ledger.getAsJsonArray("credits");
 
 
-                            Log.e("blabla", ledger.getAsJsonArray("debits").toString() + " " + ledger.getAsJsonArray("debits").size());
+//                            Log.e("blabla", ledger.getAsJsonArray("debits").toString() + " " + ledger.getAsJsonArray("debits").size());
 
-//                            for (int j = 0; j<debitsArray.;j++){
-//
-//                                JsonObject deb;
-//                                deb = ledgerAray.get(j).getAsJsonObject();
-//                                debit_amt[j] = String.valueOf(deb.get("amount"));
-//                                Log.e("abcde", debit_amt[j]);
-//
-//                            }
+                            for (int j = 0; j<debitsArray.size();j++){
 
-                            //Log.e("blabla", ledger.toString());
+                                JsonObject deb;
+                                deb = debitsArray.get(j).getAsJsonObject();
+                                debit_amt[j] = String.valueOf(deb.get("amount"));
+                                JsonObject to = deb.getAsJsonObject("to");
+                                debit_name[j] = String.valueOf(to.get("name"));
+//                                Log.e("abcde", debit_amt[j] + " " + debit_name[j]);
+
+                            }
+
+                            for (int j = 0; j<creditsArray.size();j++){
+
+                                JsonObject cred;
+                                cred = creditsArray.get(j).getAsJsonObject();
+                                credit_amt[j] = String.valueOf(cred.get("amount"));
+                                JsonObject to = cred.getAsJsonObject("from");
+                                credit_name[j] = String.valueOf(to.get("name"));
+                            }
+
+                            JsonObject balance = ledger.getAsJsonObject("balance");
+                            balance_type = String.valueOf(balance.get("type"));
+                            balance_amt = String.valueOf(balance.get("amount"));
+
+//                            Log.e("blabla", balance_amt + balance_type);
 
 
                         }
-
-
-                        //Log.e("abcd", name);
 
                     }
 

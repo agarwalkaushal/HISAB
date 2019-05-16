@@ -14,7 +14,7 @@ import com.fullertonfinnovatica.R;
 
 public class AccountsMain extends AppCompatActivity {
 
-    CardView journalCard, ledgerCard;
+    CardView journalCard, ledgerCard, pnlCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class AccountsMain extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         journalCard = findViewById(R.id.journal);
         ledgerCard = findViewById(R.id.ledger);
+        pnlCard = findViewById(R.id.pnl);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +56,16 @@ public class AccountsMain extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getBaseContext(), Ledger.class);
+                startActivity(intent);
+
+            }
+        });
+
+        pnlCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getBaseContext(), Pnl.class);
                 startActivity(intent);
 
             }

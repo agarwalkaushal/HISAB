@@ -22,7 +22,7 @@
     <color name="blue">#add8e6</color>
     <color name="violet">#D8BFD8</color>
     <color name="black">#000000</color>
-    <color name="gray">#c8969393</color>
+    <color name="gray">#C8969393</color>
     <color name="transparent">#20000000</color>
 
     <color name="red_shade">#FF6F22</color>
@@ -37,7 +37,7 @@
     <color name="red_shade9">#caa6a6</color>
     <color name="red_shade10">#c4acac</color>
 
-    <color name="green_shade1">#bbffbc</color>
+    <color name="green_shade1">#BBFFBC</color>
     <color name="green_shade2">#befcbf</color>
     <color name="green_shade3">#c0fac1</color>
     <color name="green_shade4">#c3f7c4</color>
@@ -45,7 +45,7 @@
     <color name="green_shade6">#c8f2c9</color>
     <color name="green_shade7">#cbefcb</color>
     <color name="green_shade8">#cdedce</color>
-    <color name="green_shade9">#d0ead0</color>
+    <color name="green_shade9">#D0EAD0</color>
     <color name="green_shade10">#d3e7d3</color>
     <color name="green_shade11">#B6FF2F</color>
 
