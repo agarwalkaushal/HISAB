@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.InputFilter;
 import android.view.View;
 
 import com.fullertonfinnovatica.R;
 
 public class AccountsMain extends AppCompatActivity {
 
-    CardView journalCard, ledgerCard, pnlCard;
+    CardView journalCard, ledgerCard, pnlCard, balanceSheetCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class AccountsMain extends AppCompatActivity {
         journalCard = findViewById(R.id.journal);
         ledgerCard = findViewById(R.id.ledger);
         pnlCard = findViewById(R.id.pnl);
+        balanceSheetCard = findViewById(R.id.balanceSheet);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +68,16 @@ public class AccountsMain extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getBaseContext(), Pnl.class);
+                startActivity(intent);
+
+            }
+        });
+
+        balanceSheetCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getBaseContext(), BalanceSheet.class);
                 startActivity(intent);
 
             }

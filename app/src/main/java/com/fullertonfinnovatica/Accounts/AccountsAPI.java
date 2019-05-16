@@ -32,4 +32,7 @@ public interface AccountsAPI {
     @GET("final")
     Call<JsonObject> getFinal(@Header("authorization") String header);
 
+    @GET("trial")
+    Call<JsonObject> getTrial(@Header("authorization") String header);
+
 }
