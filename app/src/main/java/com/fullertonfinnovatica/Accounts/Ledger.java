@@ -2,6 +2,8 @@ package com.fullertonfinnovatica.Accounts;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 
@@ -13,6 +15,8 @@ import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
@@ -28,6 +32,10 @@ public class Ledger extends AppCompatActivity {
     AccountsAPI apiInterface;
     Call<LoginModel> loginCall;
     Call<JsonObject> ledgerCall;
+    List<LedgerModel> ledgerList;
+    RecyclerView recyclerView;
+    LedgerAdapter dataAdapter;
+
     String account_name, balance_type, balance_amt;
     String[] debit_name, debit_amt, credit_name, credit_amt;
 
@@ -41,6 +49,9 @@ public class Ledger extends AppCompatActivity {
         debit_name = new String[10000];
         credit_name = new String[10000];
         credit_amt = new String[10000];
+        ledgerList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.ledgerRecycler);
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -107,10 +118,26 @@ public class Ledger extends AppCompatActivity {
                             balance_type = String.valueOf(balance.get("type"));
                             balance_amt = String.valueOf(balance.get("amount"));
 
+                            LedgerModel model = new LedgerModel();
+
+                            model.setAccount_name(account_name);
+                            model.setBalance_amt(balance_amt);
+                            model.setBalance_type(balance_type);
+                            model.setCredit_amt(credit_amt);
+                            model.setCredit_name(credit_name);
+                            model.setDebit_amt(debit_amt);
+                            model.setDebit_name(debit_name);
+
+                            ledgerList.add(model);
+
 //                            Log.e("blabla", balance_amt + balance_type);
 
-
                         }
+
+                        dataAdapter = new LedgerAdapter(ledgerList, getBaseContext());
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                        recyclerView.setAdapter(dataAdapter);
+
 
                     }
 
