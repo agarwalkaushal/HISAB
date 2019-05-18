@@ -1,8 +1,15 @@
 package com.fullertonfinnovatica.Networking;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
@@ -21,6 +28,7 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
 
     private MapView mapView;
     private GoogleMap gmap;
+    private LinearLayout phoneLayout;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyBVEJlSiNVvpBAZh8nL1v_-ZsIHL6ZKUcQ";
 
@@ -36,6 +44,7 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         }
 
         mapView = findViewById(R.id.map_view);
+        phoneLayout = findViewById(R.id.phone);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
 
@@ -49,10 +58,17 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         t_name = findViewById(R.id.bname);
         t_pno = findViewById(R.id.bpno);
 
-        t_lat.setText("Latitude: "+lat);
-        t_pno.setText("Phone no: "+pno);
-        t_lon.setText("Longitude: "+lon);
-        t_name.setText("Name: "+name);
+        t_lat.setText("Lat: " + lat);
+        t_pno.setText(pno);
+        t_lon.setText("Long: " + lon);
+        t_name.setText(name);
+
+        phoneLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickCall();
+            }
+        });
     }
 
 
@@ -68,6 +84,7 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
 
         mapView.onSaveInstanceState(mapViewBundle);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -85,21 +102,25 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         super.onStop();
         mapView.onStop();
     }
+
     @Override
     protected void onPause() {
         mapView.onPause();
         super.onPause();
     }
+
     @Override
     protected void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
@@ -117,6 +138,12 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(ny);
         gmap.addMarker(markerOptions);
+    }
+
+    private void onClickCall() {
+
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + pno));
+        startActivity(intent);
     }
 
 

@@ -13,4 +13,13 @@
         android:padding="8dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
+
+    <TextView
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:textSize="12sp"
+        android:text="*Click for more details"
+        android:textStyle="bold|italic"/>
 </FrameLayout>
