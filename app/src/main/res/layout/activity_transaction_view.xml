@@ -8,7 +8,26 @@
     android:orientation="vertical"
     tools:context=".Transaction.TransactionView">
 
+    <RelativeLayout
+        android:id="@+id/progressParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/progress"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cpb_background_progressbar_color="@color/colorPrimaryLight"
+        app:cpb_background_progressbar_width="5dp"
+        app:cpb_progressbar_color="@color/colorPrimaryDark"
+        app:cpb_progressbar_width="7dp" />
+
+    </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -19,53 +38,82 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="20dp">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="35dp"
-                android:layout_weight=".0625"
-                android:background="@drawable/red_rectangle"
-                android:padding="10dp" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4375"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="DEBIT"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:layout_weight="1">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight=".0625"
-                android:background="@drawable/green_rectangle"
-                android:padding="10dp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"/>
 
-            <TextView
+                <View
+
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/red_rectangle" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="DEBIT"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4375"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="CREDIT"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:layout_weight="1">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"/>
+
+                <View
+
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/green_rectangle" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight=".5"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="CREDIT"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/transViewRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/transViewRecycler">
-
-    </android.support.v7.widget.RecyclerView>
-
-
 </LinearLayout>

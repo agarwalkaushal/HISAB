@@ -4,12 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.Networking.NetworkingAdapter;
 import com.fullertonfinnovatica.R;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
@@ -36,10 +40,17 @@ public class JournalRetrieve extends AppCompatActivity {
 
     List<JournalEntryModel> list;
 
+    RelativeLayout progressParent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_retrieve);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Journal</font>"));
+
+        progressParent = findViewById(R.id.progressParent);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        circularProgressBar.enableIndeterminateMode(true);
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -61,12 +72,15 @@ public class JournalRetrieve extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
+
+
                 retrieveCall = apiInterface.journalRetrieveExp(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
                 retrieveCall.enqueue(new Callback<JournalEntryListModel>() {
                     @Override
                     public void onResponse(Call<JournalEntryListModel> call, Response<JournalEntryListModel> response) {
 
+                        progressParent.setVisibility(View.GONE);
                         list = response.body().getContacts();
                         recyclerView1 = findViewById(R.id.journal_recycler);
                         dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());

@@ -64,6 +64,8 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Networking</font>"));
         recyclerView1=findViewById(R.id.networking_recycler);
 
+        //TODO: Request for network permission
+
         if (ContextCompat.checkSelfPermission(NetworkingMain.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

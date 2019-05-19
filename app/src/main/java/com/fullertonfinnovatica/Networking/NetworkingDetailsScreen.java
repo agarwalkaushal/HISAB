@@ -143,6 +143,7 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
     private void onClickCall() {
 
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + pno));
+        //TODO: Request for call permission
         startActivity(intent);
     }
 

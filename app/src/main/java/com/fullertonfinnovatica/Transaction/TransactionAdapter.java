@@ -46,6 +46,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         Log.e("From: ",modelList.getFrom());
 
+        // TODO: If cash keep cash icon or for cheque/credit make text
+
         if(modelList.getNarration().get(0).contains("purchase")){
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
         }

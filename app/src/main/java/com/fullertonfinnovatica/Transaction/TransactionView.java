@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica.Transaction;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.AccountsAPI;
@@ -15,6 +19,7 @@ import com.fullertonfinnovatica.Accounts.JournalEntryModel;
 import com.fullertonfinnovatica.Accounts.JournalRetrieveAdapter;
 import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.R;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
@@ -41,12 +46,22 @@ public class TransactionView extends AppCompatActivity {
 
     List<JournalEntryModel> list;
 
+    LinearLayout view;
+    RelativeLayout progressParent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_view);
+
+        view = findViewById(R.id.view);
+        view.setVisibility(View.GONE);
+
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+"Past Transactions"+"</font>"));
-        // TODO: View all transactions
+
+        progressParent = findViewById(R.id.progressParent);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        circularProgressBar.enableIndeterminateMode(true);
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -73,6 +88,9 @@ public class TransactionView extends AppCompatActivity {
                 retrieveCall.enqueue(new Callback<JournalEntryListModel>() {
                     @Override
                     public void onResponse(Call<JournalEntryListModel> call, Response<JournalEntryListModel> response) {
+
+                        view.setVisibility(View.VISIBLE);
+                        progressParent.setVisibility(View.GONE);
                         list = response.body().getContacts();
                         Log.e("roor", String.valueOf(list));
                         recyclerView1 = findViewById(R.id.transViewRecycler);
