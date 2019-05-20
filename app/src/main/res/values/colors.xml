@@ -24,6 +24,7 @@
     <color name="violet">#D8BFD8</color>
     <color name="black">#000000</color>
     <color name="gray">#C8969393</color>
+    <color name="dark_gray">#C8303030</color>
     <color name="transparent">#20000000</color>
 
     <color name="red_shade">#FF6F22</color>
