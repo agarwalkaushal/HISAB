@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.SignUpAPI;
 import com.fullertonfinnovatica.SignUpModel;
 import com.google.gson.JsonObject;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +59,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private double totalAmount = 0;
 
@@ -91,6 +93,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private LinearLayout commissionLayout;
     private LinearLayout creditCredentials;
     private LinearLayout subTypeNameLayout;
+
+    private RelativeLayout progressParent;
 
     private static DataAdapter dataAdapter;
 
@@ -126,9 +130,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_transaction);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
+
+        progressParent = findViewById(R.id.progressParent);
+        progressParent.setVisibility(View.GONE);
+        final CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefEditor = prefs.edit();
@@ -274,123 +281,149 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View v) {
 
-                String amt;
-
-                if (amountLayoutStatus == true) {
-                    amt = amount.getText().toString();
-                    totalAmount = Double.parseDouble(amt);
+                if (amountLayoutStatus) {
+                    if (amount.getText().toString().matches("")) {
+                        Toast.makeText(getBaseContext(), "Please enter amount and then proceed",Toast.LENGTH_SHORT).show();
+                        return;
+                    } else
+                        totalAmount = Double.parseDouble(amount.getText().toString());
+                } else if (totalAmount == 0) {
+                    Toast.makeText(getBaseContext(), "Please enter all required fields and then proceed", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 if (creditLayoutStatus == false) {
                     creditName = null;
                     creditNumber = null;
                 } else {
+
+                    if(nameCredit.getText().toString().matches(""))
+                    {
+                        nameCredit.setError("Required");
+                        return;
+                    }
+
+                    if(numberCredit.getText().toString().matches(""))
+                    {
+                        nameCredit.setError("Required");
+                        return;
+                    }
+
                     creditName = nameCredit.getText().toString();
                     creditNumber = numberCredit.getText().toString();
                 }
 
-                if(nameLayoutStatus == true)
-                {
+                if (nameLayoutStatus == true) {
+
+                    if(subTypeName.getText().toString().matches(""))
+                    {
+                        subTypeName.setError("Required");
+                        return;
+                    }
                     creditName = subTypeName.getText().toString();
                 }
 
-                Log.e("Total Amount: ", String.valueOf(totalAmount));
+                String pattern = "MM/dd/yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                final String dateee = simpleDateFormat.format(new Date());
 
-                if (totalAmount != 0) {
-                    String pattern = "MM/dd/yyyy";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                    final String dateee = simpleDateFormat.format(new Date());
+                //Toast.makeText(getBaseContext(), "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber, Toast.LENGTH_LONG).show();
+                Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
 
-                    Toast.makeText(getBaseContext(), "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber, Toast.LENGTH_LONG).show();
-                    Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
+                loginCall = apiInterface.login("demouserid", "demo");
 
-                    loginCall = apiInterface.login("demouserid", "demo");
+                progressParent.setVisibility(View.VISIBLE);
+                circularProgressBar.enableIndeterminateMode(true);
+                doneButton.setVisibility(View.GONE);
 
-                    loginCall.enqueue(new Callback<LoginModel>() {
-                        @Override
-                        public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                loginCall.enqueue(new Callback<LoginModel>() {
+                    @Override
+                    public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-                            if (typeOfTrans.contains("purchase")) {
-                                entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                                ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                                pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                                trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
 
-                            } else {
-                                entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                                ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                                pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                                trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                        modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                        if (typeOfTrans.contains("purchase")) {
+                            entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                            ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                            pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                            trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                        } else {
+                            entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                            ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                            pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                            trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
+                        }
+
+
+                        entryCall.enqueue(new Callback<JournalEntryModel>() {
+                            @Override
+                            public void onResponse(Call<JournalEntryModel> call, Response<JournalEntryModel> response) {
+                                Toast.makeText(getBaseContext(), "Entry successfully made..", Toast.LENGTH_LONG).show();
+                                finish();
                             }
 
-                            entryCall.enqueue(new Callback<JournalEntryModel>() {
-                                @Override
-                                public void onResponse(Call<JournalEntryModel> call, Response<JournalEntryModel> response) {
-                                    Toast.makeText(getBaseContext(), "Entry successfully made..", Toast.LENGTH_LONG).show();
-                                }
-                                @Override
-                                public void onFailure(Call<JournalEntryModel> call, Throwable t) {
-                                    Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
-                                }
-                            });
+                            @Override
+                            public void onFailure(Call<JournalEntryModel> call, Throwable t) {
+                                Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
+                                doneButton.setVisibility(View.VISIBLE);
+                                progressParent.setVisibility(View.GONE);
+                            }
+                        });
 
-                            ledgerPostCall.enqueue(new Callback<JsonObject>() {
-                                @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    Log.e("apiCheck", "Ledger post success");
-                                }
+                        ledgerPostCall.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                Log.e("apiCheck", "Ledger post success");
+                            }
 
-                                @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Log.e("apiCheck", "Ledger post fail " + t.toString());
-                                }
-                            });
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                Log.e("apiCheck", "Ledger post fail " + t.toString());
+                            }
+                        });
 
-                            pnlPostCall.enqueue(new Callback<JsonObject>() {
-                                @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    Log.e("apiCheck", "P&L post success");
-                                }
+                        pnlPostCall.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                Log.e("apiCheck", "P&L post success");
+                            }
 
-                                @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Log.e("apiCheck", "P&L post fail "+t.toString());
-                                }
-                            });
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                Log.e("apiCheck", "P&L post fail " + t.toString());
+                            }
+                        });
 
-                            trialPostCall.enqueue(new Callback<JsonObject>() {
-                                @Override
-                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                    Log.e("apiCheck", "Trial post success");
-                                }
+                        trialPostCall.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                Log.e("apiCheck", "Trial post success");
+                            }
 
-                                @Override
-                                public void onFailure(Call<JsonObject> call, Throwable t) {
-                                    Log.e("apiCheck", "Trial post fail "+t.toString());
-                                }
-                            });
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                Log.e("apiCheck", "Trial post fail " + t.toString());
+                            }
+                        });
 
-                        }
+                    }
 
-                        @Override
-                        public void onFailure(Call<LoginModel> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<LoginModel> call, Throwable t) {
 
-                        }
-                    });
+                    }
+                });
 
-                    finish();
+                //finish();
 
-                }
-                else
-                    Toast.makeText(getBaseContext(), "Please enter all required fields or press back to exit", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -453,7 +486,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
-                credit = false;
+                credit = true;
 
                 typeOfTrans = "Purchase";
 
@@ -467,7 +500,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
-                credit = false;
+                credit = true;
 
                 typeOfTrans = "Sale";
 
@@ -481,7 +514,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
-                credit = false;
+                credit = true;
 
                 typeOfTrans = "Purchase Return";
 
@@ -495,13 +528,13 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
-                credit = false;
+                credit = true;
 
                 typeOfTrans = "Sale Return";
 
             } else if (pos == 4) {
 
-                Log.e("Error","Payment Done");
+                Log.e("Error", "Payment Done");
 
                 subTypeNameLayout.setVisibility(View.GONE);
                 purchaseLayout.setVisibility(View.GONE);
@@ -594,9 +627,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 purchaseLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.GONE);
                 amountLayoutStatus = false;
-            }
-            else
-            {
+            } else {
                 subTypeNameLayout.setVisibility(View.GONE);
                 purchaseLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.VISIBLE);
@@ -632,7 +663,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 }
                 break;
             case R.id.credit:
-                if (checked && credit == true) {
+                if (checked && credit) {
                     creditSelected.setText("CREDIT");
                     cashSelected.setText("");
                     creditCredentials.setVisibility(View.VISIBLE);

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Transaction.Transaction">
 
     <LinearLayout
@@ -195,7 +196,7 @@
                     android:hint="Enter name"
                     android:inputType="textCapCharacters"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
+                    android:textCursorDrawable="@drawable/cursor_design"
                     android:textSize="14sp" />
 
                 <EditText
@@ -208,7 +209,7 @@
                     android:hint="Enter Rt."
                     android:inputType="number|numberDecimal"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
+                    android:textCursorDrawable="@drawable/cursor_design"
                     android:textSize="14sp" />
 
                 <EditText
@@ -221,7 +222,7 @@
                     android:hint="Enter Qt."
                     android:inputType="number|numberDecimal"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
+                    android:textCursorDrawable="@drawable/cursor_design"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -294,6 +295,7 @@
                 android:hint="Rs."
                 android:inputType="number"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -325,6 +327,7 @@
                 android:layout_weight="1"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -429,6 +432,7 @@
                 android:layout_weight="1"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -455,6 +459,7 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
@@ -466,7 +471,27 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <Button
+
+        <RelativeLayout
+            android:id="@+id/progressParent"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/progress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cpb_background_progressbar_color="@color/gray"
+            app:cpb_background_progressbar_width="3dp"
+            app:cpb_progressbar_color="@color/black"
+            app:cpb_progressbar_width="3dp" />
+
+        </RelativeLayout>
+
+       <Button
             android:id="@+id/done"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
