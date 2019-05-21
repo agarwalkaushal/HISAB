@@ -340,7 +340,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     @Override
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-
+                        // TODO: Make entry with type and sub-type of transaction
                         if (typeOfTrans.contains("purchase")) {
                             entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);

@@ -23,6 +23,7 @@
     <color name="dark_blue">#3F51B5</color>
     <color name="violet">#D8BFD8</color>
     <color name="black">#000000</color>
+    <color name="light_gray">#DAD9D9</color>
     <color name="gray">#C8969393</color>
     <color name="dark_gray">#C8303030</color>
     <color name="transparent">#20000000</color>

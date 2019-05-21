@@ -26,6 +26,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ledgerRecycler"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
