@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ public class Ledger extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ledger);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Ledger</font>"));
 
         progressParent = findViewById(R.id.progressParent);
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);

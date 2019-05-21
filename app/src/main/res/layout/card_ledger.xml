@@ -117,10 +117,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:paddingTop="10dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
+                        android:padding="10dp"
                         android:text="Credit"
                         android:textColor="@color/black"
                         android:textStyle="italic"

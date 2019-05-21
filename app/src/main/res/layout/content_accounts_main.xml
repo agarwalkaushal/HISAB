@@ -231,85 +231,59 @@
 
         </android.support.v7.widget.CardView>
 
-        <!-- <android.support.v7.widget.CardView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="8dp"
-             android:layout_weight="1">
+        <android.support.v7.widget.CardView
+            android:id="@+id/trialBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/green_shade7"
+            card_view:cardCornerRadius="5dp">
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-                 <ImageView
-                     android:layout_width="150dp"
-                     android:layout_height="150dp"
-                     android:layout_gravity="center"
-                     android:src="@drawable/notebook2" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:src="@drawable/trial" />
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:text="Ledger" />
-             </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
 
-         </android.support.v7.widget.CardView>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trial Balance"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-         <android.support.v7.widget.CardView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Get list of all ledger accounts"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="italic" />
 
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="8dp"
-             android:layout_weight="1">
+                </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical">
+            </LinearLayout>
 
-                 <ImageView
-                     android:layout_width="150dp"
-                     android:layout_height="150dp"
-                     android:layout_gravity="center"
-                     android:src="@drawable/pnl" />
+        </android.support.v7.widget.CardView>
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:text="P&amp;L" />
-             </LinearLayout>
-
-         </android.support.v7.widget.CardView>
-
-         <android.support.v7.widget.CardView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="8dp"
-             android:layout_weight="1">
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical">
-
-                 <ImageView
-                     android:layout_width="150dp"
-                     android:layout_height="150dp"
-                     android:layout_gravity="center"
-                     android:src="@drawable/balance_sheet" />
-
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:text="Balance Sheet" />
-             </LinearLayout>
-
-         </android.support.v7.widget.CardView>-->
     </LinearLayout>
 
 </LinearLayout>
