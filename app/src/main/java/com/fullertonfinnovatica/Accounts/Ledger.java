@@ -84,12 +84,14 @@ public class Ledger extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
+                Log.e("kyu", response.toString());
                 ledgerCall = apiInterface.getLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
                 ledgerCall.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
+                        Log.e("kyu", response.toString());
                         progressParent.setVisibility(View.GONE);
                         JsonObject bodyy = response.body();
                         JsonArray ledgerAray = bodyy.getAsJsonArray("ledger");
