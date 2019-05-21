@@ -45,9 +45,11 @@ public class SplashScreen extends AppCompatActivity {
         imageView = findViewById(R.id.imgSplash);
 
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Adamcg.otf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Futura.ttf");
         hisab.setTypeface(font);
 
+        font = Typeface.createFromAsset(getAssets(), "fonts/Adamcg.otf");
+        hisabff.setTypeface(font);
 
         final TransitionSet set = new TransitionSet()
                 .addTransition(new Scale(0.7f))
