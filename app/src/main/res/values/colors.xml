@@ -45,13 +45,13 @@
     <array name="color_names">
         <item>@color/pink</item>
         <item>@color/red</item>
-        <item>@color/orange</item>
+        <item>@color/colorPrimaryDark</item>
         <item>@color/yellow</item>
         <item>@color/lemon</item>
         <item>@color/green</item>
         <item>@color/blue</item>
         <item>@color/violet</item>
-        <item>@color/gray</item>
+        <item>@color/lightGray</item>
         <item>@color/white</item>
     </array>
 </resources>

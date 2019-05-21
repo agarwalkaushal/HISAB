@@ -3,6 +3,8 @@
     <string name="app_name">HISAB</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="transaction"><font fgcolor="#111111">Transaction</font></string>
 
     <string name="cat1">Home Utilities</string>
     <string name="cat2">Grocery</string>
@@ -54,13 +56,13 @@
     <string-array name="inventory_tags">
         <item>brush</item>
         <item>groceries</item>
-        <item>fruit</item>
+        <item>diet</item>
         <item>milk_bottle</item>
         <item>om</item>
-        <item>make_up</item>
-        <item>baby_bottle</item>
+        <item>lipstick</item>
+        <item>feeding</item>
         <item>stationery</item>
-        <item>supplement</item>
+        <item>antibiotic</item>
         <item>shopping_bag</item>
     </string-array>
     <string name="title_activity_networking_shops_view_map">NetworkingShopsViewMap</string>
