@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     testImplementation 'junit:junit:4.12'
     implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
+    implementation "com.andkulikov:transitionseverywhere:1.8.1"
 }
 
 apply plugin: 'com.google.gms.google-services'
