@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/transitionContainer"
     android:background="@drawable/dashboard"
+    android:fitsSystemWindows="true"
     android:padding="10dp"
     tools:context=".SplashScreen">
 
@@ -37,7 +38,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:paddingBottom="15dp"
         android:text="HISAB"
+        android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -49,6 +52,9 @@
 
     <TextView
         android:id="@+id/hisabff"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,7 +64,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Holistic Interface for Systemizing and Analyzing Business"
-        android:textSize="18sp"
+        android:textSize="13sp"
         android:textColor="@color/dark_gray"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

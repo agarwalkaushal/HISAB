@@ -140,7 +140,7 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
 
-            Toast.makeText(getBaseContext(),latitude + ", " + longitude,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(),latitude + ", " + longitude,Toast.LENGTH_LONG).show();
 
         } else {
 

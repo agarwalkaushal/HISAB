@@ -57,6 +57,9 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(mapViewBundle);
 
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab.setVisibility(View.INVISIBLE);
 
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -84,6 +87,8 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
 
                 mapView.getMapAsync(NetworkingShopsViewMap.this);
 
+                fab.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -94,7 +99,7 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

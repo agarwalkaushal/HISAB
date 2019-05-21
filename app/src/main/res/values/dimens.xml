@@ -5,7 +5,5 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="progressBarWidth">7dp</dimen>
-    <dimen name="backgroundProgressBarWidth">3dp</dimen>
 
 </resources>
