@@ -6,11 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.fullertonfinnovatica.Login;
 import com.fullertonfinnovatica.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
@@ -39,11 +42,17 @@ public class Ledger extends AppCompatActivity {
     String account_name, balance_type, balance_amt;
     String[] debit_name, debit_amt, credit_name, credit_amt;
 
+    RelativeLayout progressParent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ledger);
+
+        progressParent = findViewById(R.id.progressParent);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        circularProgressBar.enableIndeterminateMode(true);
 
         debit_amt = new String[10000];
         debit_name = new String[10000];
@@ -79,6 +88,7 @@ public class Ledger extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
+                        progressParent.setVisibility(View.GONE);
                         JsonObject bodyy = response.body();
                         JsonArray ledgerAray = bodyy.getAsJsonArray("ledger");
                         for (int i = 0; i<ledgerAray.size(); i++) {
@@ -127,10 +137,12 @@ public class Ledger extends AppCompatActivity {
                             model.setCredit_name(credit_name);
                             model.setDebit_amt(debit_amt);
                             model.setDebit_name(debit_name);
+                            model.setDebitSize(debitsArray.size());
+                            model.setCreditSize(creditsArray.size());
 
                             ledgerList.add(model);
 
-//                            Log.e("blabla", balance_amt + balance_type);
+                            Log.e("blabla", balance_amt + balance_type);
 
                         }
 
@@ -144,6 +156,8 @@ public class Ledger extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
 
+                        Log.e("blabla", t.toString());
+
                     }
                 });
 
@@ -151,6 +165,8 @@ public class Ledger extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
+
+                Log.e("blabla", t.toString());
 
             }
         });

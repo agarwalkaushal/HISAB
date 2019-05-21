@@ -86,7 +86,7 @@ public class JournalRetrieve extends AppCompatActivity {
                         dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                         recyclerView1.setAdapter(dataAdapter);
-                        Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
+//                        Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
 
 
                     }

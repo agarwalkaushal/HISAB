@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Accounts.Ledger">
 
+    <RelativeLayout
+        android:id="@+id/progressParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cpb_background_progressbar_color="@color/colorPrimaryLight"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progressbar_color="@color/colorPrimaryDark"
+            app:cpb_progressbar_width="7dp" />
+
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ledgerRecycler"
         android:layout_width="match_parent"

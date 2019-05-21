@@ -4,6 +4,23 @@ public class LedgerModel {
 
     String account_name, balance_type, balance_amt;
     String[] debit_name, debit_amt, credit_name, credit_amt;
+    int debitSize, creditSize;
+
+    public int getDebitSize() {
+        return debitSize;
+    }
+
+    public void setDebitSize(int debitSize) {
+        this.debitSize = debitSize;
+    }
+
+    public int getCreditSize() {
+        return creditSize;
+    }
+
+    public void setCreditSize(int creditSize) {
+        this.creditSize = creditSize;
+    }
 
     public String getAccount_name() {
         return account_name;
