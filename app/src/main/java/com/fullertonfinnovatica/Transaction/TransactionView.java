@@ -34,7 +34,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TransactionView extends AppCompatActivity {
+public class
+TransactionView extends AppCompatActivity {
 
     Call<JournalEntryListModel> retrieveCall;
     Call<LoginModel> loginCall;
@@ -92,7 +93,6 @@ public class TransactionView extends AppCompatActivity {
                         view.setVisibility(View.VISIBLE);
                         progressParent.setVisibility(View.GONE);
                         list = response.body().getContacts();
-                        Log.e("roor", String.valueOf(list));
                         recyclerView1 = findViewById(R.id.transViewRecycler);
                         dataAdapter = new TransactionAdapter(list, getBaseContext());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -103,7 +103,8 @@ public class TransactionView extends AppCompatActivity {
                     public void onFailure(Call<JournalEntryListModel> call, Throwable t) {
 
                         //Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
-                        Log.e("roor", t.toString());
+                        Toast.makeText(getBaseContext(), "Please try again! Error retrieving data", Toast.LENGTH_SHORT).show();
+                        finish();
 
                     }
                 });

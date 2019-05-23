@@ -24,6 +24,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.AccountsMain;
 import com.fullertonfinnovatica.Analytics.AnalyticsMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
@@ -169,7 +170,7 @@ public class Dashboard extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notifications) {
-            //TODO: Notifications View, activity not created
+            //TODO: View Notifications
             Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -186,11 +187,11 @@ public class Dashboard extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
-            // TODO: Intent to Accounts activity, package created but not activity
-            Toast.makeText(this, "Accounts", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AccountsMain.class);
+            this.startActivity(intent);
 
         } else if (id == R.id.nav_finance) {
-            // TODO: Intent to Finances activity, package created but not activity
+            // TODO: Finance Module
             Toast.makeText(this, "Finance", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_inventory) {

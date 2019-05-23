@@ -86,15 +86,15 @@ public class JournalRetrieve extends AppCompatActivity {
                         dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                         recyclerView1.setAdapter(dataAdapter);
-//                        Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
-
-
+                        //Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
                     }
 
                     @Override
                     public void onFailure(Call<JournalEntryListModel> call, Throwable t) {
 
-                        Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Please try again! Error retrieving data", Toast.LENGTH_SHORT).show();
+                        finish();
 
                     }
                 });

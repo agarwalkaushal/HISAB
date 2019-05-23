@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fullertonfinnovatica.Accounts.JournalEntryModel;
@@ -44,13 +45,23 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
 
-        Log.e("From: ",modelList.getFrom());
+        String typeOfTransaction = modelList.getFrom();
+        String subTypeOfTransaction = modelList.getNarration().get(0).
+                substring(modelList.getNarration().get(0).indexOf(":")+1);
 
-        // TODO: If cash keep cash icon or for cheque/credit make text
+        //Log.e("Conditions: ",modelList.getTo()+":"+typeOfTransaction+":"+subTypeOfTransaction);
 
-        if(modelList.getNarration().get(0).contains("purchase")){
+        if(modelList.getTo() == "cash")
+            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.funds));
+        else if(modelList.getTo() == "credit")
+            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.credit));
+        else
+            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.cheque));
+
+        if(typeOfTransaction=="purchase" || typeOfTransaction=="sale return" || typeOfTransaction=="payment done" || (typeOfTransaction=="commission" && subTypeOfTransaction=="Given" ) )
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
-        }
+        else
+            recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.green_orignal));
 
     }
 
@@ -61,12 +72,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView date, credit;
+        ImageView modeOfTransaction;
 
         public RecyclerViewHolder(View view) {
             super(view);
 
             date = view.findViewById(R.id.date);
             credit = view.findViewById(R.id.credit);
+            modeOfTransaction = view.findViewById(R.id.modeOfTransaction);
 
         }
     }

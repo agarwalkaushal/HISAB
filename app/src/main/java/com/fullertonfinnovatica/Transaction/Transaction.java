@@ -59,7 +59,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class
+Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private double totalAmount = 0;
 
@@ -340,6 +341,17 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     @Override
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
+                        entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount),
+                                String.valueOf((int) totalAmount), creditName+":"+subType);
+                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                        /*
                         // TODO: Make entry with type and sub-type of transaction
                         if (typeOfTrans.contains("purchase")) {
                             entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
@@ -361,6 +373,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, "Sales", dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
                         }
+                        */
 
 
                         entryCall.enqueue(new Callback<JournalEntryModel>() {

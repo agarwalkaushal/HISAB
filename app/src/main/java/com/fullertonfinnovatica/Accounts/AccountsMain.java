@@ -15,7 +15,7 @@ import com.fullertonfinnovatica.R;
 
 public class AccountsMain extends AppCompatActivity {
 
-    CardView journalCard, ledgerCard, pnlCard, balanceSheetCard;
+    CardView journalCard, ledgerCard, pnlCard, balanceSheetCard, trialCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,14 @@ public class AccountsMain extends AppCompatActivity {
         ledgerCard = findViewById(R.id.ledger);
         pnlCard = findViewById(R.id.pnl);
         balanceSheetCard = findViewById(R.id.balanceSheet);
+        trialCard = findViewById(R.id.trialBalance);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-            Intent intent = new Intent(getBaseContext(), JournalRetrieve.class);
-            startActivity(intent);
+                //TODO: Do adjustments
 
             }
         });
@@ -79,6 +79,15 @@ public class AccountsMain extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), BalanceSheet.class);
                 startActivity(intent);
+
+            }
+        });
+
+        trialCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // TODO: Show trial balance
 
             }
         });
