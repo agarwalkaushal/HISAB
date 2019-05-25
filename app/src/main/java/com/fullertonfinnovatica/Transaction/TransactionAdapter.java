@@ -41,24 +41,25 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull TransactionAdapter.RecyclerViewHolder recyclerViewHolder, int i) {
 
         JournalEntryModel modelList = list.get(i);
+        String typeOfTransaction = modelList.getFrom().toLowerCase().trim();
+
 
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
 
-        String typeOfTransaction = modelList.getFrom();
         String subTypeOfTransaction = modelList.getNarration().get(0).
                 substring(modelList.getNarration().get(0).indexOf(":")+1);
 
         //Log.e("Conditions: ",modelList.getTo()+":"+typeOfTransaction+":"+subTypeOfTransaction);
 
-        if(modelList.getTo() == "cash")
+        if(modelList.getTo().toLowerCase().equals("cash"))
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.funds));
-        else if(modelList.getTo() == "credit")
+        else if(modelList.getTo().toLowerCase().equals("credit"))
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.credit));
         else
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.cheque));
 
-        if(typeOfTransaction=="purchase" || typeOfTransaction=="sale return" || typeOfTransaction=="payment done" || (typeOfTransaction=="commission" && subTypeOfTransaction=="Given" ) )
+        if(typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sale return") || typeOfTransaction.contains("payment done") || (typeOfTransaction.contains("commission") && subTypeOfTransaction.contains("Given" )) )
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
         else
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.green_orignal));
@@ -79,7 +80,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
             date = view.findViewById(R.id.date);
             credit = view.findViewById(R.id.credit);
-            modeOfTransaction = view.findViewById(R.id.modeOfTransaction);
+            modeOfTransaction = view.findViewById(R.id.mmode);
 
         }
     }
