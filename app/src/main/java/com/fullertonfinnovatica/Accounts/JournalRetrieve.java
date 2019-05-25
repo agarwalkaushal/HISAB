@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
@@ -57,6 +58,8 @@ public class JournalRetrieve extends AppCompatActivity {
 
         OkHttpClient cleint = new OkHttpClient.Builder()
                 .cookieJar(new JavaNetCookieJar(cookieManager))
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder().baseUrl(AccountsAPI.BASE_URL)
@@ -92,6 +95,7 @@ public class JournalRetrieve extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<JournalEntryListModel> call, Throwable t) {
 
+                        Log.e("njnj", t.toString());
                         //Toast.makeText(getBaseContext(), t.toString(), Toast.LENGTH_LONG).show();
                         Toast.makeText(getBaseContext(), "Please try again! Error retrieving data", Toast.LENGTH_SHORT).show();
                         finish();
