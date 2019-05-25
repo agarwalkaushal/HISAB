@@ -72,8 +72,15 @@
 
         </android.support.v7.widget.RecyclerView>
 
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/progressParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:id="@+id/progress"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -82,7 +89,7 @@
             app:cpb_progressbar_color="@color/colorPrimaryDark"
             app:cpb_progressbar_width="7dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

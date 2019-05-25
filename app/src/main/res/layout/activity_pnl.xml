@@ -162,6 +162,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:background="@drawable/border_bottom"
                                 android:id="@+id/totalPurchaseReturn"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -324,6 +325,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:background="@drawable/border_bottom"
                                 android:id="@+id/totalSalesReturn"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -333,7 +335,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
-                                android:id="@+id/differnceSales"
+                                android:id="@+id/differenceSales"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -705,6 +707,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
+                                android:textStyle="bold"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
 
@@ -937,6 +940,7 @@
                                 android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="Net Loss"
+                                android:textStyle="bold"
                                 android:textColor="@color/black" />
 
                             <TextView

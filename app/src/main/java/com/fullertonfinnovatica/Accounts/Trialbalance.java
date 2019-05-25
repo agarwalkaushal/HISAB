@@ -3,12 +3,14 @@ package com.fullertonfinnovatica.Accounts;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.RelativeLayout;
 
 import com.fullertonfinnovatica.R;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class Trialbalance extends AppCompatActivity {
 
+    RelativeLayout progressParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,8 @@ public class Trialbalance extends AppCompatActivity {
 
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
         circularProgressBar.enableIndeterminateMode(true);
+
+        progressParent = findViewById(R.id.progressParent);
 
     }
 }
