@@ -1,7 +1,9 @@
 package com.fullertonfinnovatica.Accounts;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 
@@ -11,6 +13,7 @@ import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -34,6 +37,11 @@ public class Pnl extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnl);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Trading / Profit & Loss</font>"));
+
+        Intent intent = getIntent();
+
+        ArrayList<String> adjustments = intent.getStringArrayListExtra("Adjustments");
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);

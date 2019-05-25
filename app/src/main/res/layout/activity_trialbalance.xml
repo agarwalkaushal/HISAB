@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Accounts.Trialbalance">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="@drawable/border_purchase"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Account Title"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"/>
+
+
+            <TextView
+                android:padding="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Debit"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"/>
+
+            <TextView
+                android:padding="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Credit"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/journal_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cpb_background_progressbar_color="@color/colorPrimaryLight"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progressbar_color="@color/colorPrimaryDark"
+            app:cpb_progressbar_width="7dp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

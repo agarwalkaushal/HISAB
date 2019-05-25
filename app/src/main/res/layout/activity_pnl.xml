@@ -1,9 +1,984 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Accounts.Pnl">
+    android:layout_height="wrap_content"
 
-</android.support.constraint.ConstraintLayout>
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="Trading Account"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            card_view:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_bottom"
+                            android:padding="10dp"
+                            android:text="Debit"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_bottom">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="Particulars"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="Amt."
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="Amt."
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="To Opening Stock"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/os"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="1000"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="To Purchase"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalPurchase"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="500"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="(-) Purchase Return"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalPurchaseReturn"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="200"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/differencePurchase"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="300"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/grossprofittext1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/grossprofitvalue1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/maxAmount1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/border_top_bottom"
+                            android:padding="10dp"
+                            android:text="Rs. 1300"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/dark_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_bottom"
+                            android:padding="10dp"
+                            android:text="Credit"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_bottom">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="Particulars"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="Amt."
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="Amt."
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="By Sales"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalSales"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="350"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="(-) Sales Return"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalSalesReturn"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="150"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/differnceSales"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="200"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="By Closing Stock"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/cs"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="600"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/grosslosstext1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:padding="5dp"
+                                android:text="Gross Loss"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text=""
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/grosslossvalue1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="500"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/maxAmount2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/border_top_bottom"
+                            android:padding="10dp"
+                            android:text="Rs. 1300"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="Profit &amp; Loss Account"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            card_view:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/grosslosstext2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Gross Loss"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/grosslossvalue2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="500"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/rentText1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Rent"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalRent1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="250"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/commissionText1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Commission"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalCommission1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="100"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/discountText1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalDiscount1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Salaries"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalSalaries"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="500"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Depreciaion on Machinery"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/dm"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="250"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Bad Debts"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/bd"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="150"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Discount on Debtors"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/dd"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="100"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Interest on Capital"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/ic"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="300"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="To Interest on Bank Loan"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/ibl"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="65"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/netprofittext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/netprofitvalue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:id="@+id/maxAmount3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_gravity="end|right"
+                                android:gravity="right"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/border_top_bottom"
+                                android:padding="10dp"
+                                android:text="Rs. 2215"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/dark_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/grossprofittext2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/grossprofitvalue2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/rentText2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalRent2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/commissionText2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalCommission2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/discountText2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="By Discount"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/totalDiscount2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="210"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="By Discount by Creditors"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/dc"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="60"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="By Interest on Investment"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/ii"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="175"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="By Interest on Drawing Loan"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/idl"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="85"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/netlosstext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:padding="5dp"
+                                android:text="Net Loss"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/netlossvalue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:text="1685"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <TextView
+                                android:id="@+id/maxAmount4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_gravity="end|right"
+                                android:gravity="right"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/border_top_bottom"
+                                android:padding="10dp"
+                                android:text="Rs. 2215"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</ScrollView>

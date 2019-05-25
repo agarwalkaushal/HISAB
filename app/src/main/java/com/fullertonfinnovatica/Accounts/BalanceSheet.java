@@ -2,6 +2,7 @@ package com.fullertonfinnovatica.Accounts;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 
@@ -34,6 +35,8 @@ public class BalanceSheet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_sheet);
+
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Balance Sheet</font>"));
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);

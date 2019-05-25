@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Opening Stock"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/os"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Closing Stock"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/cs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Capital"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/cap"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Bank loans"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/bl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Investment"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/inv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Machinery Cost"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/mc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Bad debts"
+            android:textSize="@dimen/text_adjustment"/>
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/bd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Depreciation Machinery at Rate (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/mr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Discount on Debtors (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/dd"
+            android:maxLength="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Discount on Creditors (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/dc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="2"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Interest on Capital (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/ic"
+            android:maxLength="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Interest on Bank Loans (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/ibl"
+            android:maxLength="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Interest on Drawings (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/id"
+            android:maxLength="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:text="Interest on Investment (%)"
+            android:textSize="@dimen/text_adjustment" />
+
+        <EditText
+            android:text="0"
+            android:background="@drawable/border_purchase"
+            android:padding="5dp"
+            android:id="@+id/ii"
+            android:maxLength="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="@dimen/text_adjustment"
+            android:gravity="center"
+            android:textCursorDrawable="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+</LinearLayout>

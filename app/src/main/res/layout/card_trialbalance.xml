@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/accountName"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="Cash"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray"/>
+
+    <TextView
+        android:id="@+id/debitAmount"
+        android:padding="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1000"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray"/>
+
+    <TextView
+        android:id="@+id/creditAmount"
+        android:padding="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1000"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+</LinearLayout>
