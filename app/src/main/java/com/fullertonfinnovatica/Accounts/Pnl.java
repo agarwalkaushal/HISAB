@@ -3,9 +3,11 @@ package com.fullertonfinnovatica.Accounts;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
@@ -48,11 +50,15 @@ public class Pnl extends AppCompatActivity {
     List<Integer> debitAmountsPnl;
     List<Integer> creditAmountsPnl;
 
+    CardView balanceSheetCard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnl);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Trading / Profit & Loss</font>"));
+
+        balanceSheetCard = findViewById(R.id.balanceSheet);
 
         debitAmountsPnl = new ArrayList<Integer>();
         creditAmountsPnl = new ArrayList<Integer>();
@@ -212,6 +218,15 @@ public class Pnl extends AppCompatActivity {
             maxAmount4.setText(String.valueOf(creditSideTotalPnl));
         }
 
+        balanceSheetCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // TODO
+
+            }
+        });
+
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
@@ -275,5 +290,7 @@ public class Pnl extends AppCompatActivity {
         Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
         return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
     }
+
+
 
 }

@@ -26,7 +26,7 @@ import java.util.List;
 
 public class AccountsMain extends AppCompatActivity {
 
-    CardView journalCard, ledgerCard, pnlCard, balanceSheetCard, trialCard;
+    CardView journalCard, ledgerCard, pnlCard, trialCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class AccountsMain extends AppCompatActivity {
         journalCard = findViewById(R.id.journal);
         ledgerCard = findViewById(R.id.ledger);
         pnlCard = findViewById(R.id.pnl);
-        balanceSheetCard = findViewById(R.id.balanceSheet);
+
         trialCard = findViewById(R.id.trialBalance);
 
         journalCard.setOnClickListener(new View.OnClickListener() {
@@ -68,15 +68,6 @@ public class AccountsMain extends AppCompatActivity {
             public void onClick(View v) {
 
                 adjustmentsDialog("Pnl");
-
-            }
-        });
-
-        balanceSheetCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                adjustmentsDialog("BalanceSheet");
 
             }
         });
