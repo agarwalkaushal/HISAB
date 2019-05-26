@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
@@ -20,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.R;
 
 import org.json.JSONException;
@@ -27,7 +30,13 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +44,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class InventoryAdd extends AppCompatActivity implements Callback<InventoryModel> {
+public class InventoryAdd extends AppCompatActivity{
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
@@ -44,7 +53,9 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
     Button add;
     String product_name, product_qty, product_cost, product_cat,product_thrld;
     InventoryAPI apiInterface;
-    JSONObject paramObject;
+    Retrofit retrofit;
+    Call<LoginModel> loginCall;
+    Call<InventoryModel> inventoryCall;
     View rootLayout;
     RadioButton ed_product_cat;
     RadioGroup product_category;
@@ -61,6 +72,24 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Add Product</font>"));
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final SharedPreferences.Editor prefEditor = prefs.edit();
+
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+        OkHttpClient cleint = new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(cookieManager))
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .build();
+
+        retrofit = new Retrofit.Builder().baseUrl(InventoryAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(cleint)
+                .build();
+
+        apiInterface = retrofit.create(InventoryAPI.class);
+
+        loginCall = apiInterface.login("demoadminid", "demo");
 
         rootLayout = findViewById(R.id.add);
         ed_product_cost = findViewById(R.id.product_rate);
@@ -94,14 +123,6 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
             rootLayout.setVisibility(View.VISIBLE);
         }
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(InventoryAPI.BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        apiInterface = retrofit.create(InventoryAPI.class);
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +142,7 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
 
                     if(i.compareTo(ed_product_cat.getText().toString())==0)
                     {
-                        product_cat = inventoryTags[c];
+                        product_cat = inventoryCategories[c];
                         c=0;
                         break;
                     }
@@ -129,31 +150,50 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
                 }
 
                 //TODO: Sent data
+                loginCall.enqueue(new Callback<LoginModel>() {
+                    @Override
+                    public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+
+                        inventoryCall = apiInterface.postInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                product_name, product_cat, product_qty + "|/|" + product_thrld, product_cost);
+
+                        inventoryCall.enqueue(new Callback<InventoryModel>() {
+                            @Override
+                            public void onResponse(Call<InventoryModel> call, Response<InventoryModel> response) {
+
+                                if(response.code() == 200){
+                                    Toast.makeText(getBaseContext(), "Inventory updated!", Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                                else
+                                    Log.e("mana", response.toString());
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<InventoryModel> call, Throwable t) {
+
+                                Log.e("mana", t.toString());
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginModel> call, Throwable t) {
+
+                    }
+                });
 
                 //Storing Inventory names in disk
                 String product = prefs.getString("products","Milk,");
                 product = product + product_name + ",";
                 prefEditor.putString("products",product);
                 prefEditor.commit();
-                finish();
             }
         });
 
-        try {
-            paramObject = new JSONObject();
-            paramObject.put("inventory_name", product_name);
-            paramObject.put("inventory_category", product_category);
-            paramObject.put("inventory_cost", product_cost);
-            paramObject.put("inventory_qty",product_qty);
-
-            Call<InventoryModel> userCall = apiInterface.getUser(paramObject.toString());
-            userCall.enqueue(this);
-            Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     protected void revealActivity(int x, int y) {
@@ -174,22 +214,15 @@ public class InventoryAdd extends AppCompatActivity implements Callback<Inventor
         }
     }
 
-
-    @Override
-    public void onResponse(Call<InventoryModel> call, Response<InventoryModel> response) {
-    }
-
-    @Override
-    public void onFailure(Call<InventoryModel> call, Throwable t) {
-    }
-
-
-    void apiCall(JSONObject j){
-
-        Call<InventoryModel> userCall = apiInterface.getUser(j.toString());
-        userCall.enqueue(this);
-        Toast.makeText(getBaseContext(), "Sent data", Toast.LENGTH_LONG).show();
-
+    public static String getAuthToken(String userName, String password) {
+        byte[] data = new byte[0];
+        try {
+            data = (userName + ":" + password).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
+        return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
     }
 
 }

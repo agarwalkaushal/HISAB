@@ -2,15 +2,15 @@ package com.fullertonfinnovatica.Inventory;
 
 public class InventoryModel {
 
-    String mobile_no, inventory_category, inventory_name, inventory_qty, inventory_cost;
+    String inventory_category, inventory_name, inventory_qty, inventory_cost;
 
-    public String getMobile_no() {
-        return mobile_no;
-    }
-
-    public void setMobile_no(String mobile_no) {
-        this.mobile_no = mobile_no;
-    }
+//    public String getMobile_no() {
+//        return mobile_no;
+//    }
+//
+//    public void setMobile_no(String mobile_no) {
+//        this.mobile_no = mobile_no;
+//    }
 
     public String getInventory_category() {
         return inventory_category;

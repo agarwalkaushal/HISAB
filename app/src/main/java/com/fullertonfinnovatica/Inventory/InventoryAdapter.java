@@ -30,7 +30,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_networking, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_inventory, viewGroup, false);
         InventoryAdapter.RecyclerViewHolder recyclerViewHolder = new InventoryAdapter.RecyclerViewHolder(view);
         return recyclerViewHolder;
     }
@@ -41,8 +41,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
         InventoryModel modelList = list.get(i);
 
         recyclerViewHolder.name.setText(modelList.getInventory_name());
-        recyclerViewHolder.dist.setText(modelList.getInventory_cost());
-
+        recyclerViewHolder.cost.setText("₹ " + modelList.getInventory_cost());
+        recyclerViewHolder.qty.setText(modelList.getInventory_qty());
 
 
     }
@@ -54,12 +54,13 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
 
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        TextView name,dist,desc;
+        TextView name,qty,cost;
 
         public RecyclerViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.shop_name);
-            dist= (TextView) view.findViewById(R.id.distance);
+            name = (TextView) view.findViewById(R.id.prodName);
+            qty= (TextView) view.findViewById(R.id.prodqty);
+            cost = view.findViewById(R.id.prodCost);
 
         }
     }

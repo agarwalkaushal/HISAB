@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,15 +17,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.AccountsAPI;
+import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Networking.NetworkingAPI;
 import com.fullertonfinnovatica.Networking.NetworkingAdapter;
 import com.fullertonfinnovatica.Networking.NetworkingModel;
 import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.Transaction.Transaction;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,14 +44,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InventoryView extends AppCompatActivity {
 
-    LinearLayout items;
-    LinearLayout emptyInventory;
+
     RecyclerView recyclerView1;
     TextView inventoryEmpty;
     InventoryAdapter dataAdapter;
-    Call<List<InventoryModel>> call;
+    InventoryModel inventoryModel;
+    Call<LoginModel> loginCall;
+    Call<JsonArray> inventoryCall;
     List<InventoryModel> filtered_list = new ArrayList<>();
-    InventoryAPI inventoryAPI;
+    InventoryAPI apiInterface;
     Retrofit retrofit;
 
     List<InventoryModel> list;
@@ -55,38 +67,101 @@ public class InventoryView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
 
-        name = getIntent().getStringExtra("Inventory name");
-        Log.e("Name",name);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
-        items = findViewById(R.id.items);
-        emptyInventory = findViewById(R.id.emptyInventory);
-
-        if(name.equals("Grocery"))
-        {
-                emptyInventory.setVisibility(View.GONE);
-            items.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            emptyInventory.setVisibility(View.VISIBLE);
-            items.setVisibility(View.GONE);
-        }
-
-        /*
         type = getIntent().getStringExtra("Inventory type");
         name = getIntent().getStringExtra("Inventory name");
 
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>"+name+"</font>"));
+        list = new ArrayList<>();
+
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+        OkHttpClient cleint = new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(cookieManager))
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .build();
+
+        retrofit = new Retrofit.Builder().baseUrl(InventoryAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(cleint)
+                .build();
+
+        apiInterface = retrofit.create(InventoryAPI.class);
+
+        loginCall = apiInterface.login("demoadminid", "demo");
+
+        loginCall.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+
+                inventoryCall = apiInterface.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
+
+                inventoryCall.enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+
+                        JsonArray bodyy = response.body();
+
+                        for (int i = 0; i<bodyy.size(); i++) {
+
+                            inventoryModel = new InventoryModel();
+                            JsonObject jsonObject = (JsonObject) bodyy.get(i);
+
+                            if(jsonObject.get("inventory_category").toString().toLowerCase().equals(name.toLowerCase())) {
+                                inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
+                                inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
+                                inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
+                                inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
+                                list.add(inventoryModel);
+                            }
+
+                            if(list.size() != 0){
+                                recyclerView1 = findViewById(R.id.recycler_inventory);
+                                dataAdapter = new InventoryAdapter(list, getBaseContext());
+                                recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                                recyclerView1.setAdapter(dataAdapter);
+                            }
+
+                            else{
+                                recyclerView1 = findViewById(R.id.recycler_inventory);
+                                recyclerView1.setVisibility(View.GONE);
+                                ImageView emptyImg = findViewById(R.id.imageView2);
+                                TextView emptyTxt = findViewById(R.id.inventoryEmpty);
+                                emptyImg.setVisibility(View.VISIBLE);
+                                emptyTxt.setVisibility(View.VISIBLE);
+                            }
+
+                        }
 
 
-        recyclerView1 = findViewById(R.id.recycler_inventory);
-        emptyInventory = findViewById(R.id.emptyInventory);
-        inventoryEmpty = findViewById(R.id.inventoryEmpty);
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/COMIC.TTF");
-        inventoryEmpty.setTypeface(font);
+                        Log.e("Pata", bodyy.toString());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+
+                        Log.e("Pata", t.toString());
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+
+                Log.e("Pata", t.toString());
+
+            }
+        });
+
+//        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/COMIC.TTF");
 
         //Condition that inventory is empty
-        recyclerView1.setVisibility(View.INVISIBLE);
-        */
+        //recyclerView1.setVisibility(View.INVISIBLE);
+
 
         /*else
 
@@ -152,4 +227,16 @@ public class InventoryView extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static String getAuthToken(String userName, String password) {
+        byte[] data = new byte[0];
+        try {
+            data = (userName + ":" + password).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
+        return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
+    }
+
 }
