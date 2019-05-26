@@ -95,18 +95,11 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="To Opening Stock"
                                 android:textColor="@color/black" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/os"
@@ -190,19 +183,11 @@
                                 android:id="@+id/grossprofittext1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text=""
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/grossprofitvalue1"
@@ -215,18 +200,26 @@
 
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
                         <TextView
                             android:id="@+id/maxAmount1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end|bottom|right"
                             android:layout_margin="10dp"
                             android:background="@drawable/border_top_bottom"
                             android:padding="10dp"
+                            android:gravity="right"
                             android:text="Rs. 1300"
                             android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        </RelativeLayout>
 
                     </LinearLayout>
 
@@ -351,17 +344,9 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="By Closing Stock"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
                                 android:textColor="@color/black" />
 
                             <TextView
@@ -383,19 +368,12 @@
                                 android:id="@+id/grosslosstext1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="Gross Loss"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/grosslossvalue1"
@@ -408,18 +386,26 @@
 
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
                         <TextView
                             android:id="@+id/maxAmount2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="right|end|bottom"
                             android:layout_margin="10dp"
+                            android:gravity="right"
                             android:background="@drawable/border_top_bottom"
                             android:padding="10dp"
                             android:text="Rs. 1300"
                             android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        </RelativeLayout>
 
 
                     </LinearLayout>
@@ -732,9 +718,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
                                 android:layout_gravity="end|right"
-                                android:gravity="right"
                                 android:layout_margin="10dp"
                                 android:background="@drawable/border_top_bottom"
+                                android:gravity="right"
                                 android:padding="10dp"
                                 android:text="Rs. 2215"
                                 android:textColor="@color/black"

@@ -88,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Enter 10 digit number"
+                android:maxLength="10"
                 android:inputType="phone"
                 android:paddingTop="4dp"
                 android:paddingBottom="2dp"
@@ -126,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Business address"
-                android:inputType="textMultiLine"
+                android:inputType="textMultiLine|textCapWords"
                 android:theme="@style/Theme.App.Base" />
 
         </android.support.design.widget.TextInputLayout>

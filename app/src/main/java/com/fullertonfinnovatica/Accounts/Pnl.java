@@ -240,10 +240,10 @@ public class Pnl extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        JsonObject body = response.body();
-                        profit = String.valueOf(body.get("profit"));
-                        loss = String.valueOf(body.get("loss"));
-                        Log.e("nana", profit + "   " + loss);
+//                        JsonObject body = response.body();
+//                        profit = String.valueOf(body.get("profit"));
+//                        loss = String.valueOf(body.get("loss"));
+//                        Log.e("nana", profit + "   " + loss);
 
 
                     }
