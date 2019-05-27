@@ -47,7 +47,7 @@ public class Dashboard extends AppCompatActivity
     private CardView support;
     private CardView messages;
     private ActionMode mActionMode;
-
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         FirebaseApp.initializeApp(this);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("login",false)==false){
             prefs.edit().putBoolean("login",true).apply();
         }
@@ -147,11 +147,7 @@ public class Dashboard extends AppCompatActivity
             }
         });
 
-        businessName = prefs.getString("name","User");
-        phoneNumber = prefs.getString("number","Mobile");
-
-        businessname.setText(businessName);
-        phonenumber.setText("+91-" + phoneNumber);
+       changeUserData();
     }
 
     @Override
@@ -203,12 +199,12 @@ public class Dashboard extends AppCompatActivity
             this.startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
-            // TODO: Open Profile activity
-            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Profile.class);
+            this.startActivity(intent);
 
         }else if (id == R.id.nav_general) {
             // TODO: Open Settings activity
-            Toast.makeText(this, "General", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "General Settings", Toast.LENGTH_SHORT).show();
 
         }  else if (id == R.id.nav_singout) {
 
@@ -222,5 +218,20 @@ public class Dashboard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changeUserData();
+
+    }
+
+    private void changeUserData()
+    {
+        businessName = prefs.getString("name","User");
+        phoneNumber = prefs.getString("number","0000000000");
+        businessname.setText(businessName);
+        phonenumber.setText("+91-" + phoneNumber);
     }
 }

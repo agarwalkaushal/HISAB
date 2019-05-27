@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:text="Trading Account"
             android:textColor="@color/black"
@@ -55,12 +55,12 @@
                             android:padding="10dp"
                             android:text="Debit"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
                             android:textStyle="italic" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:background="@drawable/border_bottom">
 
                             <TextView
@@ -90,23 +90,18 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Opening Stock"
                                 android:textColor="@color/black" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/os"
@@ -114,6 +109,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="1000"
                                 android:textColor="@color/black" />
 
@@ -121,13 +117,15 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Purchase"
                                 android:textColor="@color/black" />
 
@@ -137,6 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="500"
                                 android:textColor="@color/black" />
 
@@ -145,19 +144,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text=""
                                 android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="(-) Purchase Return"
                                 android:textColor="@color/black" />
 
@@ -168,6 +170,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="200"
                                 android:textColor="@color/black" />
 
@@ -178,31 +181,26 @@
                                 android:layout_weight="1"
                                 android:padding="5dp"
                                 android:text="300"
+                                android:textSize="12sp"
                                 android:textColor="@color/black" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:id="@+id/grossprofittext1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text=""
+                                android:textSize="12sp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/grossprofitvalue1"
@@ -210,23 +208,32 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text=""
                                 android:textColor="@color/black" />
 
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
                         <TextView
                             android:id="@+id/maxAmount1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end|bottom|right"
                             android:layout_margin="10dp"
                             android:background="@drawable/border_top_bottom"
                             android:padding="10dp"
+                            android:gravity="right"
                             android:text="Rs. 1300"
                             android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        </RelativeLayout>
 
                     </LinearLayout>
 
@@ -248,12 +255,12 @@
                             android:padding="10dp"
                             android:text="Credit"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
                             android:textStyle="italic" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:background="@drawable/border_bottom">
 
                             <TextView
@@ -283,13 +290,15 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="By Sales"
                                 android:textColor="@color/black" />
 
@@ -299,6 +308,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="350"
                                 android:textColor="@color/black" />
 
@@ -307,6 +317,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text=""
                                 android:textColor="@color/black" />
 
@@ -314,13 +325,15 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="(-) Sales Return"
                                 android:textColor="@color/black" />
 
@@ -331,6 +344,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="150"
                                 android:textColor="@color/black" />
 
@@ -340,28 +354,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="200"
                                 android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="By Closing Stock"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
                                 android:textColor="@color/black" />
 
                             <TextView
@@ -370,6 +379,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="600"
                                 android:textColor="@color/black" />
 
@@ -377,27 +387,23 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
 
                             <TextView
+                                android:textSize="12sp"
                                 android:id="@+id/grosslosstext1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="Gross Loss"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:text=""
-                                android:textColor="@color/black" />
 
                             <TextView
+                                android:textSize="12sp"
                                 android:id="@+id/grosslossvalue1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -408,18 +414,26 @@
 
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
                         <TextView
                             android:id="@+id/maxAmount2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                            android:layout_gravity="right|end|bottom"
                             android:layout_margin="10dp"
+                            android:gravity="right"
                             android:background="@drawable/border_top_bottom"
                             android:padding="10dp"
                             android:text="Rs. 1300"
                             android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        </RelativeLayout>
 
 
                     </LinearLayout>
@@ -434,7 +448,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:text="Profit &amp; Loss Account"
             android:textColor="@color/black"
@@ -463,6 +477,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -476,6 +491,7 @@
                                 android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="To Gross Loss"
+                                android:textSize="12sp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -485,6 +501,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="500"
                                 android:textColor="@color/black" />
 
@@ -500,6 +517,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Rent"
                                 android:textColor="@color/black" />
 
@@ -509,6 +527,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="250"
                                 android:textColor="@color/black" />
 
@@ -524,6 +543,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Commission"
                                 android:textColor="@color/black" />
 
@@ -533,6 +553,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="100"
                                 android:textColor="@color/black" />
 
@@ -547,6 +568,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
 
@@ -555,6 +577,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
 
@@ -569,6 +592,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Salaries"
                                 android:textColor="@color/black" />
 
@@ -577,6 +601,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="500"
                                 android:textColor="@color/black" />
@@ -591,6 +616,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="To Depreciaion on Machinery"
                                 android:textColor="@color/black" />
@@ -600,6 +626,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="250"
                                 android:textColor="@color/black" />
@@ -615,6 +642,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Bad Debts"
                                 android:textColor="@color/black" />
 
@@ -624,6 +652,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="150"
                                 android:textColor="@color/black" />
 
@@ -638,6 +667,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Discount on Debtors"
                                 android:textColor="@color/black" />
 
@@ -646,6 +676,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="100"
                                 android:textColor="@color/black" />
@@ -660,6 +691,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="To Interest on Capital"
                                 android:textColor="@color/black" />
@@ -669,6 +701,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="300"
                                 android:textColor="@color/black" />
@@ -684,6 +717,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="To Interest on Bank Loan"
                                 android:textColor="@color/black" />
 
@@ -692,6 +726,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:text="65"
                                 android:textColor="@color/black" />
@@ -707,6 +742,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
+                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
@@ -716,6 +752,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textSize="12sp"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
 
@@ -732,9 +769,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
                                 android:layout_gravity="end|right"
-                                android:gravity="right"
                                 android:layout_margin="10dp"
                                 android:background="@drawable/border_top_bottom"
+                                android:gravity="right"
                                 android:padding="10dp"
                                 android:text="Rs. 2215"
                                 android:textColor="@color/black"
@@ -755,6 +792,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -767,6 +805,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -776,6 +815,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:textColor="@color/black" />
 
                         </LinearLayout>
@@ -788,6 +828,7 @@
                                 android:id="@+id/rentText2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="3"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
@@ -796,6 +837,7 @@
                                 android:id="@+id/totalRent2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
@@ -810,6 +852,7 @@
                                 android:id="@+id/commissionText2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="3"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
@@ -818,6 +861,7 @@
                                 android:id="@+id/totalCommission2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
                                 android:textColor="@color/black" />
@@ -832,6 +876,7 @@
                                 android:id="@+id/discountText2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="3"
                                 android:padding="5dp"
                                 android:text="By Discount"
@@ -841,6 +886,7 @@
                                 android:id="@+id/totalDiscount2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
                                 android:text="210"
@@ -850,10 +896,6 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <TextView
@@ -861,6 +903,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="By Discount by Creditors"
                                 android:textColor="@color/black" />
 
@@ -868,6 +911,7 @@
                                 android:id="@+id/dc"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:textSize="12sp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
                                 android:text="60"
@@ -877,14 +921,6 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <TextView
@@ -892,6 +928,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="By Interest on Investment"
                                 android:textColor="@color/black" />
 
@@ -901,6 +938,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="175"
                                 android:textColor="@color/black" />
 
@@ -915,6 +953,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="By Interest on Drawing Loan"
                                 android:textColor="@color/black" />
 
@@ -924,6 +963,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="85"
                                 android:textColor="@color/black" />
 
@@ -939,6 +979,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="Net Loss"
                                 android:textStyle="bold"
                                 android:textColor="@color/black" />
@@ -949,6 +990,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:textSize="12sp"
                                 android:text="1685"
                                 android:textColor="@color/black" />
 
@@ -983,6 +1025,63 @@
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/balanceSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/green_shade7"
+            card_view:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/balance" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Balance Sheet"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Tap to generate!"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
 </ScrollView>

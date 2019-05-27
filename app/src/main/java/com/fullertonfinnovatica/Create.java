@@ -1,10 +1,13 @@
 package com.fullertonfinnovatica;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -16,12 +19,15 @@ import com.fullertonfinnovatica.Inventory.InventoryAPI;
 import com.fullertonfinnovatica.Inventory.InventoryModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -39,7 +45,7 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     private String name;
     private String number;
     private String address;
-    private String email;
+    private String email = null;
     private String type;
 
     private Button fy;
@@ -63,12 +69,14 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
     SignUpAPI apiInterface;
     JSONObject paramObject;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideStatusBar();
         setContentView(R.layout.activity_create);
-
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         fy = (Button) findViewById(R.id.fydate);
         books = (Button) findViewById(R.id.bookdate);
         verfiy = (Button) findViewById(R.id.verify);
@@ -123,36 +131,50 @@ public class Create extends AppCompatActivity implements DatePickerDialog.OnDate
                 email = emailFieldEdit.getText().toString();
                 type = ((RadioButton) findViewById(selectedId)).getText().toString();
 
-                if (name.length() != 0)
-                {
-                    if(number.length() == 10)
-                    {
-                        Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
+                if (name.length() != 0) {
+                    if(address.length()!= 0) {
+                        if (number.length() == 10) {
 
-                        Intent i = new Intent(Create.this, PhoneVerify.class);
-                        i.putExtra("PhoneNo", number);
-                        i.putExtra("name",name);
-                        //TODO : Upload values to Backend -> Done!
-                        try {
-                            paramObject = new JSONObject();
-                            paramObject.put("bname", name);
-                            paramObject.put("btype", type);
-                            paramObject.put("pno", number);
-                            paramObject.put("email", email);
-                            paramObject.put("baddress", address);
-                            paramObject.put("fyear", fydate);
-                            paramObject.put("booksdate", booksdate);
-                            sendData(paramObject);
+                            List<String> data = new ArrayList<String>();
+                            data.add(type);
+                            data.add(email);
+                            data.add(address);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(data);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("Profile",json);
+                            Log.e("Json: ",json);
+                            editor.commit();
+                            Toast.makeText(Create.this, "You might receive an SMS message for verification and standard sms rates may apply", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(Create.this, PhoneVerify.class);
+                            i.putExtra("PhoneNo", number);
+                            i.putExtra("name", name);
+
+                            try {
+                                paramObject = new JSONObject();
+                                paramObject.put("bname", name);
+                                paramObject.put("btype", type);
+                                paramObject.put("pno", number);
+                                paramObject.put("email", email);
+                                paramObject.put("baddress", address);
+                                paramObject.put("fyear", fydate);
+                                paramObject.put("booksdate", booksdate);
+                                sendData(paramObject);
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            startActivity(i);
+                            finish();
+                        } else {
+                            numberField.setError("Please enter 10 digit number!");
+                            return;
                         }
-                        startActivity(i);
-                        finish();
                     }
-                    else {
-                        numberField.setError("Please enter 10 digit number!");
+                    else
+                    {
+                        addressField.setError("Business Address is required!");
                         return;
                     }
                 }
