@@ -155,7 +155,7 @@ public class InventoryAdd extends AppCompatActivity{
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
                         inventoryCall = apiInterface.postInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                product_name, product_cat, product_qty + "|/|" + product_thrld, product_cost);
+                                product_name, product_cat, product_qty + "///" + product_thrld, product_cost);
 
                         inventoryCall.enqueue(new Callback<InventoryModel>() {
                             @Override

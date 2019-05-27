@@ -108,14 +108,16 @@ public class InventoryView extends AppCompatActivity {
                             inventoryModel = new InventoryModel();
                             JsonObject jsonObject = (JsonObject) bodyy.get(i);
 
-                            if(jsonObject.get("inventory_category").toString().toLowerCase().equals(name.toLowerCase())) {
+                            if (jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase())) {
                                 inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
                                 inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
                                 inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
                                 inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
                                 list.add(inventoryModel);
                             }
+                        }
 
+//                            Log.e("mman", jsonObject.get("inventory_category").toString().toLowerCase() + "  " + name.toLowerCase() + jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase()) + "  " + list.size());
                             if(list.size() != 0){
                                 recyclerView1 = findViewById(R.id.recycler_inventory);
                                 dataAdapter = new InventoryAdapter(list, getBaseContext());
@@ -131,8 +133,6 @@ public class InventoryView extends AppCompatActivity {
                                 emptyImg.setVisibility(View.VISIBLE);
                                 emptyTxt.setVisibility(View.VISIBLE);
                             }
-
-                        }
 
 
                         Log.e("Pata", bodyy.toString());

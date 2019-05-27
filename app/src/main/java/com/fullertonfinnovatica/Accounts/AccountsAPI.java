@@ -29,7 +29,7 @@ public interface AccountsAPI {
     @GET("ledger")
     Call<JsonObject> getLedger(@Header("authorization") String header);
 
-    @GET("final")
+    @GET("final/pnl")
     Call<JsonObject> getFinal(@Header("authorization") String header);
 
     @GET("trial")

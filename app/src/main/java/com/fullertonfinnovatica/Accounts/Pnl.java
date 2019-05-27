@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +34,7 @@ public class Pnl extends AppCompatActivity {
     Call<LoginModel> loginCall;
     Call<JsonObject> pnlCall;
 
-    String profit, loss;
+    String profit, loss, balanceAmt, balanceType, accountName;
 
     TextView os,totalSales, totalPurchase, totalSalesReturn, totalPurchaseReturn, differenceSales, differencePurchase,
             cs, grossprofittext1, grosslosstext1, grossprofitvalue1, grosslossvalue1, maxAmount1, maxAmount2;
@@ -243,8 +244,77 @@ public class Pnl extends AppCompatActivity {
                         JsonObject body = response.body();
                         profit = String.valueOf(body.get("profit"));
                         loss = String.valueOf(body.get("loss"));
-                        Log.e("nana", profit + "   " + loss);
+                        JsonArray ledger = body.getAsJsonArray("ledger");
 
+                        for (int i=0;i<ledger.size();i++){
+
+                            JsonObject fieldss = (JsonObject) ledger.get(i);
+                            JsonObject balanceFields = (JsonObject) fieldss.get("balance");
+                            balanceAmt = String.valueOf(balanceFields.get("amount"));
+                            balanceType = String.valueOf(balanceFields.get("type"));
+
+                            JsonObject accountFields = (JsonObject) fieldss.get("account");
+                            accountName = String.valueOf(accountFields.get("name"));
+
+                            if(accountName.toLowerCase().equals("\"purchase\"")){
+                                totalPurchase.setText(balanceAmt);
+                            }
+                            if(accountName.toLowerCase().equals("\"purchase return\"")){
+                                totalPurchaseReturn.setText(balanceAmt);
+                            }
+                            if(accountName.toLowerCase().equals("\"sale\"")){
+                                totalSales.setText(balanceAmt);
+                            }
+                            if(accountName.toLowerCase().equals("\"sale return\"")){
+                                totalSalesReturn.setText(balanceAmt);
+                            }
+                            if(accountName.toLowerCase().contains("rent")){
+                                if(balanceType.contains("debit")){
+                                    totalRent1.setText(balanceAmt);
+                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                                else{
+                                    totalRent2.setText(balanceAmt);
+                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                            }
+                            if(accountName.toLowerCase().contains("commission")){
+                                if(balanceType.contains("debit")){
+                                    totalCommission1.setText(balanceAmt);
+                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                                else{
+                                    totalCommission2.setText(balanceAmt);
+                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                            }
+                            if(accountName.toLowerCase().contains("discount")){
+                                if(balanceType.contains("debit")){
+                                    totalDiscount1.setText(balanceAmt);
+                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                                else{
+                                    totalDiscount2.setText(balanceAmt);
+                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                }
+                            }
+                            if(accountName.toLowerCase().contains("salary")){
+                                totalSalaries.setText(balanceAmt);
+                                debitAmountsPnl.add(Integer.valueOf(balanceAmt.substring(1, balanceAmt.length()-1)));
+                            }
+
+                            Log.e("nana", balanceAmt + "   " + balanceType + " " + accountName);
+
+
+                            // TODO: Check if Account name Rent is debit or credit. If doubt ask me. See xml layout you will understand.
+                            // TODO: Check if Account name Commission is debit or credit. If doubt ask me. See xml layout you will understand.
+                            // TODO: Check if Account name Discount is debit or credit.  If doubt ask me. See xml layout you will understand.
+                            // TODO: totalSalaries from Salaries account
+                            // TODO: For each of the four above add values to integer lists of credit or debit amounts.
+                        }
+
+                        differencePurchase.setText(String.valueOf(Integer.valueOf(totalPurchase.getText().toString())-Integer.valueOf(totalPurchaseReturn.getText().toString())));
+                        differenceSales.setText(String.valueOf(Integer.valueOf(totalPurchaseReturn.getText().toString())-Integer.valueOf(totalSalesReturn.getText().toString())));
 
                     }
 

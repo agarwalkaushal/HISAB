@@ -40,9 +40,10 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
 
         InventoryModel modelList = list.get(i);
 
-        recyclerViewHolder.name.setText(modelList.getInventory_name());
-        recyclerViewHolder.cost.setText("₹ " + modelList.getInventory_cost());
-        recyclerViewHolder.qty.setText(modelList.getInventory_qty());
+
+        recyclerViewHolder.name.setText(modelList.getInventory_name().substring(1,modelList.getInventory_name().length()-1));
+        recyclerViewHolder.cost.setText("₹ " + modelList.getInventory_cost().substring(1,modelList.getInventory_cost().length()-1));
+        recyclerViewHolder.qty.setText(modelList.getInventory_qty().substring(1,modelList.getInventory_qty().length()-1).split("///")[0]);
 
 
     }
