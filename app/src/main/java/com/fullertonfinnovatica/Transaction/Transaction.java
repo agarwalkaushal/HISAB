@@ -100,6 +100,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
     private LinearLayout commissionLayout;
     private LinearLayout creditCredentials;
     private LinearLayout subTypeNameLayout;
+    private LinearLayout transaction_mode;
 
     private RelativeLayout progressParent;
 
@@ -286,6 +287,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
         subTypeNameLayout = (LinearLayout) findViewById(R.id.sub_type_name_layout);
         subTypeNameLayout.setVisibility(View.GONE);
         purchaseLayout = (LinearLayout) findViewById(R.id.purchase);
+        transaction_mode = (LinearLayout) findViewById(R.id.transaction_mode);
 
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
@@ -561,6 +563,13 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
         if (parent.getId() == R.id.types_spinner) {
             type = parent.getItemAtPosition(pos).toString();
 
+            cashSelected.setChecked(true);
+            cashSelected.setText("CASH");
+            creditSelected.setText("");
+            creditCredentials.setVisibility(View.GONE);
+            modeOfTrans = "Cash";
+            creditLayoutStatus = false;
+
             if (pos == 0) {
 
                 subTypeNameLayout.setVisibility(View.GONE);
@@ -568,7 +577,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.GONE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
                 credit = true;
@@ -582,12 +591,12 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.GONE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
                 credit = true;
 
-                typeOfTrans = "Sale";
+                typeOfTrans = "Sales";
 
             } else if (pos == 2) {
 
@@ -596,7 +605,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.GONE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
                 credit = true;
@@ -610,12 +619,12 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.GONE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = false;
                 credit = true;
 
-                typeOfTrans = "Sale Return";
+                typeOfTrans = "Sales Return";
 
             } else if (pos == 4) {
 
@@ -626,7 +635,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.VISIBLE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
@@ -646,7 +655,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.VISIBLE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
@@ -667,7 +676,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.GONE);
                 commissionLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.VISIBLE);
-
+                transaction_mode.setVisibility(View.VISIBLE);
                 nameLayoutStatus = true;
                 amountLayoutStatus = true;
                 credit = false;
@@ -682,7 +691,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 subTypeLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.VISIBLE);
                 commissionLayout.setVisibility(View.GONE);
-
+                transaction_mode.setVisibility(View.GONE);
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
@@ -702,13 +711,15 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
 
             subType = parent.getItemAtPosition(pos).toString();
 
+            if(typeOfTrans.matches("Drawings"))
+                modeOfTrans = subType;
+
             if ((typeOfTrans == "Payment Done" || typeOfTrans == "Payment Received") && pos == 2) {
 
                 subTypeNameLayout.setVisibility(View.VISIBLE);
                 nameLayoutStatus = true;
 
             } else if (typeOfTrans == "Drawings" && pos == 2) {
-
                 purchaseLayout.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.GONE);
                 amountLayoutStatus = false;
@@ -755,9 +766,9 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                     modeOfTrans = "Credit";
                     creditLayoutStatus = true;
                 } else {
-                    creditSelected.setText("CHEQUE");
+                    creditSelected.setText("BANK");
                     cashSelected.setText("");
-                    modeOfTrans = "Cheque";
+                    modeOfTrans = "Bank";
                     creditLayoutStatus = false;
                 }
                 break;

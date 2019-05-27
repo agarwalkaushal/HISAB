@@ -19,9 +19,9 @@
 
     <string-array name="types_array">
         <item>Purchase</item>
-        <item>Sale</item>
+        <item>Sales</item>
         <item>Purchase Return</item>
-        <item>Sale Return</item>
+        <item>Sales Return</item>
         <item>Payment Done</item>
         <item>Payment Received</item>
         <item>Commission</item>

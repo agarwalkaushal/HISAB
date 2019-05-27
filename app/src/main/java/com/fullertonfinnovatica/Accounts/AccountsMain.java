@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.R;
 
@@ -105,32 +106,165 @@ public class AccountsMain extends AppCompatActivity {
         final EditText id = (EditText) dialogView.findViewById(R.id.id);
         final EditText ii = (EditText) dialogView.findViewById(R.id.ii);
 
+        mr.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(mr.getText().toString())>100) {
+                        mr.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        dd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(dd.getText().toString())>100) {
+                        dd.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        dc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(dc.getText().toString())>100) {
+                        dc.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        ic.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(ic.getText().toString())>100) {
+                        ic.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        ibl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(ibl.getText().toString())>100) {
+                        ibl.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(id.getText().toString())>100) {
+                        id.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
+
+        ii.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    if(Integer.parseInt(ii.getText().toString())>100) {
+                        ii.setError("Percentage cannnot exceed 100");
+                    }
+                }
+            }
+        });
 
         dialogBuilder.setTitle("Adjustments");
 
         dialogBuilder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                ArrayList<String> list = new ArrayList<String>();
-                list.add(os.getText().toString());
-                list.add(cs.getText().toString());
-                list.add(cap.getText().toString());
-                list.add(bl.getText().toString());
-                list.add(inv.getText().toString());
-                list.add(mc.getText().toString());
-                list.add(bd.getText().toString());
-                list.add(mr.getText().toString());
-                list.add(dd.getText().toString());
-                list.add(dc.getText().toString());
-                list.add(ic.getText().toString());
-                list.add(ibl.getText().toString());
-                list.add(id.getText().toString());
-                list.add(ii.getText().toString());
+                int c = 0;
 
-                Intent intent;
-                intent = new Intent(getBaseContext(), Pnl.class);
-                intent.putStringArrayListExtra("Adjustments",list);
-                startActivity(intent);
+                if(Integer.parseInt(mr.getText().toString())>100) {
+                    mr.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(dd.getText().toString())>100) {
+                    dd.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(dc.getText().toString())>100) {
+                    dc.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(ic.getText().toString())>100) {
+                    ic.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(ibl.getText().toString())>100) {
+                    ibl.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(id.getText().toString())>100) {
+                    id.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+                if(Integer.parseInt(ii.getText().toString())>100) {
+                    ii.setError("Percentage cannnot exceed 100");
+                    c+=1;
+                }
+
+                if(c>0)
+                    Toast.makeText(getApplicationContext(),"Percentage cannot exceed 100. Please correct the error!",Toast.LENGTH_SHORT).show();
+
+                if(c==0) {
+                    ArrayList<String> list = new ArrayList<String>();
+                    list.add(os.getText().toString());
+                    list.add(cs.getText().toString());
+                    list.add(cap.getText().toString());
+                    list.add(bl.getText().toString());
+                    list.add(inv.getText().toString());
+                    list.add(mc.getText().toString());
+                    list.add(bd.getText().toString());
+                    list.add(mr.getText().toString());
+                    list.add(dd.getText().toString());
+                    list.add(dc.getText().toString());
+                    list.add(ic.getText().toString());
+                    list.add(ibl.getText().toString());
+                    list.add(id.getText().toString());
+                    list.add(ii.getText().toString());
+
+                    Intent intent;
+                    intent = new Intent(getBaseContext(), Pnl.class);
+                    intent.putStringArrayListExtra("Adjustments", list);
+                    startActivity(intent);
+                }
             }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
