@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.AccountsEntry;
 import com.fullertonfinnovatica.Accounts.AccountsMain;
+import com.fullertonfinnovatica.Finance.CashBudget;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
@@ -157,12 +158,9 @@ public class radialMenu extends View {
                             getContext().startActivity(intent);
 
                         }else if(angle > 0 && angle < 1.57){
-                            // TODO: Intent to Finances activity, package created but not activity
-                            Toast.makeText(getContext(), "Finance", Toast.LENGTH_SHORT).show();
-
+                            Intent intent = new Intent(getContext(), CashBudget.class);
+                            getContext().startActivity(intent);
                         }else{
-                            // TODO: Intent to Accounts activity, package created but not activity
-//                            Toast.makeText(getContext(), "Accounts", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), AccountsMain.class);
                             getContext().startActivity(intent);
                         }

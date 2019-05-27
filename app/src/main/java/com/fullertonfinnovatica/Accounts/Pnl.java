@@ -35,6 +35,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.lang.Math.round;
+
 public class Pnl extends AppCompatActivity {
 
     Retrofit retrofit;
@@ -97,7 +99,7 @@ public class Pnl extends AppCompatActivity {
 
         grosslosstext2 = findViewById(R.id.grosslosstext2);
         grosslossvalue2 = findViewById(R.id.grosslossvalue2);
-        grossprofittext2 = findViewById(R.id.grossprofittext1);
+        grossprofittext2 = findViewById(R.id.grossprofittext2);
         grossprofitvalue2 = findViewById(R.id.grossprofitvalue2);
         rentText1 = findViewById(R.id.rentText1);
         totalRent1 = findViewById(R.id.totalRent1);
@@ -317,15 +319,15 @@ public class Pnl extends AppCompatActivity {
 
         os.setText(adjustments.get(0));
         cs.setText(adjustments.get(1));
-        dm.setText(String.valueOf(Integer.parseInt(adjustments.get(5)) * Integer.parseInt(adjustments.get(7)) / 100));
+        dm.setText(String.valueOf(round(Double.parseDouble(adjustments.get(5)) * Double.parseDouble(adjustments.get(7)) / 100)));
         debitAmountsPnl.add(Integer.parseInt(dm.getText().toString()));
         bd.setText(String.valueOf(Integer.parseInt(adjustments.get(6))));
         debitAmountsPnl.add(Integer.parseInt(bd.getText().toString()));
-        ii.setText(String.valueOf(Integer.parseInt(adjustments.get(4)) * Integer.parseInt(adjustments.get(13)) / 100));
+        ii.setText(String.valueOf(round(Double.parseDouble(adjustments.get(4)) * Double.parseDouble(adjustments.get(13)) / 100)));
         creditAmountsPnl.add(Integer.parseInt(ii.getText().toString()));
         ic.setText(String.valueOf(Integer.parseInt(adjustments.get(2)) * Integer.parseInt(adjustments.get(10))));
         debitAmountsPnl.add(Integer.parseInt(ic.getText().toString()));
-        ibl.setText(String.valueOf(Integer.parseInt(adjustments.get(3)) * Integer.parseInt(adjustments.get(11)) / 100));
+        ibl.setText(String.valueOf(round(Double.parseDouble(adjustments.get(3)) * Double.parseDouble(adjustments.get(11)) / 100)));
         debitAmountsPnl.add(Integer.parseInt(ibl.getText().toString()));
         dd.setText(String.valueOf(sumSundryDebtors* Integer.parseInt(adjustments.get(8))/100));
         debitAmountsPnl.add(Integer.parseInt(dd.getText().toString()));
@@ -356,7 +358,7 @@ public class Pnl extends AppCompatActivity {
             grossprofitvalue2.setText("");
             debitAmountsPnl.add(debitSideTotal - creditSideTotal);
         } else {
-            grossprofittext1.setText("Gross Profit");
+            grossprofittext1.setText("By Gross Profit");
             grossprofitvalue1.setText(String.valueOf(creditSideTotal - debitSideTotal));
             grosslosstext1.setText("");
             grosslossvalue1.setText("");
@@ -370,7 +372,7 @@ public class Pnl extends AppCompatActivity {
             creditAmountsPnl.add(creditSideTotal - debitSideTotal);
         }
 
-        idl.setText(String.valueOf(Integer.parseInt(drawing)* Integer.parseInt(adjustments.get(13))/100));
+        idl.setText(String.valueOf(round(Double.parseDouble(drawing)* Double.parseDouble(adjustments.get(13))/100)));
         creditAmountsPnl.add(Integer.parseInt(idl.getText().toString()));
         differencePurchase.setText(String.valueOf(Integer.valueOf(totalPurchase.getText().toString()) - Integer.valueOf(totalPurchaseReturn.getText().toString())));
         differenceSales.setText(String.valueOf(Integer.valueOf(totalPurchaseReturn.getText().toString()) - Integer.valueOf(totalSalesReturn.getText().toString())));

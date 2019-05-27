@@ -23,7 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.LoginModel;
+import com.fullertonfinnovatica.Create;
 import com.fullertonfinnovatica.R;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -44,14 +47,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class InventoryAdd extends AppCompatActivity{
+public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
 
-    EditText ed_product_name, ed_product_qty, ed_product_cost,ed_product_thrld;
+    EditText ed_product_name, ed_product_qty, ed_product_cost, ed_product_thrld;
     Button add;
-    String product_name, product_qty, product_cost, product_cat,product_thrld;
+    String product_name, product_qty, product_cost, product_cat, product_thrld, product_epx = null, date;
     InventoryAPI apiInterface;
     Retrofit retrofit;
     Call<LoginModel> loginCall;
@@ -60,9 +63,11 @@ public class InventoryAdd extends AppCompatActivity{
     RadioButton ed_product_cat;
     RadioGroup product_category;
 
+    private Button expiryDate;
+
     int revealX;
     int revealY;
-    int c=0;
+    int c = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,18 @@ public class InventoryAdd extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_add);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Add Product</font>"));
+
+        expiryDate = findViewById(R.id.expDate);
+
+        expiryDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                c = 1;
+                showDatePickerDialog();
+                product_epx = date; //expirydate
+            }
+        });
+
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final SharedPreferences.Editor prefEditor = prefs.edit();
 
@@ -137,13 +154,11 @@ public class InventoryAdd extends AppCompatActivity{
                 String[] inventoryCategories = getResources().getStringArray(R.array.inventory_categories);
                 String[] inventoryTags = getResources().getStringArray(R.array.inventory_tags);
 
-                for(String i : inventoryCategories)
-                {
+                for (String i : inventoryCategories) {
 
-                    if(i.compareTo(ed_product_cat.getText().toString())==0)
-                    {
+                    if (i.compareTo(ed_product_cat.getText().toString()) == 0) {
                         product_cat = inventoryCategories[c];
-                        c=0;
+                        c = 0;
                         break;
                     }
                     c++;
@@ -161,11 +176,10 @@ public class InventoryAdd extends AppCompatActivity{
                             @Override
                             public void onResponse(Call<InventoryModel> call, Response<InventoryModel> response) {
 
-                                if(response.code() == 200){
+                                if (response.code() == 200) {
                                     Toast.makeText(getBaseContext(), "Inventory updated!", Toast.LENGTH_LONG).show();
                                     finish();
-                                }
-                                else
+                                } else
                                     Log.e("mana", response.toString());
                                 Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
                                 finish();
@@ -191,9 +205,9 @@ public class InventoryAdd extends AppCompatActivity{
                 });
 
                 //Storing Inventory names in disk
-                String product = prefs.getString("products","Milk,");
+                String product = prefs.getString("products", "Milk,");
                 product = product + product_name + ",";
-                prefEditor.putString("products",product);
+                prefEditor.putString("products", product);
                 prefEditor.commit();
             }
         });
@@ -227,6 +241,28 @@ public class InventoryAdd extends AppCompatActivity{
         }
         Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
         return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
+    }
+
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        expiryDate.setText(date);
+
+    }
+
+    private void showDatePickerDialog() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this,
+                now.get(Calendar.YEAR), // Initial year selection
+                now.get(Calendar.MONTH), // Initial month selection
+                now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+        );
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+        dpd.setThemeDark(true);
+        dpd.setAccentColor(getResources().getColor(R.color.black));
     }
 
 }
