@@ -1,10 +1,12 @@
 package com.fullertonfinnovatica.Accounts;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.fullertonfinnovatica.R;
 import com.google.gson.JsonObject;
@@ -12,6 +14,7 @@ import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -29,12 +32,137 @@ public class BalanceSheet extends AppCompatActivity {
     Call<LoginModel> loginCall;
     Call<JsonObject> balanceSheetCall;
 
-    String creditBalance, debitBalance;
+    String creditBalance, debitBalance, net, sundryCreditors = "0", sundryDebtors = "0";
+    int netValue;
+
+    TextView  netTypeText, netValueText, cap, ic, drawing, id, differenceCapital, bl, ibl, differenceLoan, sc, dc, differenceSC,
+            cs, mc, dm, differenceMachinery, cheque, cash, sd, dd, bd, differenceSD, inv, ii, differenceInv, maxAmount1, maxAmount2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_sheet);
+
+        //TextViews
+        netTypeText = findViewById(R.id.net);
+        netValueText = findViewById(R.id.netValue);
+        cap = findViewById(R.id.cap);
+        ic = findViewById(R.id.ic);
+        drawing = findViewById(R.id.drawing);
+        id = findViewById(R.id.id);
+        differenceCapital = findViewById(R.id.differenceCapital);
+        bl = findViewById(R.id.bl);
+        ibl = findViewById(R.id.ibl);
+        differenceLoan = findViewById(R.id.differenceLoan);
+        sc = findViewById(R.id.sc);
+        dc = findViewById(R.id.dc);
+        differenceSC = findViewById(R.id.differenceSC);
+        cs = findViewById(R.id.cs);
+        mc = findViewById(R.id.mc);
+        dm = findViewById(R.id.dm);
+        differenceMachinery = findViewById(R.id.differenceMachinery);
+        cheque = findViewById(R.id.cheque);
+        cash = findViewById(R.id.cash);
+        sd = findViewById(R.id.sd);
+        dd = findViewById(R.id.dd);
+        bd = findViewById(R.id.bd);
+        differenceSD = findViewById(R.id.differenceSD);
+        inv = findViewById(R.id.inv);
+        ii = findViewById(R.id.ii);
+        differenceInv = findViewById(R.id.differenceInv);
+        maxAmount1 = findViewById(R.id.maxAmount1);
+        maxAmount2 = findViewById(R.id.maxAmount2);
+
+        //Retrieving values from intent
+        Intent intent = getIntent();
+        ArrayList<String> adjustments = intent.getStringArrayListExtra("Adjustments");
+        net = intent.getStringExtra("Net ");
+        if(net.matches("Loss")) {
+            netTypeText.setText("(-) Gross Loss");
+            net = intent.getStringExtra("Net Loss");
+            netValueText.setText(net);
+            netValue = -Integer.parseInt(netValueText.getText().toString());
+        }
+        else {
+            netTypeText.setText("(+) Gross Profit");
+            net = intent.getStringExtra("Net Profit");
+            netValueText.setText(net);
+            netValue = Integer.parseInt(netValueText.getText().toString());
+        }
+        //TODO:  Get Sundry Creditors
+        //TODO: Get Sundry Debtors
+        //Done
+
+        //Credit Side
+        cap.setText(adjustments.get(2));
+        ic.setText(String.valueOf(Integer.parseInt(adjustments.get(2))*Integer.parseInt(adjustments.get(10))));
+        //TODO: Get Drawing account value and set to drawing text
+        //TODO: adjustments.get(12)*drawing value above -> set to id
+
+        differenceCapital.setText(
+                String.valueOf(Integer.parseInt(cap.getText().toString())+
+                Integer.parseInt(ic.getText().toString())-
+                Integer.parseInt(drawing.getText().toString())-
+                Integer.parseInt(id.getText().toString())+(netValue))
+        );
+
+        bl.setText(adjustments.get(3));
+        ibl.setText(String.valueOf(Integer.parseInt(adjustments.get(3))*
+                Integer.parseInt(adjustments.get(11))));
+        differenceLoan.setText(String.valueOf(Integer.parseInt(bl.getText().toString())-
+                Integer.parseInt(ibl.getText().toString())));
+
+        sc.setText(sundryCreditors);
+        dc.setText(String.valueOf(Integer.parseInt(sc.getText().toString())*
+                Integer.parseInt(adjustments.get(9))));
+        differenceSC.setText(String.valueOf(Integer.parseInt(sc.getText().toString())-
+                Integer.parseInt(dc.getText().toString())));
+
+        //Debit Side
+        cs.setText(adjustments.get(1));
+        mc.setText(adjustments.get(5));
+        dm.setText(String.valueOf(Integer.parseInt(mc.getText().toString())*
+                Integer.parseInt(adjustments.get(7))));
+        differenceMachinery.setText(String.valueOf(Integer.parseInt(mc.getText().toString())-
+                Integer.parseInt(dm.getText().toString())));
+
+        //TODO: Get Cash account amount and set to cash
+        //TODO: Get Cheque account amount and set to cheque
+
+        bd.setText(adjustments.get(6));
+        sd.setText(sundryDebtors);
+        dd.setText(String.valueOf(Integer.parseInt(sc.getText().toString())*
+                Integer.parseInt(adjustments.get(9))));
+        differenceSD.setText(String.valueOf(Integer.parseInt(sc.getText().toString())-
+                Integer.parseInt(dc.getText().toString())-
+                Integer.parseInt(bd.getText().toString())));
+
+        inv.setText(adjustments.get(4));
+        ii.setText(String.valueOf(Integer.parseInt(adjustments.get(4))*
+                Integer.parseInt(adjustments.get(13))));
+        differenceInv.setText(String.valueOf(Integer.parseInt(inv.getText().toString())-
+                Integer.parseInt(ii.getText().toString())));
+
+        int debitTotal = Integer.parseInt(cs.getText().toString())+
+                Integer.parseInt(differenceMachinery.getText().toString())+
+                Integer.parseInt(differenceSD.getText().toString())+
+                Integer.parseInt(differenceInv.getText().toString());
+
+        int creditTotal = Integer.parseInt(differenceCapital.getText().toString())+
+                Integer.parseInt(differenceLoan.getText().toString())+
+                Integer.parseInt(differenceSC.getText().toString());
+
+        if (debitTotal>creditTotal){
+            maxAmount1.setText(String.valueOf(debitTotal));
+            maxAmount2.setText(String.valueOf(debitTotal));
+        }
+        else
+        {
+            maxAmount1.setText(String.valueOf(creditTotal));
+            maxAmount2.setText(String.valueOf(creditTotal));
+        }
+
+
 
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Balance Sheet</font>"));
 
@@ -67,12 +195,12 @@ public class BalanceSheet extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        JsonObject body = response.body();
-
-                        creditBalance = String.valueOf(body.get("creditBalance"));
-                        debitBalance = String.valueOf(body.get("debitBalance"));
-
-                        Log.e("nnn", creditBalance + "  " + debitBalance);
+//                        JsonObject body = response.body();
+//
+//                        creditBalance = String.valueOf(body.get("creditBalance"));
+//                        debitBalance = String.valueOf(body.get("debitBalance"));
+//
+//                        Log.e("nnn", creditBalance + "  " + debitBalance);
 
                     }
 

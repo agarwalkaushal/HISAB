@@ -67,7 +67,7 @@ public class AccountsMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                adjustmentsDialog("Pnl");
+                adjustmentsDialog();
 
             }
         });
@@ -84,7 +84,7 @@ public class AccountsMain extends AppCompatActivity {
 
     }
 
-    public void adjustmentsDialog(final String className) {
+    public void adjustmentsDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.adjustments_dialog, null);
@@ -128,10 +128,7 @@ public class AccountsMain extends AppCompatActivity {
                 list.add(ii.getText().toString());
 
                 Intent intent;
-                if(className.matches("Pnl"))
-                    intent = new Intent(getBaseContext(), Pnl.class);
-                else
-                    intent = new Intent(getBaseContext(), BalanceSheet.class);
+                intent = new Intent(getBaseContext(), Pnl.class);
                 intent.putStringArrayListExtra("Adjustments",list);
                 startActivity(intent);
             }

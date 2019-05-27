@@ -39,7 +39,7 @@ public class Pnl extends AppCompatActivity {
     Call<LoginModel> loginCall;
     Call<JsonObject> pnlCall;
 
-    String profit, loss, balanceAmt, balanceType, accountName;
+    String profit, loss, balanceAmt, balanceType, accountName, net;
 
     TextView os,totalSales, totalPurchase, totalSalesReturn, totalPurchaseReturn, differenceSales, differencePurchase,
             cs, grossprofittext1, grosslosstext1, grossprofitvalue1, grosslossvalue1, maxAmount1, maxAmount2;
@@ -55,6 +55,8 @@ public class Pnl extends AppCompatActivity {
     List<Integer> creditAmountsPnl;
 
     CardView balanceSheetCard;
+
+    ArrayList<String> adjustments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +118,7 @@ public class Pnl extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        ArrayList<String> adjustments = intent.getStringArrayListExtra("Adjustments");
+        adjustments = intent.getStringArrayListExtra("Adjustments");
 
         os.setText(adjustments.get(0));
         cs.setText(adjustments.get(1));
@@ -210,7 +212,7 @@ public class Pnl extends AppCompatActivity {
             netlossvalue.setText(String.valueOf(debitSideTotalPnl-creditSideTotalPnl));
             maxAmount3.setText(String.valueOf(debitSideTotalPnl));
             maxAmount4.setText(String.valueOf(debitSideTotalPnl));
-
+            net = "Loss";
         }
         else
         {
@@ -220,13 +222,26 @@ public class Pnl extends AppCompatActivity {
             netlosstext.setText("");
             maxAmount3.setText(String.valueOf(creditSideTotalPnl));
             maxAmount4.setText(String.valueOf(creditSideTotalPnl));
+            net = "Profit";
         }
 
         balanceSheetCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // TODO
+                Intent intent = new Intent(getBaseContext(), BalanceSheet.class);
+                intent.putStringArrayListExtra("Adjustments",adjustments);
+                if(net.matches("Loss")) {
+                    intent.putExtra("Net ", net);
+                    intent.putExtra("Net Loss", netlossvalue.getText().toString());
+                }
+                else {
+                    intent.putExtra("Net ", net);
+                    intent.putExtra("Net Profit", netprofitvalue.getText().toString());
+                }
+                //TODO :Pass Sundry Creditors
+                //TODO: Pass Sundry Debtors
+                startActivity(intent);
 
             }
         });
