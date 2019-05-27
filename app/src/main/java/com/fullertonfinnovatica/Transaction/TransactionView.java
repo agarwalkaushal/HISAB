@@ -95,11 +95,16 @@ TransactionView extends AppCompatActivity {
 
                         view.setVisibility(View.VISIBLE);
                         progressParent.setVisibility(View.GONE);
-                        list = response.body().getContacts();
-                        recyclerView1 = findViewById(R.id.transViewRecycler);
-                        dataAdapter = new TransactionAdapter(list, getBaseContext());
-                        recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                        recyclerView1.setAdapter(dataAdapter);
+                        if(response.body()!=null) {
+                            list = response.body().getContacts();
+                            recyclerView1 = findViewById(R.id.transViewRecycler);
+                            dataAdapter = new TransactionAdapter(list, getBaseContext());
+                            recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                            recyclerView1.setAdapter(dataAdapter);
+                        }else{
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+
+                        }
                     }
 
                     @Override
@@ -116,7 +121,8 @@ TransactionView extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
-
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 

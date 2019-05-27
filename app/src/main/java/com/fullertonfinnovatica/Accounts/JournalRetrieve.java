@@ -84,11 +84,16 @@ public class JournalRetrieve extends AppCompatActivity {
                     public void onResponse(Call<JournalEntryListModel> call, Response<JournalEntryListModel> response) {
 
                         progressParent.setVisibility(View.GONE);
-                        list = response.body().getContacts();
-                        recyclerView1 = findViewById(R.id.journal_recycler);
-                        dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
-                        recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                        recyclerView1.setAdapter(dataAdapter);
+                        if (response.body() != null) {
+                            list = response.body().getContacts();
+                            recyclerView1 = findViewById(R.id.journal_recycler);
+                            dataAdapter = new JournalRetrieveAdapter(list, getBaseContext());
+                            recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                            recyclerView1.setAdapter(dataAdapter);
+                        }else{
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
                         //Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());
                     }
 
@@ -107,6 +112,8 @@ public class JournalRetrieve extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
+
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
             }
         });

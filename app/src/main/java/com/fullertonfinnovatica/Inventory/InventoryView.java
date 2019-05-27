@@ -101,31 +101,30 @@ public class InventoryView extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
-                        JsonArray bodyy = response.body();
+                        if(response.body()!=null) {
+                            JsonArray bodyy = response.body();
 
-                        for (int i = 0; i<bodyy.size(); i++) {
+                            for (int i = 0; i < bodyy.size(); i++) {
 
-                            inventoryModel = new InventoryModel();
-                            JsonObject jsonObject = (JsonObject) bodyy.get(i);
+                                inventoryModel = new InventoryModel();
+                                JsonObject jsonObject = (JsonObject) bodyy.get(i);
 
-                            if (jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase())) {
-                                inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
-                                inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
-                                inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
-                                inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
-                                list.add(inventoryModel);
+                                if (jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase())) {
+                                    inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
+                                    inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
+                                    inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
+                                    inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
+                                    list.add(inventoryModel);
+                                }
                             }
-                        }
 
 //                            Log.e("mman", jsonObject.get("inventory_category").toString().toLowerCase() + "  " + name.toLowerCase() + jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase()) + "  " + list.size());
-                            if(list.size() != 0){
+                            if (list.size() != 0) {
                                 recyclerView1 = findViewById(R.id.recycler_inventory);
                                 dataAdapter = new InventoryAdapter(list, getBaseContext());
                                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                                 recyclerView1.setAdapter(dataAdapter);
-                            }
-
-                            else{
+                            } else {
                                 recyclerView1 = findViewById(R.id.recycler_inventory);
                                 recyclerView1.setVisibility(View.GONE);
                                 ImageView emptyImg = findViewById(R.id.imageView2);
@@ -135,7 +134,11 @@ public class InventoryView extends AppCompatActivity {
                             }
 
 
-                        Log.e("Pata", bodyy.toString());
+//                            Log.e("Pata", bodyy.toString());
+                        }else{
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
 
                     }
 
@@ -143,6 +146,8 @@ public class InventoryView extends AppCompatActivity {
                     public void onFailure(Call<JsonArray> call, Throwable t) {
 
                         Log.e("Pata", t.toString());
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                        finish();
 
                     }
                 });
@@ -153,6 +158,8 @@ public class InventoryView extends AppCompatActivity {
             public void onFailure(Call<LoginModel> call, Throwable t) {
 
                 Log.e("Pata", t.toString());
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                finish();
 
             }
         });

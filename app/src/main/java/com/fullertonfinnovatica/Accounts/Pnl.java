@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.R;
 import com.google.gson.JsonArray;
@@ -274,85 +275,89 @@ public class Pnl extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        JsonObject body = response.body();
-                        profit = String.valueOf(body.get("profit"));
-                        loss = String.valueOf(body.get("loss"));
-                        JsonArray ledger = body.getAsJsonArray("ledger");
+                        if(response.body()!=null) {
+                            JsonObject body = response.body();
+                            profit = String.valueOf(body.get("profit"));
+                            loss = String.valueOf(body.get("loss"));
+                            JsonArray ledger = body.getAsJsonArray("ledger");
 
-                        for (int i=0;i<ledger.size();i++){
+                            for (int i = 0; i < ledger.size(); i++) {
 
-                            JsonObject fieldss = (JsonObject) ledger.get(i);
-                            JsonObject balanceFields = (JsonObject) fieldss.get("balance");
-                            balanceAmt = String.valueOf(balanceFields.get("amount"));
-                            balanceType = String.valueOf(balanceFields.get("type"));
+                                JsonObject fieldss = (JsonObject) ledger.get(i);
+                                JsonObject balanceFields = (JsonObject) fieldss.get("balance");
+                                balanceAmt = String.valueOf(balanceFields.get("amount"));
+                                balanceType = String.valueOf(balanceFields.get("type"));
 
-                            JsonObject accountFields = (JsonObject) fieldss.get("account");
-                            accountName = String.valueOf(accountFields.get("name"));
+                                JsonObject accountFields = (JsonObject) fieldss.get("account");
+                                accountName = String.valueOf(accountFields.get("name"));
 
-                            if(accountName.toLowerCase().equals("\"purchase\"")){
-                                totalPurchase.setText(balanceAmt);
-                            }
-                            if(accountName.toLowerCase().equals("\"purchase return\"")){
-                                totalPurchaseReturn.setText(balanceAmt);
-                            }
-                            if(accountName.toLowerCase().equals("\"sale\"")){
-                                totalSales.setText(balanceAmt);
-                            }
-                            if(accountName.toLowerCase().equals("\"sale return\"")){
-                                totalSalesReturn.setText(balanceAmt);
-                            }
-                            if(accountName.toLowerCase().contains("rent")){
-                                if(balanceType.contains("debit")){
-                                    totalRent1.setText(balanceAmt);
-                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().equals("\"purchase\"")) {
+                                    totalPurchase.setText(balanceAmt);
                                 }
-                                else{
-                                    totalRent2.setText(balanceAmt);
-                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().equals("\"purchase return\"")) {
+                                    totalPurchaseReturn.setText(balanceAmt);
                                 }
-                            }
-                            if(accountName.toLowerCase().contains("commission")){
-                                if(balanceType.contains("debit")){
-                                    totalCommission1.setText(balanceAmt);
-                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().equals("\"sale\"")) {
+                                    totalSales.setText(balanceAmt);
                                 }
-                                else{
-                                    totalCommission2.setText(balanceAmt);
-                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().equals("\"sale return\"")) {
+                                    totalSalesReturn.setText(balanceAmt);
                                 }
-                            }
-                            if(accountName.toLowerCase().contains("discount")){
-                                if(balanceType.contains("debit")){
-                                    totalDiscount1.setText(balanceAmt);
-                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().contains("rent")) {
+                                    if (balanceType.contains("debit")) {
+                                        totalRent1.setText(balanceAmt);
+                                        debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    } else {
+                                        totalRent2.setText(balanceAmt);
+                                        creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    }
                                 }
-                                else{
-                                    totalDiscount2.setText(balanceAmt);
-                                    creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                if (accountName.toLowerCase().contains("commission")) {
+                                    if (balanceType.contains("debit")) {
+                                        totalCommission1.setText(balanceAmt);
+                                        debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    } else {
+                                        totalCommission2.setText(balanceAmt);
+                                        creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    }
                                 }
-                            }
-                            if(accountName.toLowerCase().contains("salary")){
-                                totalSalaries.setText(balanceAmt);
-                                debitAmountsPnl.add(Integer.valueOf(balanceAmt.substring(1, balanceAmt.length()-1)));
+                                if (accountName.toLowerCase().contains("discount")) {
+                                    if (balanceType.contains("debit")) {
+                                        totalDiscount1.setText(balanceAmt);
+                                        debitAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    } else {
+                                        totalDiscount2.setText(balanceAmt);
+                                        creditAmountsPnl.add(Integer.valueOf(balanceAmt));
+                                    }
+                                }
+                                if (accountName.toLowerCase().contains("salary")) {
+                                    totalSalaries.setText(balanceAmt);
+                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt.substring(1, balanceAmt.length() - 1)));
+                                }
+
+                                Log.e("nana", balanceAmt + "   " + balanceType + " " + accountName);
+
+
+                                // TODO: Check if Account name Rent is debit or credit. If doubt ask me. See xml layout you will understand.
+                                // TODO: Check if Account name Commission is debit or credit. If doubt ask me. See xml layout you will understand.
+                                // TODO: Check if Account name Discount is debit or credit.  If doubt ask me. See xml layout you will understand.
+                                // TODO: totalSalaries from Salaries account
+                                // TODO: For each of the four above add values to integer lists of credit or debit amounts.
                             }
 
-                            Log.e("nana", balanceAmt + "   " + balanceType + " " + accountName);
+                            differencePurchase.setText(String.valueOf(Integer.valueOf(totalPurchase.getText().toString()) - Integer.valueOf(totalPurchaseReturn.getText().toString())));
+                            differenceSales.setText(String.valueOf(Integer.valueOf(totalPurchaseReturn.getText().toString()) - Integer.valueOf(totalSalesReturn.getText().toString())));
 
+                        }else{
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            finish();
 
-                            // TODO: Check if Account name Rent is debit or credit. If doubt ask me. See xml layout you will understand.
-                            // TODO: Check if Account name Commission is debit or credit. If doubt ask me. See xml layout you will understand.
-                            // TODO: Check if Account name Discount is debit or credit.  If doubt ask me. See xml layout you will understand.
-                            // TODO: totalSalaries from Salaries account
-                            // TODO: For each of the four above add values to integer lists of credit or debit amounts.
                         }
-
-                        differencePurchase.setText(String.valueOf(Integer.valueOf(totalPurchase.getText().toString())-Integer.valueOf(totalPurchaseReturn.getText().toString())));
-                        differenceSales.setText(String.valueOf(Integer.valueOf(totalPurchaseReturn.getText().toString())-Integer.valueOf(totalSalesReturn.getText().toString())));
-
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -362,6 +367,7 @@ public class Pnl extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
             }
         });

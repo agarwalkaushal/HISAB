@@ -167,6 +167,8 @@ public class InventoryAdd extends AppCompatActivity{
                                 }
                                 else
                                     Log.e("mana", response.toString());
+                                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                                finish();
 
                             }
 
@@ -174,6 +176,7 @@ public class InventoryAdd extends AppCompatActivity{
                             public void onFailure(Call<InventoryModel> call, Throwable t) {
 
                                 Log.e("mana", t.toString());
+                                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
                             }
                         });
@@ -182,6 +185,7 @@ public class InventoryAdd extends AppCompatActivity{
 
                     @Override
                     public void onFailure(Call<LoginModel> call, Throwable t) {
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
                     }
                 });

@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.Login;
 import com.fullertonfinnovatica.R;
@@ -94,68 +95,73 @@ public class Ledger extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        Log.e("kyu", response.toString());
+//                        Log.e("kyu", response.toString());
                         progressParent.setVisibility(View.GONE);
-                        JsonObject bodyy = response.body();
-                        JsonArray ledgerAray = bodyy.getAsJsonArray("ledger");
-                        for (int i = 0; i<ledgerAray.size(); i++) {
+                        if (response.body() != null) {
+                            JsonObject bodyy = response.body();
+                            JsonArray ledgerAray = bodyy.getAsJsonArray("ledger");
+                            for (int i = 0; i < ledgerAray.size(); i++) {
 
-                            JsonObject ledger = ledgerAray.get(i).getAsJsonObject();
+                                JsonObject ledger = ledgerAray.get(i).getAsJsonObject();
 
-                            JsonObject account = ledger.getAsJsonObject("account");
-                            account_name = String.valueOf(account.get("name"));
+                                JsonObject account = ledger.getAsJsonObject("account");
+                                account_name = String.valueOf(account.get("name"));
 
-                            JsonArray debitsArray = ledger.getAsJsonArray("debits");
-                            JsonArray creditsArray = ledger.getAsJsonArray("credits");
+                                JsonArray debitsArray = ledger.getAsJsonArray("debits");
+                                JsonArray creditsArray = ledger.getAsJsonArray("credits");
 
 
 //                            Log.e("blabla", ledger.getAsJsonArray("debits").toString() + " " + ledger.getAsJsonArray("debits").size());
 
-                            for (int j = 0; j<debitsArray.size();j++){
+                                for (int j = 0; j < debitsArray.size(); j++) {
 
-                                JsonObject deb;
-                                deb = debitsArray.get(j).getAsJsonObject();
-                                debit_amt[j] = String.valueOf(deb.get("amount"));
-                                JsonObject to = deb.getAsJsonObject("to");
-                                debit_name[j] = String.valueOf(to.get("name"));
+                                    JsonObject deb;
+                                    deb = debitsArray.get(j).getAsJsonObject();
+                                    debit_amt[j] = String.valueOf(deb.get("amount"));
+                                    JsonObject to = deb.getAsJsonObject("to");
+                                    debit_name[j] = String.valueOf(to.get("name"));
 //                                Log.e("abcde", debit_amt[j] + " " + debit_name[j]);
 
+                                }
+
+                                for (int j = 0; j < creditsArray.size(); j++) {
+
+                                    JsonObject cred;
+                                    cred = creditsArray.get(j).getAsJsonObject();
+                                    credit_amt[j] = String.valueOf(cred.get("amount"));
+                                    JsonObject to = cred.getAsJsonObject("from");
+                                    credit_name[j] = String.valueOf(to.get("name"));
+                                }
+
+                                JsonObject balance = ledger.getAsJsonObject("balance");
+                                balance_type = String.valueOf(balance.get("type"));
+                                balance_amt = String.valueOf(balance.get("amount"));
+
+                                LedgerModel model = new LedgerModel();
+
+                                model.setAccount_name(account_name);
+                                model.setBalance_amt(balance_amt);
+                                model.setBalance_type(balance_type);
+                                model.setCredit_amt(credit_amt);
+                                model.setCredit_name(credit_name);
+                                model.setDebit_amt(debit_amt);
+                                model.setDebit_name(debit_name);
+                                model.setDebitSize(debitsArray.size());
+                                model.setCreditSize(creditsArray.size());
+
+                                ledgerList.add(model);
+
+//                                Log.e("blabla", balance_amt + balance_type);
+
                             }
 
-                            for (int j = 0; j<creditsArray.size();j++){
-
-                                JsonObject cred;
-                                cred = creditsArray.get(j).getAsJsonObject();
-                                credit_amt[j] = String.valueOf(cred.get("amount"));
-                                JsonObject to = cred.getAsJsonObject("from");
-                                credit_name[j] = String.valueOf(to.get("name"));
-                            }
-
-                            JsonObject balance = ledger.getAsJsonObject("balance");
-                            balance_type = String.valueOf(balance.get("type"));
-                            balance_amt = String.valueOf(balance.get("amount"));
-
-                            LedgerModel model = new LedgerModel();
-
-                            model.setAccount_name(account_name);
-                            model.setBalance_amt(balance_amt);
-                            model.setBalance_type(balance_type);
-                            model.setCredit_amt(credit_amt);
-                            model.setCredit_name(credit_name);
-                            model.setDebit_amt(debit_amt);
-                            model.setDebit_name(debit_name);
-                            model.setDebitSize(debitsArray.size());
-                            model.setCreditSize(creditsArray.size());
-
-                            ledgerList.add(model);
-
-                            Log.e("blabla", balance_amt + balance_type);
-
+                            dataAdapter = new LedgerAdapter(ledgerList, getBaseContext());
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                            recyclerView.setAdapter(dataAdapter);
+                        }else{
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            finish();
                         }
-
-                        dataAdapter = new LedgerAdapter(ledgerList, getBaseContext());
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                        recyclerView.setAdapter(dataAdapter);
 
 
                     }
@@ -164,6 +170,7 @@ public class Ledger extends AppCompatActivity {
                     public void onFailure(Call<JsonObject> call, Throwable t) {
 
                         Log.e("blabla", t.toString());
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -174,6 +181,7 @@ public class Ledger extends AppCompatActivity {
             public void onFailure(Call<LoginModel> call, Throwable t) {
 
                 Log.e("blabla", t.toString());
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
             }
         });

@@ -29,11 +29,14 @@ import android.widget.Toast;
 import com.fullertonfinnovatica.Accounts.AccountsAPI;
 import com.fullertonfinnovatica.Accounts.JournalEntryModel;
 import com.fullertonfinnovatica.Accounts.LoginModel;
+import com.fullertonfinnovatica.Inventory.InventoryAPI;
 import com.fullertonfinnovatica.Inventory.InventoryAdd;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
+import com.fullertonfinnovatica.Inventory.InventoryModel;
 import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.SignUpAPI;
 import com.fullertonfinnovatica.SignUpModel;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -49,6 +52,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
@@ -64,6 +69,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
 
     private double totalAmount = 0;
 
+    String qtyString;
     private String type;
     private String subType;
     private String itemName;
@@ -74,7 +80,7 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
     private String product;
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
-    private String[] products;
+    private String[] products, qty;
 
 
     private AutoCompleteTextView name;
@@ -123,9 +129,13 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
     Call<JsonObject> ledgerPostCall;
     Call<JsonObject> pnlPostCall;
     Call<JsonObject> trialPostCall;
+    Call<JsonArray> inventoryCall;
     Call<LoginModel> loginCall;
     TransactionAPIs apiInterface;
-    Retrofit retrofit;
+    InventoryAPI apiInterface_inventory;
+    Retrofit retrofit, retrofit_inventory;
+    InventoryModel inventoryModel;
+    List<InventoryModel> list;
 
 
     @Override
@@ -140,12 +150,15 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefEditor = prefs.edit();
+        list = new ArrayList<>();
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
         OkHttpClient cleint = new OkHttpClient.Builder()
                 .cookieJar(new JavaNetCookieJar(cookieManager))
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder().baseUrl(AccountsAPI.BASE_URL)
@@ -153,18 +166,114 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
                 .client(cleint)
                 .build();
 
+        retrofit_inventory = new Retrofit.Builder().baseUrl(InventoryAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(cleint)
+                .build();
+
         apiInterface = retrofit.create(TransactionAPIs.class);
+        apiInterface_inventory = retrofit_inventory.create(InventoryAPI.class);
 
-        product = prefs.getString("products", "Milk,");
-        products = product.split(",");
+        loginCall = apiInterface.login("demoadminid", "demo");
+        loginCall.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                inventoryCall = apiInterface_inventory.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
-        Log.e("Products", product);
+                inventoryCall.enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
-        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, products);
+                        if(response.body()!=null) {
+                            JsonArray bodyy = response.body();
+                            for (int i = 0; i < bodyy.size(); i++) {
 
-        name = (AutoCompleteTextView) findViewById(R.id.name);
-        name.setThreshold(1);
-        name.setAdapter(products_adapter);
+                                inventoryModel = new InventoryModel();
+                                JsonObject jsonObject = (JsonObject) bodyy.get(i);
+
+                                inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
+                                inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
+                                inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
+                                inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
+                                list.add(inventoryModel);
+                                product += inventoryModel.getInventory_name() + ",";
+//                                qtyString+=inventoryModel.getInventory_qty()+",";
+
+                            }
+
+                            products = product.split(",");
+                            ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
+                            name = (AutoCompleteTextView) findViewById(R.id.name);
+                            name.setThreshold(1);
+                            name.setAdapter(products_adapter);
+//                        qty = qtyString.split(",");
+
+
+                            name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                @Override
+                                public void onFocusChange(View v, boolean hasFocus) {
+                                    if (!hasFocus) {
+                                        String inputName = name.getText().toString();
+                                        int c = 0;
+                                        for (String i : products) {
+                                            if (i.compareTo(inputName) == 0) {
+                                                c++;
+                                                break;
+                                            }
+                                        }
+                                        if (c == 0) {
+                                            name.setError("Name error");
+                                            Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+                                }
+                            });
+
+                            name.setOnKeyListener(new View.OnKeyListener() {
+                                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                                        switch (keyCode) {
+                                            case KeyEvent.KEYCODE_ENTER:
+                                                addItem();
+                                                return true;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    return false;
+                                }
+                            });
+                        }else {
+                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                        finish();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                finish();
+
+            }
+        });
+
+
+//        product = prefs.getString("products", "Milk,");
+//        products = product.split(",");
+
+//        Log.e("Products", product);
+
 
         creditCredentials = (LinearLayout) findViewById(R.id.credit_view);
         creditCredentials.setVisibility(View.GONE);
@@ -210,43 +319,6 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
 
         dataAdapter = new DataAdapter(dataRows, this);
         listView.setAdapter(dataAdapter);
-
-
-        name.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_ENTER:
-                            addItem();
-                            return true;
-                        default:
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-
-        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    String inputName = name.getText().toString();
-                    int c = 0;
-                    for (String i : products) {
-                        if (i.compareTo(inputName) == 0) {
-                            c++;
-                            break;
-                        }
-                    }
-                    if (c == 0) {
-                        name.setError("Name error");
-                        Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            }
-        });
 
         rate.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -702,16 +774,16 @@ Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListe
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor prefEditor = prefs.edit();
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor prefEditor = prefs.edit();
+//
+//        product = prefs.getString("products", "Milk,");
+//        products = product.split(",");
 
-        product = prefs.getString("products", "Milk,");
-        products = product.split(",");
-
-        Log.e("Products", product);
-
-        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, products);
-        name.setAdapter(products_adapter);
+//        Log.e("Products", product);
+//
+//        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, products);
+//        name.setAdapter(products_adapter);
     }
 
     public static String getAuthToken(String userName, String password) {

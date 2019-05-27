@@ -19,7 +19,7 @@ import retrofit2.http.POST;
 
 public interface InventoryAPI {
 
-    String BASE_URL = "https://test-nexus-inventory.herokuapp.com/api/";
+    String BASE_URL = "https://nexus-inventory.herokuapp.com/api/";
 
     @FormUrlEncoded
     @POST("login")

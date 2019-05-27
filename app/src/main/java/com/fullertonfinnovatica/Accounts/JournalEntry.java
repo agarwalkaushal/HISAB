@@ -113,7 +113,7 @@ public class JournalEntry extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<JournalEntryModel> call, Throwable t) {
 
-
+                                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
 
                             }
                         });
