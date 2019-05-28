@@ -50,7 +50,7 @@ public class InventoryView extends AppCompatActivity {
     InventoryAdapter dataAdapter;
     InventoryModel inventoryModel;
     Call<LoginModel> loginCall;
-    Call<JsonArray> inventoryCall;
+    Call<JsonObject> inventoryCall;
     List<InventoryModel> filtered_list = new ArrayList<>();
     InventoryAPI apiInterface;
     Retrofit retrofit;
@@ -97,23 +97,24 @@ public class InventoryView extends AppCompatActivity {
 
                 inventoryCall = apiInterface.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
-                inventoryCall.enqueue(new Callback<JsonArray>() {
+                inventoryCall.enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                         if(response.body()!=null) {
-                            JsonArray bodyy = response.body();
+                            JsonObject bodyyy = response.body();
+                            JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
 
                             for (int i = 0; i < bodyy.size(); i++) {
 
                                 inventoryModel = new InventoryModel();
                                 JsonObject jsonObject = (JsonObject) bodyy.get(i);
 
-                                if (jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase())) {
-                                    inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
-                                    inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
-                                    inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
-                                    inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
+                                if (jsonObject.get("category").toString().toLowerCase().contains(name.toLowerCase())) {
+                                    inventoryModel.setInventory_category(jsonObject.get("category").toString());
+                                    inventoryModel.setInventory_cost(jsonObject.get("cost").toString());
+                                    inventoryModel.setInventory_name(jsonObject.get("name").toString());
+                                    inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                     list.add(inventoryModel);
                                 }
                             }
@@ -136,17 +137,17 @@ public class InventoryView extends AppCompatActivity {
 
 //                            Log.e("Pata", bodyy.toString());
                         }else{
-                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Servers are down "+response.toString(), Toast.LENGTH_LONG).show();
                             finish();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
 
                         Log.e("Pata", t.toString());
-                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Servers are down "+ t.toString(), Toast.LENGTH_LONG).show();
                         finish();
 
                     }

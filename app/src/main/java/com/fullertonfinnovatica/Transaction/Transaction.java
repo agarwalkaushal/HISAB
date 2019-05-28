@@ -1,10 +1,14 @@
 package com.fullertonfinnovatica.Transaction;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -83,7 +88,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String itemRate;
     private String creditName;
     private String creditNumber;
-    private String product;
+    private String product = "milk,sugar,eggs";
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
     private String[] products, qty;
@@ -138,7 +143,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     Call<JsonObject> ledgerPostCall;
     Call<JsonObject> pnlPostCall;
     Call<JsonObject> trialPostCall;
-    Call<JsonArray> inventoryCall;
+    Call<JsonObject> inventoryCall;
     Call<LoginModel> loginCall;
     TransactionAPIs apiInterface;
     InventoryAPI apiInterface_inventory;
@@ -149,6 +154,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     CircularProgressBar circularProgressBar;
 
     List<String> words;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    TextToSpeech t1;
 
     private boolean isNameFromInventory = false;
 
@@ -157,6 +164,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
+
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
 
         words = new ArrayList<String>();
 
@@ -279,49 +295,96 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 .client(cleint)
                 .build();
 
+        products = product.split(",");
+        products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
+
         apiInterface = retrofit.create(TransactionAPIs.class);
         apiInterface_inventory = retrofit_inventory.create(InventoryAPI.class);
 
-        loginCall = apiInterface.login("demoadminid", "demo");
+        loginCall = apiInterface_inventory.login("demoadminid", "demo");
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                 inventoryCall = apiInterface_inventory.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
-                inventoryCall.enqueue(new Callback<JsonArray>() {
+                inventoryCall.enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                         if (response.body() != null) {
-                            JsonArray bodyy = response.body();
+                            JsonObject bodyyy = response.body();
+                            JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
+                            product="";
                             for (int i = 0; i < bodyy.size(); i++) {
 
                                 inventoryModel = new InventoryModel();
                                 JsonObject jsonObject = (JsonObject) bodyy.get(i);
 
-                                inventoryModel.setInventory_category(jsonObject.get("inventory_category").toString());
-                                inventoryModel.setInventory_cost(jsonObject.get("inventory_cost").toString());
-                                inventoryModel.setInventory_name(jsonObject.get("inventory_name").toString());
-                                inventoryModel.setInventory_qty(jsonObject.get("inventory_qty").toString());
+                                inventoryModel.setInventory_category(jsonObject.get("category").toString());
+                                inventoryModel.setInventory_cost(jsonObject.get("cost").toString());
+                                inventoryModel.setInventory_name(jsonObject.get("name").toString());
+                                inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 list.add(inventoryModel);
-                                product += inventoryModel.getInventory_name() + ",";
+                                product += inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1) + ",";
 //                                qtyString+=inventoryModel.getInventory_qty()+",";
 
                             }
 
+                            Toast.makeText(getBaseContext(), product, Toast.LENGTH_LONG).show();
                             products = product.split(",");
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
+                            name.setAdapter(products_adapter);
+
+                            name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                @Override
+                                public void onFocusChange(View v, boolean hasFocus) {
+                                    if (!hasFocus) {
+                                        String inputName = name.getText().toString();
+                                        int c = 0;
+                                        if (products != null) {
+                                            for (String i : products) {
+                                                if (i.compareTo(inputName) == 0) {
+                                                    isNameFromInventory = true;
+                                                    c++;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (c == 0) {
+                                            name.setError("Name error! Item not in inventory");
+                                            isNameFromInventory = false;
+                                            //Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+                                }
+                            });
+
+                            name.setOnKeyListener(new View.OnKeyListener() {
+                                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                                        switch (keyCode) {
+                                            case KeyEvent.KEYCODE_ENTER:
+                                                addItem();
+                                                return true;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    return false;
+                                }
+                            });
 
 
                         } else {
-                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Servers are down "+response.toString(), Toast.LENGTH_LONG).show();
                             //finish();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
                         Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
                         //finish();
 
@@ -338,49 +401,11 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         });
 
 
-        name.setThreshold(1);
-        name.setAdapter(products_adapter);
+//        name.setThreshold(1);
+//        name.setAdapter(products_adapter);
 //                        qty = qtyString.split(",");
 
 
-        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    String inputName = name.getText().toString();
-                    int c = 0;
-                    if (products != null) {
-                        for (String i : products) {
-                            if (i.compareTo(inputName) == 0) {
-                                c++;
-                                break;
-                            }
-                        }
-                    }
-                    if (c == 0) {
-                        name.setError("Name error! Item not in inventory");
-                        isNameFromInventory = false;
-                        //Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            }
-        });
-
-        name.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_ENTER:
-                            addItem();
-                            return true;
-                        default:
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
 
         suggestion1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -680,6 +705,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         } else if (id == R.id.done) {
             doneClicked();
 
+        }else if (id == R.id.voice_input){
+            t1.speak("Please speak out the entries", TextToSpeech.QUEUE_FLUSH, null);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    promptSpeechInput();
+                }
+            },1500);
         }
 
         return super.onOptionsItemSelected(item);
@@ -949,6 +983,97 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         nbutton.setTextColor(Color.BLACK);
         Button pbutton = b.getButton(DialogInterface.BUTTON_POSITIVE);
         pbutton.setTextColor(Color.BLACK);
+    }
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Speak");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "Not supported",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    //txtSpeechInput.setText(result.get(0));
+//                    Toast.makeText(getBaseContext(), result.get(0), Toast.LENGTH_LONG).show();
+                    String userInputString = result.get(0);
+                    String[] user_input = result.get(0).split(" ");
+                    if(user_input.length<3){
+//                        Toast.makeText(getBaseContext(), "Please say the product name, quantity and cost", Toast.LENGTH_LONG).show();
+                        t1.speak("Need 3 fields. Please try again", TextToSpeech.QUEUE_FLUSH, null);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                promptSpeechInput();
+                            }
+                        },1500);
+                    }
+                    else{
+                        name.setText("");
+                        int j=0;
+                        String prodName = "";
+                        String prodRate = "";
+                        String prodQty = "";
+                        for(int i=0;i<user_input.length;i++){
+                            if(!user_input[i].toLowerCase().equals("rate")){
+                                 if(!user_input[i].toLowerCase().equals("item"))
+                                     prodName+=user_input[i];
+                            }
+                            else {
+                                j=i;
+                                break;
+                            }
+                        }
+                        for(int i=0;i<user_input.length;i++){
+                            if(user_input[i].equals("rate")){
+                                prodRate = user_input[i+1];
+                            }
+                            if(user_input[i].equals("quantity")){
+                                prodQty = user_input[i+1];
+                            }
+                        }
+//                        String[] tTypes = getResources().getStringArray(R.array.types_array);
+//                        Log.e("lala", tTypes[1]);
+                        //name.setText(tTypes[1]);
+                        name.setText(prodName);
+                        rate.setText(prodRate);
+                        quantity.setText(prodQty);
+
+                        t1.speak(prodName+" added!", TextToSpeech.QUEUE_FLUSH, null);
+
+                        if(userInputString.toLowerCase().contains("delete")){
+                            name.setText("");
+                            rate.setText("");
+                            quantity.setText("");
+                            t1.speak("Last entry cleared.", TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    }
+                }
+                break;
+            }
+
+        }
     }
 
 }

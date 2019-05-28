@@ -19,17 +19,17 @@ import retrofit2.http.POST;
 
 public interface InventoryAPI {
 
-    String BASE_URL = "https://nexus-inventory.herokuapp.com/api/";
+    String BASE_URL = "https://nexus-account.herokuapp.com/";
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("user/login")
     Call<LoginModel> login(@Field("id") String id, @Field("password") String pwd);
 
     @FormUrlEncoded
-    @POST("cash")
-    Call<InventoryModel> postInventory(@Header("authorization") String header, @Field("inventory_name") String invName, @Field("inventory_category") String invCategory, @Field("inventory_qty") String invQty, @Field("inventory_cost") String invCost);
+    @POST("inventory/add")
+    Call<InventoryModel> postInventory(@Header("authorization") String header, @Field("name") String invName, @Field("category") String invCategory, @Field("quantity") int invQty, @Field("cost") int invCost);
 
-    @GET("cash")
-    Call<JsonArray> getInventoryy(@Header("authorization") String header);
+    @GET("inventory")
+    Call<JsonObject> getInventoryy(@Header("authorization") String header);
 
 }

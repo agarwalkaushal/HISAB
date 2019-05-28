@@ -170,7 +170,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
                         inventoryCall = apiInterface.postInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                product_name, product_cat, product_qty + "///" + product_thrld, product_cost);
+                                product_name, product_cat, Integer.valueOf(product_qty), Integer.valueOf(product_cost));
 
                         inventoryCall.enqueue(new Callback<InventoryModel>() {
                             @Override
@@ -181,7 +181,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                                     finish();
                                 } else
                                     Log.e("mana", response.toString());
-                                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Servers are down : "+response.toString(), Toast.LENGTH_LONG).show();
                                 finish();
 
                             }
