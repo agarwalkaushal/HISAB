@@ -1,508 +1,604 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Transaction.Transaction">
 
-    <LinearLayout
-        android:id="@+id/main"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
-        <LinearLayout
-            android:id="@+id/chooseText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background = "@drawable/border"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="30dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Choose type"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/types_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"></Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chooseSubType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:id="@+id/subTypeText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Choose type"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/sub_types_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                ></Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chooseCommissionType"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RadioGroup
-                android:id="@+id/radioCommission"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <RadioButton
-                    android:gravity="center"
-                    android:id="@+id/received"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/black"
-                    android:text="Received"
-                    android:textSize="14sp"
-                    android:checked="true"
-                    android:onClick="onRadioButtonClicked"/>
-
-                <RadioButton
-                    android:gravity="center"
-                    android:id="@+id/given"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/black"
-                    android:textSize="14sp"
-                    android:text="Given"
-                    android:onClick="onRadioButtonClicked"/>
-
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/purchase"
-            android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chooseText"
-            android:background="@drawable/border_purchase"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
 
             <LinearLayout
-
+                android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/border_purchase"
-                android:paddingLeft="20dp"
-                android:paddingTop="15dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="15dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/chooseText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="2"
-                    android:text="Item name"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="30dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Rate/item"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:text="Choose type"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
+                    <Spinner
+                        android:id="@+id/types_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"></Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/chooseSubType"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="Quant./item"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/subTypeText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Choose type"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/sub_types_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"></Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/chooseCommissionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                    <RadioGroup
+                        android:id="@+id/radioCommission"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/received"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/black"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Received"
+                            android:textSize="14sp" />
+
+                        <RadioButton
+                            android:id="@+id/given"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/black"
+                            android:gravity="center"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Given"
+                            android:textSize="14sp" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/chooseText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/border_purchase"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_purchase"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="15dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="2"
+                            android:text="Item name"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="Rate/item"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:text="Quant./item"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/purchase_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"></ListView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="2"
+                            android:cursorVisible="true"
+                            android:hint="Enter name"
+                            android:inputType="textCapCharacters"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor_design"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/rate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:cursorVisible="true"
+                            android:hint="Enter Rt."
+                            android:inputType="number|numberDecimal"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor_design"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/quantity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:cursorVisible="true"
+                            android:hint="Enter Qt."
+                            android:inputType="number|numberDecimal"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor_design"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:text="Total:"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold|italic" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/suggestionsUI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/purchase"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recommended for you"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalscrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/suggestion1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_suggestion"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:padding="5dp"
+                            android:layout_margin="5dp"
+                            android:text="Parle G" />
+
+                        <Button
+                            android:id="@+id/suggestion2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_suggestion"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:text="Pen" />
+
+                        <Button
+                            android:id="@+id/suggestion3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_suggestion"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:text="Shampoo" />
+
+                        <Button
+                            android:id="@+id/suggestion4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_suggestion"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:text="Surf Excel" />
+
+                        <Button
+                            android:id="@+id/suggestion5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_suggestion"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:text="Moong Dal" />
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/amountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/chooseText"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="13dp"
+                        android:text="Enter Amount: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/amount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:hint="Rs."
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/cursor_design"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sub_type_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="13dp"
+                        android:text="Name: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/sub_type_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:inputType="textCapWords"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/cursor_design"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/purchase_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"></ListView>
 
             <LinearLayout
+                android:id="@+id/transaction_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/main"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
+                android:paddingTop="30dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="2"
-                    android:cursorVisible="true"
-                    android:hint="Enter name"
-                    android:inputType="textCapCharacters"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/rate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:cursorVisible="true"
-                    android:hint="Enter Rt."
-                    android:inputType="number|numberDecimal"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/quantity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:cursorVisible="true"
-                    android:hint="Enter Qt."
-                    android:inputType="number|numberDecimal"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:text="Total:"
+                    android:paddingTop="3dp"
+                    android:text="Mode"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/total"
+
+                <RadioGroup
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold|italic" />
+                    android:background="@drawable/switch_out_line"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/cash"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:onClick="onRadioButtonClicked"
+                        android:padding="3dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/credit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:onClick="onRadioButtonClicked"
+                        android:padding="3dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </RadioGroup>
+
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/amountInput"
-            android:focusableInTouchMode="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chooseText"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/credit_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="13dp"
-                android:text="Enter Amount: "
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_below="@id/transaction_mode"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="30dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
 
-            <EditText
-                android:id="@+id/amount"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="13dp"
+                        android:text="Name: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/credit_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:inputType="textCapWords"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/cursor_design"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="13dp"
+                        android:text="Number: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/credit_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@drawable/cursor_design"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:hint="Rs."
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:layout_below="@id/credit_view"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id = "@+id/sub_type_name_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:orientation="horizontal">
+                <RelativeLayout
+                    android:id="@+id/progressParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="10dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="13dp"
-                android:text="Name: "
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        app:cpb_background_progressbar_color="@color/gray"
+                        app:cpb_background_progressbar_width="3dp"
+                        app:cpb_progressbar_color="@color/black"
+                        app:cpb_progressbar_width="3dp" />
 
-            <EditText
-                android:id="@+id/sub_type_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:inputType="textCapWords"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/transaction_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="30dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="3dp"
-            android:text="Mode"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+                </RelativeLayout>
 
 
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/switch_out_line"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/cash"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:onClick="onRadioButtonClicked"
-                android:padding="3dp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:id="@+id/credit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:gravity="center"
-                android:onClick="onRadioButtonClicked"
-                android:padding="3dp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/credit_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/transaction_mode"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingTop="30dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="13dp"
-                android:text="Name: "
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/credit_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:inputType="textCapWords"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="13dp"
-                android:text="Number: "
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/credit_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-
-        <RelativeLayout
-            android:id="@+id/progressParent"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:layout_gravity="center"
-            android:id="@+id/progress"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:cpb_background_progressbar_color="@color/gray"
-            app:cpb_background_progressbar_width="3dp"
-            app:cpb_progressbar_color="@color/black"
-            app:cpb_progressbar_width="3dp" />
+            </LinearLayout>
 
         </RelativeLayout>
 
-       <Button
-            android:id="@+id/done"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="DONE"
-            android:textSize="15sp"
-            android:textStyle="bold" />
 
-    </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>
