@@ -2,9 +2,12 @@ package com.fullertonfinnovatica.Networking;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +49,8 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
     List<String> shops_long = new ArrayList<>();
     List<String> shops_name = new ArrayList<>();
     List<String> shops_num = new ArrayList<>();
+    int MY_PERMISSIONS_REQUEST_READ_LOCATION;
+
 
 
     @Override
@@ -56,6 +61,16 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
         setSupportActionBar(toolbar);
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(mapViewBundle);
+
+        if (ContextCompat.checkSelfPermission(NetworkingShopsViewMap.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(NetworkingShopsViewMap.this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_READ_LOCATION);
+
+        }
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
