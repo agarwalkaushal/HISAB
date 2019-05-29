@@ -43,6 +43,8 @@ public class Trialbalance extends AppCompatActivity {
     TrialAdapter dataAdapter;
     RecyclerView recyclerView;
 
+    int total_credit, total_debit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +106,15 @@ public class Trialbalance extends AppCompatActivity {
                                 model.setType(type);
                                 list.add(model);
 
+                                if(model.getType().toLowerCase().contains("debit")){
+                                    total_debit+= Integer.valueOf(model.getAmount());
+                                }else {
+                                    total_credit+= Integer.valueOf(model.getAmount());
+                                }
+
                             }
+
+                            Log.e("jojo", total_credit+" "+total_debit);
 
                             dataAdapter = new TrialAdapter(list, getBaseContext());
                             recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

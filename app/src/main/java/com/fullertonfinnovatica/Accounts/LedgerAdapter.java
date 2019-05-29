@@ -67,8 +67,8 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
         {
             recyclerViewHolder.maxAmt1.setText(String.valueOf(total2));
             recyclerViewHolder.maxamt2.setText(String.valueOf(total2));
-            recyclerViewHolder.bdCredit.setText("To Bal b/d "+Math.abs(total1-total2));
-            recyclerViewHolder.cdDebit.setText("By Bal c/d "+Math.abs(total1-total2));
+            recyclerViewHolder.bdCredit.setText("By Bal b/d "+Math.abs(total1-total2));
+            recyclerViewHolder.cdDebit.setText("To Bal c/d "+Math.abs(total1-total2));
             recyclerViewHolder.bdDebit.setText("");
             recyclerViewHolder.cdCredit.setText("");
         }

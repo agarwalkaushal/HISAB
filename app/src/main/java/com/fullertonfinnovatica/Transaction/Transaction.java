@@ -1086,7 +1086,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 //                        String[] tTypes = getResources().getStringArray(R.array.types_array);
 //                        Log.e("lala", tTypes[1]);
                         //name.setText(tTypes[1]);
-                        name.setText(prodName);
+                        name.setText(prodName.toLowerCase());
                         rate.setText(prodRate);
                         quantity.setText(prodQty);
 

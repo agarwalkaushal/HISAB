@@ -115,6 +115,7 @@ public class InventoryView extends AppCompatActivity {
                                     inventoryModel.setInventory_cost(jsonObject.get("cost").toString());
                                     inventoryModel.setInventory_name(jsonObject.get("name").toString());
                                     inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
+                                    Log.e("lolo", jsonObject.get("category").toString() + ", " + jsonObject.get("cost").toString() + ", " + jsonObject.get("name").toString() + ", " + jsonObject.get("quantity").toString());
                                     list.add(inventoryModel);
                                 }
                             }
