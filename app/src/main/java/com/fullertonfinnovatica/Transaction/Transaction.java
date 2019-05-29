@@ -155,6 +155,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     CircularProgressBar circularProgressBar;
 
+    Button doneButton;
+
     List<String> words;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TextToSpeech t1;
@@ -278,10 +280,11 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
-        Button doneButton = findViewById(R.id.doneButtonTrans);
+        doneButton = findViewById(R.id.doneButtonTrans);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 doneClicked();
             }
         });
@@ -485,6 +488,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     private void doneClicked() {
 
+
         if (amountLayoutStatus) {
             if (amount.getText().toString().matches("")) {
                 Toast.makeText(getBaseContext(), "Please enter amount and then proceed", Toast.LENGTH_SHORT).show();
@@ -532,7 +536,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
 
         loginCall = apiInterface.login("demouserid", "demo");
-
+        doneButton.setVisibility(View.GONE);
         progressParent.setVisibility(View.VISIBLE);
         circularProgressBar.enableIndeterminateMode(true);
 
@@ -544,12 +548,75 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                         typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount),
                         String.valueOf((int) totalAmount), creditName + ":" + subType);
-                ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                        "Purchase", modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                if (typeOfTrans.toLowerCase().contains("purchase")) {
+
+                    if(modeOfTrans.toLowerCase().contains("cash")) {
+                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                    }
+                    else {
+                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    }
+                }
+                else if(typeOfTrans.toLowerCase().contains("sales")) {
+
+                    if(modeOfTrans.toLowerCase().contains("cash")) {
+                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    }
+                    else {
+                        ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                        trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    }
+                }
+                else if(typeOfTrans.toLowerCase().contains("drawings"))
+                {
+                    ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            typeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            typeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            typeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                }
+                else if(typeOfTrans.toLowerCase().contains("payment"))
+                {
+                    ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+
+                }
+                else
+                {
+                    ledgerPostCall = apiInterface.ledgerPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                    trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                            modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
+                }
 
                         /*
                         // TODO: Make entry with type and sub-type of transaction
@@ -910,15 +977,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
             subType = parent.getItemAtPosition(pos).toString();
 
-            if (typeOfTrans.matches("Drawings"))
+            if (typeOfTrans.contains("Drawings"))
                 modeOfTrans = subType;
 
-            if ((typeOfTrans == "Payment Done" || typeOfTrans == "Payment Received") && pos == 2) {
+            if ((typeOfTrans.matches("Payment Done") || typeOfTrans.matches("Payment Received") && pos == 2)) {
 
                 subTypeNameLayout.setVisibility(View.VISIBLE);
                 nameLayoutStatus = true;
 
-            } else if (typeOfTrans == "Drawings" && pos == 2) {
+            } else if (typeOfTrans.contains("Drawings") && pos == 2) {
                 purchaseLayout.setVisibility(View.VISIBLE);
                 suggestionsUI.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.GONE);
@@ -965,12 +1032,14 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     creditLayoutStatus = false;
                 }
                 break;
+                /*
             case R.id.given:
                 subType = "Given";
                 break;
             case R.id.received:
                 subType = "Received";
                 break;
+                */
         }
     }
 

@@ -55,7 +55,7 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
                     substring(modelList.getNarration().get(0).indexOf(":") + 1).toLowerCase();
 
             try {
-                name = modelList.getNarration().get(0).substring(0, modelList.getNarration().get(0).indexOf(":") - 1);
+                name = modelList.getNarration().get(0).substring(0, modelList.getNarration().get(0).indexOf(":"));
             }catch(StringIndexOutOfBoundsException siobe){
                 name = "null";
             }
@@ -82,13 +82,12 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
             } else {
                 recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
             }
-            recyclerViewHolder.second.setText(modelList.getTo().toUpperCase());
         } else if (typeOfTransaction.contains("commission")) {
             recyclerViewHolder.first.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + "A/c");
             if(subTypeOfTransaction.contains("given"))
-                recyclerViewHolder.second.setText(typeOfTransaction.toUpperCase() + " Given");
+                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Given");
             else
-                recyclerViewHolder.second.setText(typeOfTransaction.toUpperCase() + " Received");
+                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Received");
         } else if (typeOfTransaction.contains("drawing")) {
             recyclerViewHolder.first.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " A/c");
             recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");

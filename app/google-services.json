@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1022268315779-efl7pubsp9kbr5r6o6atpj9tmm1g439r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yashk.firebaseauthentication",
+            "certificate_hash": "535b3c21f9740c2fbe1c48c2ca26ccc5e60aba05"
+          }
+        },
+        {
           "client_id": "1022268315779-9b1i5c10doe67g8sc0es57ko1e9siqpe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -31,14 +39,6 @@
           }
         },
         {
-          "client_id": "1022268315779-efl7pubsp9kbr5r6o6atpj9tmm1g439r.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.yashk.firebaseauthentication",
-            "certificate_hash": "535b3c21f9740c2fbe1c48c2ca26ccc5e60aba05"
-          }
-        },
-        {
           "client_id": "1022268315779-6i2v8bej7pd56df0jb6jate3jnp1uqkn.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -49,20 +49,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1022268315779-6i2v8bej7pd56df0jb6jate3jnp1uqkn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     },
@@ -75,19 +68,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "1022268315779-qv81rrabman1c62062rejng4m9606gd2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.yashk.firebaseauthentication_phone",
-            "certificate_hash": "576561b43cd92ae09e427c575acee09ed98b42d1"
-          }
-        },
-        {
           "client_id": "1022268315779-rbhrqqulblfbl4k6nmfuvgqn5b33fmnv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.yashk.firebaseauthentication_phone",
             "certificate_hash": "535b3c21f9740c2fbe1c48c2ca26ccc5e60aba05"
+          }
+        },
+        {
+          "client_id": "1022268315779-qv81rrabman1c62062rejng4m9606gd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yashk.firebaseauthentication_phone",
+            "certificate_hash": "576561b43cd92ae09e427c575acee09ed98b42d1"
           }
         },
         {
@@ -101,20 +94,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1022268315779-6i2v8bej7pd56df0jb6jate3jnp1uqkn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     },
@@ -126,6 +112,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1022268315779-ncjpa2drpb7ksu55usar2mft6gepancj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fullertonfinnovatica",
+            "certificate_hash": "f7bee568d13f3f86132c879f8ffcc960b28e3d54"
+          }
+        },
         {
           "client_id": "1022268315779-1cedo0ldskl0a2jvvfpvvvcfarhnct84.apps.googleusercontent.com",
           "client_type": 1,
@@ -145,20 +139,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1022268315779-6i2v8bej7pd56df0jb6jate3jnp1uqkn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

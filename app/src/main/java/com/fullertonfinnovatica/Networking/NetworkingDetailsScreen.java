@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
@@ -31,6 +32,8 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
     private LinearLayout phoneLayout;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "AIzaSyBVEJlSiNVvpBAZh8nL1v_-ZsIHL6ZKUcQ";
+
+    private static final int REQUEST_PHONE_CALL = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +146,13 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
     private void onClickCall() {
 
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + pno));
-        //TODO: Request for call permission
-        startActivity(intent);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
+        }
+        else
+        {
+            startActivity(intent);
+        }
     }
 
 
