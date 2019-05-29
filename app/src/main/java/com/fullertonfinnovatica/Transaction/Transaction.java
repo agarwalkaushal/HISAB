@@ -276,6 +276,14 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
+        Button doneButton = findViewById(R.id.doneButtonTrans);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doneClicked();
+            }
+        });
+
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 

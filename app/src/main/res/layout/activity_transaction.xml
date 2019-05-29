@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Transaction.Transaction">
+    tools:context=".Transaction.Transaction"
+    android:orientation="vertical">
 
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
@@ -303,60 +305,60 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                        <Button
-                            android:id="@+id/suggestion1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/border_suggestion"
-                            android:clickable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:padding="5dp"
-                            android:layout_margin="5dp"
-                            android:text="Parle G" />
+                            <Button
+                                android:id="@+id/suggestion1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/border_suggestion"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:padding="5dp"
+                                android:text="Parle G" />
 
-                        <Button
-                            android:id="@+id/suggestion2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/border_suggestion"
-                            android:clickable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:text="Pen" />
+                            <Button
+                                android:id="@+id/suggestion2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/border_suggestion"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:padding="5dp"
+                                android:text="Pen" />
 
-                        <Button
-                            android:id="@+id/suggestion3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/border_suggestion"
-                            android:clickable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:text="Shampoo" />
+                            <Button
+                                android:id="@+id/suggestion3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/border_suggestion"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:padding="5dp"
+                                android:text="Shampoo" />
 
-                        <Button
-                            android:id="@+id/suggestion4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/border_suggestion"
-                            android:clickable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:text="Surf Excel" />
+                            <Button
+                                android:id="@+id/suggestion4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/border_suggestion"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:padding="5dp"
+                                android:text="Surf Excel" />
 
-                        <Button
-                            android:id="@+id/suggestion5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/border_suggestion"
-                            android:clickable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:text="Moong Dal" />
+                            <Button
+                                android:id="@+id/suggestion5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/border_suggestion"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:padding="5dp"
+                                android:text="Moong Dal" />
 
                         </LinearLayout>
 
@@ -600,5 +602,16 @@
 
     </ScrollView>
 
+    <Button
+        android:id="@+id/doneButtonTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

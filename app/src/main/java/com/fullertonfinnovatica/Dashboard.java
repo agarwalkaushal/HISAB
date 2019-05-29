@@ -29,6 +29,7 @@ import com.fullertonfinnovatica.Analytics.AnalyticsMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
+import com.fullertonfinnovatica.Notifications.Notifications;
 import com.fullertonfinnovatica.Transaction.Transaction;
 import com.fullertonfinnovatica.Transaction.TransactionView;
 import com.google.firebase.FirebaseApp;
@@ -167,7 +168,9 @@ public class Dashboard extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notifications) {
             //TODO: View Notifications
-            Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getBaseContext(), Notifications.class);
+            startActivity(intent);
             return true;
         }
 

@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Finance.CashBudget"></activity>
         <activity android:name=".Finance.FinanceMain" />
-        <activity android:name=".Notifications" />
+        <activity android:name=".Notifications.Notifications" />
         <activity android:name=".Accounts.Trialbalance" />
         <activity
             android:name=".SplashScreen"
