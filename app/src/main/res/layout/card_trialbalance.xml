@@ -7,8 +7,9 @@
     android:orientation="horizontal">
 
     <TextView
+
         android:id="@+id/accountName"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
 
     <TextView
         android:id="@+id/debitAmount"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -37,7 +38,7 @@
 
     <TextView
         android:id="@+id/creditAmount"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

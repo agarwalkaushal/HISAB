@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:padding="5dp"
+                android:padding="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
 
 
             <TextView
-                android:padding="5dp"
+                android:padding="10dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
                 android:background="@color/dark_gray"/>
 
             <TextView
-                android:padding="5dp"
+                android:padding="10dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -65,12 +65,61 @@
         <android.support.v7.widget.RecyclerView
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:background="@drawable/border_sides_black"
             android:id="@+id/trial_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:background="@drawable/border_purchase"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Total: "
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"/>
+
+
+            <TextView
+                android:id="@+id/amount_debit"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"/>
+
+            <TextView
+                android:id="@+id/amount_credit"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -167,10 +167,10 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_transaction);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Transaction</font>"));
 
-        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
+                if (status != TextToSpeech.ERROR) {
                     t1.setLanguage(Locale.ENGLISH);
                 }
             }
@@ -324,7 +324,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         if (response.body() != null) {
                             JsonObject bodyyy = response.body();
                             JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
-                            product="";
+                            product = "";
                             for (int i = 0; i < bodyy.size(); i++) {
 
                                 inventoryModel = new InventoryModel();
@@ -335,7 +335,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 inventoryModel.setInventory_name(jsonObject.get("name").toString());
                                 inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 list.add(inventoryModel);
-                                product += inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1) + ",";
+                                product += inventoryModel.getInventory_name().substring(1, inventoryModel.getInventory_name().length() - 1) + ",";
 //                                qtyString+=inventoryModel.getInventory_qty()+",";
 
                             }
@@ -349,23 +349,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 @Override
                                 public void onFocusChange(View v, boolean hasFocus) {
                                     if (!hasFocus) {
-                                        String inputName = name.getText().toString();
-                                        int c = 0;
-                                        if (products != null) {
-                                            for (String i : products) {
-                                                if (i.compareTo(inputName) == 0) {
-                                                    isNameFromInventory = true;
-                                                    c++;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        if (c == 0) {
-                                            name.setError("Name error! Item not in inventory");
-                                            isNameFromInventory = false;
-                                            //Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
-                                        }
-
+                                        checkNameFromInventory();
                                     }
                                 }
                             });
@@ -387,7 +371,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
 
                         } else {
-                            Toast.makeText(getBaseContext(), "Servers are down "+response.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Servers are down " + response.toString(), Toast.LENGTH_LONG).show();
                             //finish();
                         }
 
@@ -416,43 +400,66 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 //                        qty = qtyString.split(",");
 
 
-
         suggestion1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(suggestion1.getText().toString().toUpperCase());
+                name.setText(suggestion1.getText().toString().toLowerCase());
+                checkNameFromInventory();
             }
         });
 
         suggestion2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(suggestion2.getText().toString().toUpperCase());
+                name.setText(suggestion2.getText().toString().toLowerCase());
+                checkNameFromInventory();
             }
         });
 
         suggestion3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(suggestion3.getText().toString().toUpperCase());
+                name.setText(suggestion3.getText().toString().toLowerCase());
+                checkNameFromInventory();
             }
         });
 
         suggestion4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(suggestion4.getText().toString().toUpperCase());
+                name.setText(suggestion4.getText().toString().toLowerCase());
+                checkNameFromInventory();
             }
         });
 
         suggestion5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(suggestion5.getText().toString().toUpperCase());
+                name.setText(suggestion5.getText().toString().toLowerCase());
+                checkNameFromInventory();
             }
         });
 
 
+    }
+
+    private void checkNameFromInventory() {
+        String inputName = name.getText().toString();
+        int c = 0;
+        if (products != null) {
+            for (String i : products) {
+                if (i.compareTo(inputName) == 0) {
+                    isNameFromInventory = true;
+                    c++;
+                    break;
+                }
+            }
+        }
+        if (c == 0) {
+            name.setError("Name error! Item not in inventory");
+            isNameFromInventory = false;
+            //Toast.makeText(getBaseContext(), "Enter a product name that exists in inventory, or add that item in inventory and proceed", Toast.LENGTH_LONG).show();
+        }
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -656,14 +663,14 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     if (itemRate.length() != 0 && Double.parseDouble(itemRate) > 0.0) {
                         addItem(itemName, Double.parseDouble(itemRate), Double.parseDouble(itemQuantity));
                         setListViewHeightBasedOnChildren(listView);
-                        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
+                        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
                         suggestion1.startAnimation(aniFade);
                         suggestion2.startAnimation(aniFade);
                         suggestion3.startAnimation(aniFade);
                         suggestion4.startAnimation(aniFade);
                         suggestion5.startAnimation(aniFade);
                         changeSuggestions(itemName);
-                        aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                        aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
                         suggestion1.startAnimation(aniFade);
                         suggestion2.startAnimation(aniFade);
                         suggestion3.startAnimation(aniFade);
@@ -697,16 +704,14 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private void changeSuggestions(String suggestion) {
         words.add(suggestion);
 
-        if(suggestion.matches("sugar"))
-        {
+        if (suggestion.matches("sugar")) {
             suggestion1.setText("Salt");
             suggestion2.setText("Tea");
             suggestion3.setText("Coffee");
             suggestion4.setText("Curd");
             suggestion5.setText("Milk");
         }
-        if(suggestion.matches("milano"))
-        {
+        if (suggestion.matches("milano")) {
             suggestion1.setText("Good Day");
             suggestion2.setText("Parle G");
             suggestion3.setText("Dark Fantasy");
@@ -735,7 +740,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             Intent intent = new Intent(Transaction.this, InventoryAdd.class);
             startActivity(intent);
             return true;
-        }else if (id == R.id.voice_input){
+        } else if (id == R.id.voice_input) {
             t1.speak("Please speak out the entries", TextToSpeech.QUEUE_FLUSH, null);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -743,7 +748,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 public void run() {
                     promptSpeechInput();
                 }
-            },1500);
+            }, 1500);
         }
 
         return super.onOptionsItemSelected(item);
@@ -1033,7 +1038,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1048,7 +1053,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 //                    Toast.makeText(getBaseContext(), result.get(0), Toast.LENGTH_LONG).show();
                     String userInputString = result.get(0);
                     String[] user_input = result.get(0).split(" ");
-                    if(user_input.length<3){
+                    if (user_input.length < 3) {
 //                        Toast.makeText(getBaseContext(), "Please say the product name, quantity and cost", Toast.LENGTH_LONG).show();
                         t1.speak("Need 3 fields. Please try again", TextToSpeech.QUEUE_FLUSH, null);
                         Handler handler = new Handler();
@@ -1057,30 +1062,28 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             public void run() {
                                 promptSpeechInput();
                             }
-                        },1500);
-                    }
-                    else{
+                        }, 1500);
+                    } else {
                         name.setText("");
-                        int j=0;
+                        int j = 0;
                         String prodName = "";
                         String prodRate = "";
                         String prodQty = "";
-                        for(int i=0;i<user_input.length;i++){
-                            if(!user_input[i].toLowerCase().equals("rate")){
-                                 if(!user_input[i].toLowerCase().equals("item"))
-                                     prodName+=user_input[i];
-                            }
-                            else {
-                                j=i;
+                        for (int i = 0; i < user_input.length; i++) {
+                            if (!user_input[i].toLowerCase().equals("rate")) {
+                                if (!user_input[i].toLowerCase().equals("item"))
+                                    prodName += user_input[i];
+                            } else {
+                                j = i;
                                 break;
                             }
                         }
-                        for(int i=0;i<user_input.length;i++){
-                            if(user_input[i].equals("rate")){
-                                prodRate = user_input[i+1];
+                        for (int i = 0; i < user_input.length; i++) {
+                            if (user_input[i].equals("rate")) {
+                                prodRate = user_input[i + 1];
                             }
-                            if(user_input[i].equals("quantity")){
-                                prodQty = user_input[i+1];
+                            if (user_input[i].equals("quantity")) {
+                                prodQty = user_input[i + 1];
                             }
                         }
 //                        String[] tTypes = getResources().getStringArray(R.array.types_array);
@@ -1090,9 +1093,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         rate.setText(prodRate);
                         quantity.setText(prodQty);
 
-                        t1.speak(prodName+" added!", TextToSpeech.QUEUE_FLUSH, null);
+                        t1.speak(prodName + " added!", TextToSpeech.QUEUE_FLUSH, null);
 
-                        if(userInputString.toLowerCase().contains("delete")){
+                        if (userInputString.toLowerCase().contains("delete")) {
                             name.setText("");
                             rate.setText("");
                             quantity.setText("");

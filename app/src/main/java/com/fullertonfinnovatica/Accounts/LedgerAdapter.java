@@ -72,7 +72,7 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
             recyclerViewHolder.bdDebit.setText("");
             recyclerViewHolder.cdCredit.setText("");
         }
-        
+
     }
 
     @Override

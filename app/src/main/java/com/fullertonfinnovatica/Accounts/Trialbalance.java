@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.R;
@@ -43,6 +44,8 @@ public class Trialbalance extends AppCompatActivity {
     TrialAdapter dataAdapter;
     RecyclerView recyclerView;
 
+    TextView totalCredit, totalDebit;
+
     int total_credit, total_debit;
 
     @Override
@@ -51,6 +54,9 @@ public class Trialbalance extends AppCompatActivity {
         setContentView(R.layout.activity_trialbalance);
 
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Trial Balance</font>"));
+
+        totalCredit = findViewById(R.id.amount_credit);
+        totalDebit = findViewById(R.id.amount_debit);
 
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
         circularProgressBar.enableIndeterminateMode(true);
@@ -114,6 +120,8 @@ public class Trialbalance extends AppCompatActivity {
 
                             }
 
+                            totalCredit.setText(String.valueOf(total_credit));
+                            totalDebit.setText(String.valueOf(total_debit));
                             Log.e("jojo", total_credit+" "+total_debit);
 
                             dataAdapter = new TrialAdapter(list, getBaseContext());

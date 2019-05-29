@@ -38,7 +38,7 @@ public class TrialAdapter extends RecyclerView.Adapter<TrialAdapter.RecyclerView
     public void onBindViewHolder(@NonNull TrialAdapter.RecyclerViewHolder recyclerViewHolder, int i) {
 
         TrialModel modelList = list.get(i);
-        recyclerViewHolder.accountName.setText(modelList.getName().substring(1, modelList.getName().length()-1));
+        recyclerViewHolder.accountName.setText(modelList.getName().substring(1, modelList.getName().length()-1).toUpperCase());
         if(modelList.getType().toLowerCase().contains("credit")){
             recyclerViewHolder.creditAmt.setText(modelList.getAmount());
             recyclerViewHolder.debitAmt.setText("");

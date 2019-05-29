@@ -47,10 +47,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
 
-        String subTypeOfTransaction = modelList.getNarration().get(0).
-                substring(modelList.getNarration().get(0).indexOf(":")+1);
-
-        //Log.e("Conditions: ",modelList.getTo()+":"+typeOfTransaction+":"+subTypeOfTransaction);
+        String subTypeOfTransaction = modelList.getNarration().get(0).substring(modelList.getNarration().get(0).indexOf(":")+1);
 
         if(modelList.getTo().toLowerCase().equals("cash"))
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.funds));
