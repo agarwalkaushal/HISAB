@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface AccountsAPI {
 
-    String BASE_URL = "https://test-accounts.herokuapp.com/";
+    String BASE_URL = "https://nexus-account.herokuapp.com/";
 
     @FormUrlEncoded
     @POST("user/login")

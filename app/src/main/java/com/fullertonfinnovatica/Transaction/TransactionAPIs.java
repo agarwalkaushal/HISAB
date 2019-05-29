@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 
 public interface TransactionAPIs {
 
-    String BASE_URL = "https://test-accounts.herokuapp.com/";
+    String BASE_URL = "https://nexus-account.herokuapp.com/";
 
     @FormUrlEncoded
     @POST("user/login")
@@ -28,7 +28,7 @@ public interface TransactionAPIs {
     Call<JournalEntryModel> journalEntry(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
 
     @FormUrlEncoded
-    @POST("ledger")
+    @POST("ledger/update")
     Call<JsonObject> ledgerPost(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
 
     @FormUrlEncoded

@@ -89,7 +89,7 @@ public class InventoryView extends AppCompatActivity {
 
         apiInterface = retrofit.create(InventoryAPI.class);
 
-        loginCall = apiInterface.login("demoadminid", "demo");
+        loginCall = apiInterface.login("demo", "demo");
 
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override

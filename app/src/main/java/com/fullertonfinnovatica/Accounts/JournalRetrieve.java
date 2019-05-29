@@ -69,7 +69,7 @@ public class JournalRetrieve extends AppCompatActivity {
 
         apiInterface = retrofit.create(AccountsAPI.class);
 
-        loginCall = apiInterface.login("demouserid", "demo");
+        loginCall = apiInterface.login("demo", "demo");
 
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override

@@ -63,8 +63,7 @@ public class InventoryCategories extends AppCompatActivity {
             }
         });
 
-        if(prefs.getBoolean("empty",true)==true){
-
+        if(prefs.getBoolean("empty",true)){
             prefs.edit().putBoolean("empty",false).apply();
             recyclerView.setVisibility(View.INVISIBLE);
             emptyInventory.setVisibility(View.VISIBLE);
