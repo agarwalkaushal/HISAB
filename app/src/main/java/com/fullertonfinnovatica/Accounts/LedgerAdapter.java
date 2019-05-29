@@ -47,6 +47,12 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
             total1 += Float.valueOf(modelList.getDebit_amt()[j]);
         }
 
+        for(int j=0;j<modelList.getCreditSize();j++){
+            recyclerViewHolder.toCreditField.append("By " + modelList.getCredit_name()[j].substring(1,modelList.getCredit_name()[j].length()-1) + " - ");
+            recyclerViewHolder.toCreditField.append(modelList.getCredit_amt()[j] + "\n");
+            total2 += Float.valueOf(modelList.getCredit_amt()[j]);
+        }
+
         if(total1>total2) {
             recyclerViewHolder.maxAmt1.setText(String.valueOf(total1));
             recyclerViewHolder.maxamt2.setText(String.valueOf(total1));
@@ -57,13 +63,6 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
             recyclerViewHolder.maxamt2.setText(String.valueOf(total2));
         }
         recyclerViewHolder.toCreditField.setText("");
-        for(int j=0;j<modelList.getCreditSize();j++){
-            recyclerViewHolder.toCreditField.append("By " + modelList.getCredit_name()[j].substring(1,modelList.getCredit_name()[j].length()-1) + " - ");
-            recyclerViewHolder.toCreditField.append(modelList.getCredit_amt()[j] + "\n");
-            total2 += Float.valueOf(modelList.getCredit_amt()[j]);
-        }
-
-
 
         if(modelList.getBalance_type().toLowerCase().equals("credit")){
 
