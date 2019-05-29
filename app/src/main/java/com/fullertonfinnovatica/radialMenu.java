@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.fullertonfinnovatica.Accounts.AccountsEntry;
 import com.fullertonfinnovatica.Accounts.AccountsMain;
 import com.fullertonfinnovatica.Finance.CashBudget;
+import com.fullertonfinnovatica.Finance.FinanceMain;
+import com.fullertonfinnovatica.Finance.FlexibleBudget;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
@@ -158,7 +160,7 @@ public class radialMenu extends View {
                             getContext().startActivity(intent);
 
                         }else if(angle > 0 && angle < 1.57){
-                            Intent intent = new Intent(getContext(), CashBudget.class);
+                            Intent intent = new Intent(getContext(), FinanceMain.class);
                             getContext().startActivity(intent);
                         }else{
                             Intent intent = new Intent(getContext(), AccountsMain.class);

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Finance.CashBudget"></activity>
+        <activity android:name=".Finance.FlexibleBudget"></activity>
+        <activity android:name=".Finance.CashBudget" />
         <activity android:name=".Finance.FinanceMain" />
         <activity android:name=".Notifications.Notifications" />
         <activity android:name=".Accounts.Trialbalance" />

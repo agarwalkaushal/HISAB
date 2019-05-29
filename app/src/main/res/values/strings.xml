@@ -7,6 +7,12 @@
     <string name="transaction"><font fgcolor="#111111">Transaction</font></string>
     <string name="receiptofcash"><u>Receipts of Cash</u></string>
     <string name="paymentofcash"><u>Payment of Cash</u></string>
+    <string name="sde">Selling &amp; Distribution Expenses: <b><i>Fix</i></b> \n\n<b><i>Var</i></b></string>
+    <string name="ae">Admin Expenses: <b><i>Fix</i></b>\n\n\n<b><i>Var</i></b></string>
+
+    <string name="fb">Budget that adjusts or flexes with changes in volume or activity\n\nFind out your company’s financial performance in \"<b>what if</b>\" scenario!
+    </string>
+    <string name="cb">Cash inflows and outflows over a specific period of time\n\nDoes your company has enough cash to pay bills when they come due?</string>
     <string name="cat1">Home Utilities</string>
     <string name="cat2">Grocery</string>
     <string name="cat3">Fruits &amp; Vegetables</string>
