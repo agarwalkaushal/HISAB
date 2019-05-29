@@ -40,6 +40,8 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
         LedgerModel modelList = list.get(i);
         recyclerViewHolder.accountName.setText(modelList.getAccount_name().substring(1,modelList.getAccount_name().length()-1).toUpperCase() + " A/C");
         recyclerViewHolder.toDebitFields.setText("");
+        recyclerViewHolder.toCreditField.setText("");
+
         float total1 = 0, total2 = 0;
         for(int j=0;j<modelList.getDebitSize();j++){
             recyclerViewHolder.toDebitFields.append("To " + modelList.getDebit_name()[j].substring(1,modelList.getDebit_name()[j].length()-1) + " - ");
@@ -56,32 +58,21 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
         if(total1>total2) {
             recyclerViewHolder.maxAmt1.setText(String.valueOf(total1));
             recyclerViewHolder.maxamt2.setText(String.valueOf(total1));
+            recyclerViewHolder.bdDebit.setText("To Bal b/d "+Math.abs(total1-total2));
+            recyclerViewHolder.cdCredit.setText("By Bal c/d "+Math.abs(total1-total2));
+            recyclerViewHolder.bdCredit.setText("");
+            recyclerViewHolder.cdDebit.setText("");
         }
         else
         {
             recyclerViewHolder.maxAmt1.setText(String.valueOf(total2));
             recyclerViewHolder.maxamt2.setText(String.valueOf(total2));
-        }
-        recyclerViewHolder.toCreditField.setText("");
-
-        if(modelList.getBalance_type().toLowerCase().equals("credit")){
-
             recyclerViewHolder.bdCredit.setText("To Bal b/d "+Math.abs(total1-total2));
             recyclerViewHolder.cdDebit.setText("By Bal c/d "+Math.abs(total1-total2));
             recyclerViewHolder.bdDebit.setText("");
             recyclerViewHolder.cdCredit.setText("");
-
         }
-
-        else{
-
-            recyclerViewHolder.bdDebit.setText("To Bal b/d "+Math.abs(total1-total2));
-            recyclerViewHolder.cdCredit.setText("By Bal c/d "+Math.abs(total1-total2));
-            recyclerViewHolder.bdCredit.setText("");
-            recyclerViewHolder.cdDebit.setText("");
-
-        }
-
+        
     }
 
     @Override
