@@ -9,6 +9,7 @@
     <color name="radial3">#dba9fd</color>
     <color name="radial4">#abb1ff</color>
     <color name="white">#FFFFFF</color>
+    <color name="whiteTint">#F7F5F5</color>
     <color name="lightGray">#cee6e6e6</color>
     <color name="pink">#FFB6C1</color>
     <color name="red">#F08080</color>

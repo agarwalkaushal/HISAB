@@ -48,7 +48,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         recyclerViewHolder.body.setText(modelList.getBody());
 
         if(modelList.getImg().equals("expiry")){
-            recyclerViewHolder.img.setImageResource(R.drawable.expired);
+            recyclerViewHolder.img.setImageResource(R.drawable.calendar_notifications);
         }
         else if(modelList.getImg().equals("threshold")){
             recyclerViewHolder.img.setImageResource(R.drawable.threshold);

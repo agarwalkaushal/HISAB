@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica.Notifications;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,13 +19,12 @@ public  class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     private Drawable icon;
     private final ColorDrawable background;
 
-
     public SwipeToDeleteCallback(NotificationsAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         mAdapter = adapter;
         icon = ContextCompat.getDrawable(mAdapter.getContext(),
                 R.drawable.delete);
-        background = new ColorDrawable(Color.RED);
+        background = new ColorDrawable((mAdapter.getContext().getResources().getColor(R.color.red_orignal)));
     }
 
     @Override

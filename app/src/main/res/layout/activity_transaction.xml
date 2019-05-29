@@ -314,7 +314,7 @@
                                 android:clickable="true"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:padding="5dp"
-                                android:text="Parle G" />
+                                android:text="Milano" />
 
                             <Button
                                 android:id="@+id/suggestion2"
@@ -336,7 +336,7 @@
                                 android:clickable="true"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:padding="5dp"
-                                android:text="Shampoo" />
+                                android:text="Sugar" />
 
                             <Button
                                 android:id="@+id/suggestion4"

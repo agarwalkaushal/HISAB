@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -338,7 +340,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                             }
 
-                            Toast.makeText(getBaseContext(), product, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getBaseContext(), product, Toast.LENGTH_LONG).show();
                             products = product.split(",");
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
                             name.setAdapter(products_adapter);
@@ -654,7 +656,19 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     if (itemRate.length() != 0 && Double.parseDouble(itemRate) > 0.0) {
                         addItem(itemName, Double.parseDouble(itemRate), Double.parseDouble(itemQuantity));
                         setListViewHeightBasedOnChildren(listView);
+                        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
+                        suggestion1.startAnimation(aniFade);
+                        suggestion2.startAnimation(aniFade);
+                        suggestion3.startAnimation(aniFade);
+                        suggestion4.startAnimation(aniFade);
+                        suggestion5.startAnimation(aniFade);
                         changeSuggestions(itemName);
+                        aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+                        suggestion1.startAnimation(aniFade);
+                        suggestion2.startAnimation(aniFade);
+                        suggestion3.startAnimation(aniFade);
+                        suggestion4.startAnimation(aniFade);
+                        suggestion5.startAnimation(aniFade);
                         name.getText().clear();
                         rate.getText().clear();
                         quantity.getText().clear();
@@ -683,11 +697,22 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private void changeSuggestions(String suggestion) {
         words.add(suggestion);
 
-        suggestion1.setText("Pencil");
-        suggestion2.setText("Eraser");
-        suggestion3.setText("Sharpner");
-        suggestion4.setText("Ruler");
-        suggestion5.setText("Notepad");
+        if(suggestion.matches("sugar"))
+        {
+            suggestion1.setText("Salt");
+            suggestion2.setText("Tea");
+            suggestion3.setText("Coffee");
+            suggestion4.setText("Curd");
+            suggestion5.setText("Milk");
+        }
+        if(suggestion.matches("milano"))
+        {
+            suggestion1.setText("Good Day");
+            suggestion2.setText("Parle G");
+            suggestion3.setText("Dark Fantasy");
+            suggestion4.setText("Time Pass");
+            suggestion5.setText("Nice Time");
+        }
 
     }
 
@@ -710,9 +735,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             Intent intent = new Intent(Transaction.this, InventoryAdd.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.done) {
-            doneClicked();
-
         }else if (id == R.id.voice_input){
             t1.speak("Please speak out the entries", TextToSpeech.QUEUE_FLUSH, null);
             Handler handler = new Handler();

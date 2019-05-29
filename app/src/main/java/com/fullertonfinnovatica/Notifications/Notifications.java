@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Html;
 import android.view.View;
 
 import com.fullertonfinnovatica.R;
@@ -23,7 +24,7 @@ public class Notifications extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Notifications</font>"));
         View view = findViewById(R.id.holder);
         model = new NotificationsModel();
         list = new ArrayList<>();

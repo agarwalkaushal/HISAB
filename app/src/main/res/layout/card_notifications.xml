@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_margin="8dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
-        app:cardCornerRadius="4dp">
+        android:elevation="4dp"
+        android:backgroundTint="@color/whiteTint"
+        app:cardCornerRadius="1dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,8 +20,9 @@
 
             <ImageView
                 android:id="@+id/notificationImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:padding="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -37,13 +39,16 @@
                 android:id="@+id/notificationsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center"
                 android:text="EXPIRY ALERT"
-                android:textSize="24dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:textColor="@color/red_orignal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +57,7 @@
                 app:layout_constraintVertical_bias="0.100000024" />
 
             <TextView
+                android:paddingTop="10dp"
                 android:id="@+id/notificationBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +66,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
