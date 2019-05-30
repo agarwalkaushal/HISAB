@@ -120,7 +120,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB4MwuKPPjTH3tQ_wul3hxymkdvqdz1bl0" />
+            android:value="AIzaSyDL86t4e1pXby77Jz3zgyxqJcxMOPDy6xk" />
 
         <activity android:name=".Analytics.AnalyticsMain" />
         <activity
