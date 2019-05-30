@@ -2,8 +2,23 @@ package com.fullertonfinnovatica.Inventory;
 
 public class InventoryModel {
 
-    String inventory_category, inventory_name, inventory_qty, inventory_cost;
+    String inventory_category, inventory_name, inventory_qty, inventory_cost, expiryDate, threshold;
 
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(String threshold) {
+        this.threshold = threshold;
+    }
 //    public String getMobile_no() {
 //        return mobile_no;
 //    }

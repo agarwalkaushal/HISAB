@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -172,7 +173,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
                         inventoryCall = apiInterface.postInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                product_name, product_cat, Integer.valueOf(product_qty), Integer.valueOf(product_cost));
+                                product_name, product_cat, Integer.valueOf(product_qty), Integer.valueOf(product_cost), date, product_thrld);
 
                         inventoryCall.enqueue(new Callback<InventoryModel>() {
                             @Override
@@ -183,7 +184,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                                     finish();
                                 } else
                                     Log.e("mana", response.toString());
-                                Toast.makeText(getBaseContext(), "Servers are down : "+response.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Servers are down : "+response.message(), Toast.LENGTH_LONG).show();
                                 finish();
 
                             }
@@ -251,7 +252,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-        date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        date = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
         expiryDate.setText(date);
 
     }

@@ -67,35 +67,35 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
         //subTypeOfTransaction.substring(0, 1).toUpperCase() + subTypeOfTransaction.substring(1).toLowerCase() + " A/c"
         //modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase()
 
-        if (typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sales")) {
+//        if (typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sales")) {
+//
+//            recyclerViewHolder.first.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " A/c");
+//            if (modelList.getTo().toLowerCase().equals("cash")) {
+//                recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
+//            } else {
+//                recyclerViewHolder.second.setText(name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + " A/c");
+//            }
+//        } else if (typeOfTransaction.contains("payment")) {
+//            recyclerViewHolder.first.setText(subTypeOfTransaction.substring(0, 1).toUpperCase() + subTypeOfTransaction.substring(1).toLowerCase() + " A/c");
+//            if (subTypeOfTransaction.contains("settlement")) {
+//                recyclerViewHolder.second.setText(name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + " A/c");
+//            } else {
+//                recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
+//            }
+//        } else if (typeOfTransaction.contains("commission")) {
+//            recyclerViewHolder.first.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + "A/c");
+//            if(subTypeOfTransaction.contains("given"))
+//                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Given");
+//            else
+//                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Received");
+//        } else if (typeOfTransaction.contains("drawing")) {
+//            recyclerViewHolder.first.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " A/c");
+//            recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
+//        }
 
-            recyclerViewHolder.first.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " A/c");
-            if (modelList.getTo().toLowerCase().equals("cash")) {
-                recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
-            } else {
-                recyclerViewHolder.second.setText(name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + " A/c");
-            }
-        } else if (typeOfTransaction.contains("payment")) {
-            recyclerViewHolder.first.setText(subTypeOfTransaction.substring(0, 1).toUpperCase() + subTypeOfTransaction.substring(1).toLowerCase() + " A/c");
-            if (subTypeOfTransaction.contains("settlement")) {
-                recyclerViewHolder.second.setText(name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + " A/c");
-            } else {
-                recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
-            }
-        } else if (typeOfTransaction.contains("commission")) {
-            recyclerViewHolder.first.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + "A/c");
-            if(subTypeOfTransaction.contains("given"))
-                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Given");
-            else
-                recyclerViewHolder.second.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " Received");
-        } else if (typeOfTransaction.contains("drawing")) {
-            recyclerViewHolder.first.setText(typeOfTransaction.substring(0, 1).toUpperCase() + typeOfTransaction.substring(1).toLowerCase() + " A/c");
-            recyclerViewHolder.second.setText(modelList.getTo().substring(0, 1).toUpperCase() + modelList.getTo().substring(1).toLowerCase() + " A/c");
-        }
 
-
-        //recyclerViewHolder.first.setText(modelList.getTo());
-        //recyclerViewHolder.second.setText(modelList.getFrom());
+        recyclerViewHolder.first.setText(modelList.getTo());
+        recyclerViewHolder.second.setText(modelList.getFrom());
 
 
     }

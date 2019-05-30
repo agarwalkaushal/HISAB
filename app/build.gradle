@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 android {
-    signingConfigs {
-        first {
-            storeFile file('D:\\Android Studio\\key.jks')
-            storePassword '@Virgo79'
-        }
-    }
+//    signingConfigs {
+//        first {
+//            storeFile file('D:\\Android Studio\\key.jks')
+//            storePassword '@Virgo79'
+//        }
+//    }
     compileSdkVersion 27
     buildToolsVersion '28.0.3'
     defaultConfig {

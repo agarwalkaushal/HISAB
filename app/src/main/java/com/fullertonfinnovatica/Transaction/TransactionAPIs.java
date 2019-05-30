@@ -25,7 +25,7 @@ public interface TransactionAPIs {
 
     @FormUrlEncoded
     @POST("journal/add")
-    Call<JournalEntryModel> journalEntry(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
+    Call<JsonObject> journalEntry(@Header("authorization") String header, @Field("from") String from, @Field("to") String to, @Field("date") String date, @Field("debit") String debit, @Field("credit") String credit, @Field("narration") String narration);
 
     @FormUrlEncoded
     @POST("ledger/update")

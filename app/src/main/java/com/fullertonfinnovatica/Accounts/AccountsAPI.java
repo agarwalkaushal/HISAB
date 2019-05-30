@@ -29,6 +29,9 @@ public interface AccountsAPI {
     @GET("ledger")
     Call<JsonObject> getLedger(@Header("authorization") String header);
 
+    @GET("ledger/update")
+    Call<JsonObject> populateLedger(@Header("authorization") String header);
+
     @GET("final/pnl")
     Call<JsonObject> getFinal(@Header("authorization") String header);
 
