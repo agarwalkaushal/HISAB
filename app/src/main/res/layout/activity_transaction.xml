@@ -12,7 +12,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -206,7 +207,7 @@
                             android:layout_weight="2"
                             android:cursorVisible="true"
                             android:hint="Enter name"
-                            android:inputType="textCapCharacters"
+                            android:inputType="textAutoComplete"
                             android:textColor="@color/black"
                             android:textCursorDrawable="@drawable/cursor_design"
                             android:textSize="14sp" />

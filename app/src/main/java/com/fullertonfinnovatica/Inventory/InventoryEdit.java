@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.text.Html;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -64,7 +65,7 @@ public class InventoryEdit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_edit);
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'Edit Inventory</font>"));
         progressParent = findViewById(R.id.progressParent);
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
 //        progressParent.setVisibility(View.GONE);

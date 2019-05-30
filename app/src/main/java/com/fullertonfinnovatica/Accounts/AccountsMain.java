@@ -28,6 +28,7 @@ import java.util.List;
 public class AccountsMain extends AppCompatActivity {
 
     CardView journalCard, ledgerCard, pnlCard, trialCard;
+    Boolean clickedFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,12 @@ public class AccountsMain extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Accounts</font>"));
+
+        Intent intent = getIntent();
+        clickedFrom = intent.getBooleanExtra("Ratio",false);
+
+        if(clickedFrom)
+            adjustmentsDialog();
 
         journalCard = findViewById(R.id.journal);
         ledgerCard = findViewById(R.id.ledger);
@@ -263,7 +270,11 @@ public class AccountsMain extends AppCompatActivity {
                     Intent intent;
                     intent = new Intent(getBaseContext(), Pnl.class);
                     intent.putStringArrayListExtra("Adjustments", list);
+                    intent.putExtra("Ratio",clickedFrom);
                     startActivity(intent);
+
+                    if(clickedFrom)
+                        finish();
                 }
             }
         });

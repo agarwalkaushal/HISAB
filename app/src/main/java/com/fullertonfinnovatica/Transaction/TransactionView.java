@@ -86,7 +86,7 @@ TransactionView extends AppCompatActivity {
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
-
+                Toast.makeText(getApplicationContext(),"Please hang on..",Toast.LENGTH_LONG).show();
                 retrieveCall = apiInterface.journalRetrieveExp(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
                 retrieveCall.enqueue(new Callback<JournalEntryListModel>() {

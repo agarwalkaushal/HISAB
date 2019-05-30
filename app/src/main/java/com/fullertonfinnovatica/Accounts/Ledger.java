@@ -90,13 +90,14 @@ public class Ledger extends AppCompatActivity {
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
                 Log.e("kyu", response.toString());
+                Toast.makeText(getApplicationContext(),"Ledger requested",Toast.LENGTH_LONG).show();
                 ledgerCall = apiInterface.getLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
                 ledgerPopulateCall = apiInterface.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
                 ledgerPopulateCall.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
+                        Toast.makeText(getApplicationContext(),"Please hang on..",Toast.LENGTH_LONG).show();
                         ledgerCall.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

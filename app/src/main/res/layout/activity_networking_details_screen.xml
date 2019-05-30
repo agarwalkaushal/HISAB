@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Networking.NetworkingDetailsScreen">
 
     <com.google.android.gms.maps.MapView
@@ -45,45 +44,66 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/border_sides">
+            android:background="@drawable/border_sides"
+            android:orientation="vertical">
 
             <ImageView
-                android:padding="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:src="@drawable/placeholder"/>
+                android:padding="10dp"
+                android:src="@drawable/placeholder" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/blat"
-                    android:gravity="center"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/blong"
-                    android:gravity="center"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border_sides"
+            android:clickable="true"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:text="RETAILER"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,25 +118,20 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:paddingLeft="5dp"
-                android:src="@drawable/phone_call"/>
+                android:src="@drawable/phone_call" />
 
             <TextView
                 android:id="@+id/bpno"
-                android:text="9090833383"
-                android:inputType="textCapCharacters"
                 android:layout_width="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/black"
                 android:layout_height="35dp"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
                 android:paddingLeft="25dp"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:text="9090833383"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
-
-
-
-
 
 
     </LinearLayout>

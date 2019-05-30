@@ -75,7 +75,7 @@ public class JournalRetrieve extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-
+                Toast.makeText(getApplicationContext(),"Please hang on..",Toast.LENGTH_LONG).show();
 
                 retrieveCall = apiInterface.journalRetrieveExp(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 

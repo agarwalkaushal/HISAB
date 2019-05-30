@@ -47,19 +47,6 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
         recyclerViewHolder.credit_amt.setText(modelList.getCredit());
         recyclerViewHolder.debit_amt.setText(modelList.getDebit());
 
-        String typeOfTransaction = modelList.getFrom().toLowerCase().trim();
-
-        String subTypeOfTransaction = "null", name = "null";
-        if(modelList.getNarration().get(0).length()>4) {
-             subTypeOfTransaction = modelList.getNarration().get(0).
-                    substring(modelList.getNarration().get(0).indexOf(":") + 1).toLowerCase();
-
-            try {
-                name = modelList.getNarration().get(0).substring(0, modelList.getNarration().get(0).indexOf(":"));
-            }catch(StringIndexOutOfBoundsException siobe){
-                name = "null";
-            }
-        }
 
         //modelList.getTo().toLowerCase().equals("cash")
 
@@ -94,8 +81,8 @@ public class JournalRetrieveAdapter extends RecyclerView.Adapter<JournalRetrieve
 //        }
 
 
-        recyclerViewHolder.first.setText(modelList.getTo());
-        recyclerViewHolder.second.setText(modelList.getFrom());
+        recyclerViewHolder.first.setText(modelList.getTo()+" a/c");
+        recyclerViewHolder.second.setText(modelList.getFrom()+" a/c");
 
 
     }

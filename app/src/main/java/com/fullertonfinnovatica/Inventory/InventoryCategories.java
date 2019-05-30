@@ -46,8 +46,6 @@ public class InventoryCategories extends AppCompatActivity {
         setContentView(R.layout.activity_inventory_categories);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Inventory</font>"));
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         recyclerView = findViewById(R.id.invCategoryRecycler);
         emptyInventory = (LinearLayout) findViewById(R.id.emptyInventory);
         inventoryEmpty = (TextView) findViewById(R.id.inventoryEmpty);
@@ -62,7 +60,7 @@ public class InventoryCategories extends AppCompatActivity {
 
             }
         });
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getBoolean("empty",true)){
             prefs.edit().putBoolean("empty",false).apply();
             recyclerView.setVisibility(View.INVISIBLE);

@@ -92,7 +92,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="To"
+                    android:text="to"
                     android:textColor="@color/black" />
 
                 <TextView

@@ -164,6 +164,7 @@ public class radialMenu extends View {
                             getContext().startActivity(intent);
                         }else{
                             Intent intent = new Intent(getContext(), AccountsMain.class);
+                            intent.putExtra("Ratio",false);
                             getContext().startActivity(intent);
                         }
 

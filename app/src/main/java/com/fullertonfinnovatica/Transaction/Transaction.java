@@ -333,6 +333,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             }
 
                             Toast.makeText(getBaseContext(), "Products loaded from Inventory", Toast.LENGTH_LONG).show();
+                            Log.e("Products: ",product);
                             products = product.split(",");
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
                             name.setAdapter(products_adapter);
@@ -623,7 +624,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                         if(response.body()!=null){
                             if(response.code() == 200){
-                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
                                 finish();
                             }else{
                                 Toast.makeText(getBaseContext(), "Servers are down" , Toast.LENGTH_LONG).show();
