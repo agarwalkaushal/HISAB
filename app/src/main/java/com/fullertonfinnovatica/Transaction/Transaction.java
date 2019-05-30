@@ -28,7 +28,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -44,26 +43,17 @@ import com.fullertonfinnovatica.Accounts.JournalEntryModel;
 import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Inventory.InventoryAPI;
 import com.fullertonfinnovatica.Inventory.InventoryAdd;
-import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Inventory.InventoryModel;
 import com.fullertonfinnovatica.R;
-import com.fullertonfinnovatica.SignUpAPI;
-import com.fullertonfinnovatica.SignUpModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -76,7 +66,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Transaction extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -343,7 +332,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                             }
 
-                            //Toast.makeText(getBaseContext(), product, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Products loaded from Inventory", Toast.LENGTH_LONG).show();
                             products = product.split(",");
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
                             name.setAdapter(products_adapter);
@@ -799,7 +788,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.add_product) {
+        if (id == R.id.update_product) {
             Intent intent = new Intent(Transaction.this, InventoryAdd.class);
             startActivity(intent);
             return true;

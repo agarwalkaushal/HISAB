@@ -73,7 +73,7 @@ public class InventoryCategories extends AppCompatActivity {
         else
         {
             recyclerView.setVisibility(View.VISIBLE);
-            emptyInventory.setVisibility(View.INVISIBLE);
+            emptyInventory.setVisibility(View.GONE);
 
             addCategories();
 
@@ -233,4 +233,10 @@ public class InventoryCategories extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyInventory.setVisibility(View.GONE);
+    }
 }

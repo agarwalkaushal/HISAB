@@ -32,7 +32,7 @@
                     android:text="Product Name*"
                     android:textColor="@color/black" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -280,7 +280,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="@color/colorPrimary"
-                android:text="ADD"
+                android:text="UPDATE"
                 android:textStyle="bold" />
 
         </LinearLayout>

@@ -1,7 +1,6 @@
 package com.fullertonfinnovatica.Inventory;
 
 import android.animation.Animator;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -19,19 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.LoginModel;
-import com.fullertonfinnovatica.Create;
 import com.fullertonfinnovatica.R;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -45,7 +39,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -69,6 +62,8 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
     int revealY;
     int c = 0;
 
+    RelativeLayout progressParent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -76,7 +71,10 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.activity_inventory_add);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#000000'>Add Product</font>"));
 
-        expiryDate = findViewById(R.id.expDate);
+        progressParent = findViewById(R.id.progressParent);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        progressParent.setVisibility(View.GONE);
+        expiryDate = findViewById(R.id.product_expiry);
 
         expiryDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +112,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
         ed_product_name = findViewById(R.id.product_name);
         ed_product_thrld = findViewById(R.id.product_threshold);
         product_category = findViewById(R.id.product_category);
-        add = findViewById(R.id.add_product);
+        add = findViewById(R.id.update_product);
 
         final Intent intent = getIntent();
         if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
@@ -164,6 +162,10 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                     c++;
                 }
 
+                add.setVisibility(View.GONE);
+                progressParent.setVisibility(View.VISIBLE);
+                circularProgressBar.enableIndeterminateMode(true);
+
                 //TODO: Sent data
                 loginCall.enqueue(new Callback<LoginModel>() {
                     @Override
@@ -191,6 +193,8 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
 
                                 Log.e("mana", t.toString());
                                 Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                                add.setVisibility(View.VISIBLE);
+                                progressParent.setVisibility(View.GONE);
 
                             }
                         });

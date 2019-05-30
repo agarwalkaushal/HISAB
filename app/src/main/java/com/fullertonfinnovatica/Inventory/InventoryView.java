@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.Transaction.Transaction;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
@@ -62,10 +64,19 @@ public class InventoryView extends AppCompatActivity {
 
     ImageView item_icon;
 
+    RelativeLayout progressParent;
+    LinearLayout header;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_view);
+
+        progressParent = findViewById(R.id.progressParent);
+        header = findViewById(R.id.header);
+        header.setVisibility(View.GONE);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        circularProgressBar.enableIndeterminateMode(true);
 
         type = getIntent().getStringExtra("Inventory type");
         name = getIntent().getStringExtra("Inventory name");
@@ -101,6 +112,8 @@ public class InventoryView extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
+                        progressParent.setVisibility(View.GONE);
+
                         if(response.body()!=null) {
                             JsonObject bodyyy = response.body();
                             JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
@@ -122,6 +135,7 @@ public class InventoryView extends AppCompatActivity {
 
 //                            Log.e("mman", jsonObject.get("inventory_category").toString().toLowerCase() + "  " + name.toLowerCase() + jsonObject.get("inventory_category").toString().toLowerCase().contains(name.toLowerCase()) + "  " + list.size());
                             if (list.size() != 0) {
+                                header.setVisibility(View.VISIBLE);
                                 recyclerView1 = findViewById(R.id.recycler_inventory);
                                 dataAdapter = new InventoryAdapter(list, getBaseContext());
                                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -229,8 +243,8 @@ public class InventoryView extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.edit_product) {
-            // TODO: Edit product details and update in server
-            Toast.makeText(getApplicationContext(), "Edit Inventory", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(InventoryView.this, InventoryEdit.class);
+            startActivity(intent);
             return true;
         }
 

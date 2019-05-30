@@ -7,7 +7,7 @@
         android:icon="@android:drawable/ic_btn_speak_now"
         app:showAsAction="always" />
 
-    <item android:id="@+id/add_product"
+    <item android:id="@+id/update_product"
         android:title="Add Product"
         android:icon="@drawable/cart_black"
         app:showAsAction="always" />
