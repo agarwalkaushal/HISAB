@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Finance.Ratios"></activity>
+        <activity android:name=".Inventory.InventoryDetails"></activity>
+        <activity android:name=".Finance.Ratios" />
         <activity android:name=".Inventory.InventoryEdit" />
         <activity android:name=".Finance.FlexibleBudget" />
         <activity android:name=".Finance.CashBudget" />

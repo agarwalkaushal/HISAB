@@ -154,11 +154,11 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                 String[] inventoryCategories = getResources().getStringArray(R.array.inventory_categories);
                 String[] inventoryTags = getResources().getStringArray(R.array.inventory_tags);
 
+                c = 0;
                 for (String i : inventoryCategories) {
 
                     if (i.compareTo(ed_product_cat.getText().toString()) == 0) {
                         product_cat = inventoryCategories[c];
-                        c = 0;
                         break;
                     }
                     c++;

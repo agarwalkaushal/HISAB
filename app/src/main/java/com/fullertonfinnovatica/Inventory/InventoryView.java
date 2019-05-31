@@ -1,5 +1,6 @@
 package com.fullertonfinnovatica.Inventory;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +25,8 @@ import com.fullertonfinnovatica.Accounts.AccountsAPI;
 import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Networking.NetworkingAPI;
 import com.fullertonfinnovatica.Networking.NetworkingAdapter;
+import com.fullertonfinnovatica.Networking.NetworkingDetailsScreen;
+import com.fullertonfinnovatica.Networking.NetworkingMain;
 import com.fullertonfinnovatica.Networking.NetworkingModel;
 import com.fullertonfinnovatica.R;
 import com.fullertonfinnovatica.Transaction.Transaction;
@@ -142,6 +147,32 @@ public class InventoryView extends AppCompatActivity {
                                 dataAdapter = new InventoryAdapter(list, getBaseContext());
                                 recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                                 recyclerView1.setAdapter(dataAdapter);
+
+                                recyclerView1.addOnItemTouchListener(new InventoryView.RecyclerTouchListener(getBaseContext(),
+                                        recyclerView1, new InventoryView.ClickListener() {
+                                    @Override
+                                    public void onClick(View view, final int position) {
+
+                                        InventoryModel pojo;
+
+                                        pojo = list.get(position);
+                                        Intent in = new Intent(InventoryView.this, InventoryDetails.class);
+                                        in.putExtra("inv_name", pojo.getInventory_name());
+                                        in.putExtra("inv_threshold",pojo.getThreshold());
+                                        in.putExtra("inv_expiry",pojo.getExpiryDate());
+                                        in.putExtra("inv_category",pojo.getInventory_category());
+                                        in.putExtra("inv_cost",pojo.getInventory_cost());
+                                        in.putExtra("inv_qty",pojo.getInventory_qty());
+                                        startActivity(in);
+                                    }
+
+                                    @Override
+                                    public void onLongClick(View view, int position) {
+//                            Toast.makeText(NetworkingMain.this, "Long press on position :"+position,
+//                                    Toast.LENGTH_LONG).show();
+                                    }
+                                }));
+
                             } else {
                                 recyclerView1 = findViewById(R.id.recycler_inventory);
                                 recyclerView1.setVisibility(View.GONE);
@@ -251,6 +282,56 @@ public class InventoryView extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static interface ClickListener{
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+    }
+
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private InventoryView.ClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final InventoryView.ClickListener clicklistener){
+
+            this.clicklistener=clicklistener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child=recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child=rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clicklistener!=null && gestureDetector.onTouchEvent(e)){
+                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 
     public static String getAuthToken(String userName, String password) {
