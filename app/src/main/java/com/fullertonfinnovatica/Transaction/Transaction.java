@@ -132,13 +132,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     Call<JournalEntryModel> entryCall;
     Call<JsonObject> ledgerPostCall;
+    Call<JsonObject> ledgerPopulateCall;
     Call<JsonObject> pnlPostCall;
     Call<JsonObject> trialPostCall;
     Call<JsonObject> inventoryCall;
     Call<LoginModel> loginCall;
     TransactionAPIs apiInterface;
     InventoryAPI apiInterface_inventory;
-    Retrofit retrofit, retrofit_inventory;
+    AccountsAPI apiInterface_accounts;
+    Retrofit retrofit, retrofit_inventory, retrofit_accounts;
     InventoryModel inventoryModel;
     List<InventoryModel> list;
 
@@ -297,11 +299,17 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 .client(cleint)
                 .build();
 
+        retrofit_accounts = new Retrofit.Builder().baseUrl(AccountsAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(cleint)
+                .build();
+
         products = product.split(",");
         products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
 
         apiInterface = retrofit.create(TransactionAPIs.class);
         apiInterface_inventory = retrofit_inventory.create(InventoryAPI.class);
+        apiInterface_accounts = retrofit_accounts.create(AccountsAPI.class);
 
         loginCall = apiInterface_inventory.login("demo", "demo");
         loginCall.enqueue(new Callback<LoginModel>() {
@@ -525,7 +533,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         //Toast.makeText(getBaseContext(), "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber, Toast.LENGTH_LONG).show();
         Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
 
-        loginCall = apiInterface.login("demouserid", "demo");
+        loginCall = apiInterface.login("demo", "demo");
         doneButton.setVisibility(View.GONE);
         progressParent.setVisibility(View.VISIBLE);
         circularProgressBar.enableIndeterminateMode(true);
@@ -626,7 +634,22 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             if(response.code() == 200){
                                 Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
-                                finish();
+
+                                ledgerPopulateCall = apiInterface_accounts.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
+                                ledgerPopulateCall.enqueue(new Callback<JsonObject>() {
+                                    @Override
+                                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                        Log.e("lcheck","Ledger populated");
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                                        Log.e("lcheck","Ledger populated");
+                                        finish();
+                                    }
+                                });
+//                                finish();
                             }else{
                                 Toast.makeText(getBaseContext(), "Servers are down" , Toast.LENGTH_LONG).show();
                             }
