@@ -30,6 +30,7 @@ import com.fullertonfinnovatica.Finance.FinanceMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
 import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
 import com.fullertonfinnovatica.Notifications.Notifications;
+import com.fullertonfinnovatica.Rack.RackMain;
 import com.fullertonfinnovatica.Transaction.Transaction;
 import com.fullertonfinnovatica.Transaction.TransactionView;
 import com.google.firebase.FirebaseApp;
@@ -211,7 +212,8 @@ public class Dashboard extends AppCompatActivity
             this.startActivity(intent);
 
         }else if (id == R.id.nav_general) {
-            //Toast.makeText(this, response, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, RackMain.class);
+            this.startActivity(intent);
 
         }  else if (id == R.id.nav_singout) {
 

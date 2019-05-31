@@ -21,7 +21,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     List<JournalEntryModel> list;
     Context context;
-    String narration;
+    String narration,typeOfTransaction ;
 
     public TransactionAdapter(List<JournalEntryModel> arrayList2, Context context)
     {
@@ -44,22 +44,22 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull TransactionAdapter.RecyclerViewHolder recyclerViewHolder, int i) {
 
         JournalEntryModel modelList = list.get(i);
-        String typeOfTransaction = modelList.getFrom().toLowerCase().trim();
-        narration = modelList.getNarration().get(0);
+        typeOfTransaction = modelList.getFrom().toLowerCase().trim();
+        narration = modelList.getNarration().get(0).toLowerCase();
 
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
 
-        String subTypeOfTransaction = modelList.getNarration().get(0).substring(modelList.getNarration().get(0).indexOf(":")+1);
-
-        if(modelList.getTo().toLowerCase().equals("cash"))
+        if(narration.contains("cash"))
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.funds));
-        else if(modelList.getTo().toLowerCase().equals("credit"))
+        else if(narration.toLowerCase().contains("credit"))
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.credit));
+        else if(narration.contains("goods"))
+            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.goods_bw));
         else
-            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.cheque));
+            recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.bank_building));
 
-        if(typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sale return") || typeOfTransaction.contains("payment done") || (typeOfTransaction.contains("commission") && subTypeOfTransaction.contains("Given" )) )
+        if(typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sale return") || narration.contains("payment done") || (typeOfTransaction.contains("commission") && narration.contains("given" )) || typeOfTransaction.contains("drawings"))
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
         else
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.green_orignal));

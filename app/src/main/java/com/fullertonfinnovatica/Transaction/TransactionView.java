@@ -3,7 +3,9 @@ package com.fullertonfinnovatica.Transaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -100,7 +102,7 @@ TransactionView extends AppCompatActivity {
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                 Toast.makeText(getApplicationContext(), "Please hang on..", Toast.LENGTH_LONG).show();
                 retrieveCall = apiInterface.journalRetrieveExp(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
-
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 retrieveCall.enqueue(new Callback<JournalEntryListModel>() {
                     @Override
                     public void onResponse(Call<JournalEntryListModel> call, Response<JournalEntryListModel> response) {
@@ -121,6 +123,7 @@ TransactionView extends AppCompatActivity {
 
                                     JournalEntryModel jelm = list.get(position);
                                     AlertDialog.Builder builder = new AlertDialog.Builder(TransactionView.this);
+                                    builder.setTitle(prefs.getString("name", "Your Store"));
                                     builder.setMessage(jelm.getNarration().get(0));
                                     builder.setCancelable(false);
                                     builder.setPositiveButton("Close",null);

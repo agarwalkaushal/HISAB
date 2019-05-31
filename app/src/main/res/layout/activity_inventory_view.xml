@@ -96,8 +96,7 @@
             android:text="Product Name"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
@@ -107,8 +106,7 @@
             android:padding="5dp"
             android:text="Rate"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
@@ -118,8 +116,7 @@
             android:padding="5dp"
             android:text="Qt."
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

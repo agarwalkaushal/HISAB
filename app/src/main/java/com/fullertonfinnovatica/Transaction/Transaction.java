@@ -126,6 +126,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private boolean amountLayoutStatus = false;
     private boolean creditLayoutStatus = false;
     private boolean nameLayoutStatus = false;
+    private boolean isNameFromInventory = false;
 
     private Spinner spinner;
     private Spinner subTypesSpinner;
@@ -158,7 +159,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TextToSpeech t1;
 
-    private boolean isNameFromInventory = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -355,7 +355,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                 @Override
                                 public void onFocusChange(View v, boolean hasFocus) {
-                                    if (!hasFocus) {
+                                    if (!hasFocus && !typeOfTrans.matches("Purchase")) {
                                         checkNameFromInventory();
                                     }
                                 }
@@ -556,8 +556,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private void addItem() {
 
         itemName = name.getText().toString();
-
-        checkNameFromInventory();
+        if(!typeOfTrans.matches("Purchase"))
+            checkNameFromInventory();
 
         try {
             itemRate = rate.getText().toString();
@@ -669,8 +669,11 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             creditNumber = numberCredit.getText().toString();
         }
 
-        if (nameLayoutStatus == true) {
-
+        if (nameLayoutStatus == false) {
+            creditName = null;
+        }
+        else
+        {
             if (subTypeName.getText().toString().matches("")) {
                 subTypeName.setError("Required");
                 return;
@@ -694,10 +697,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-//                entryCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-//                        typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount),
-//                        String.valueOf((int) totalAmount), creditName + ":" + subType);
-
                 String narration;
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -706,25 +705,25 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                     if (modeOfTrans.toLowerCase().contains("cash")) {
                         if (typeOfTrans.toLowerCase().contains("return")) {
-                            narration = "Goods being purchased for " + modeOfTrans + ". \nBill: "+productsTransaction;
+                            narration = "Purchased goods returned for " + modeOfTrans + ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount)
                                     ,narration );
                         } else {
-                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Goods purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
                         }
                     } else {
                         if (typeOfTrans.toLowerCase().contains("return")) {
-                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Purchased goods returned to "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
-                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Goods purchased for " + modeOfTrans+" from "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
@@ -736,25 +735,25 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     if (modeOfTrans.toLowerCase().contains("cash")) {
 
                         if (modeOfTrans.toLowerCase().contains("return")) {
-                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Sold goods returned for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
                         } else {
-                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Goods sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
                         }
                     } else {
                         if (modeOfTrans.toLowerCase().contains("return")) {
-                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration = "Sold goods returned from " +creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
-                            narration =  "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
+                            narration =  "Goods being sold for " + modeOfTrans+ " to "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
@@ -767,26 +766,49 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     narration = "Drawings from " + modeOfTrans;
                 } else if (typeOfTrans.toLowerCase().contains("payment")) {
                     if (typeOfTrans.toLowerCase().contains("done")) {
-                        ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Payment done to" + creditName);
-                        narration = "Payment done to" + creditName;
+
+                        if(subType.contains("settlement")) {
+                            ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    "Payment done to" + creditName+ " for settlement");
+                            narration = "Payment done to " + creditName;
+                        }
+                        else
+                        {
+                            ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    subType+" Paid");
+                            narration = subType+" Paid";
+                        }
                     } else {
-                        ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Payment received from" + creditName);
-                        narration = "Payment received from" + creditName;
+                        if(subType.contains("settlement")) {
+                            ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    "Payment received from" + creditName + " for settlement");
+                            narration = "Payment received from " + creditName;
+                        }
+                        else
+                        {
+                            ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
+                                    modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    subType+" Received");
+                            narration = subType+" Received";
+                        }
+
                     }
 
                 } else {
                     if (typeOfTrans.toLowerCase().contains("received")) {
                         ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission received from " + nameCredit);
+                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission received from " + creditName);
                         narration = "Commission received from " + creditName;
                     } else {
                         ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + nameCredit);
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + creditName);
                         narration = "Commission given to " + creditName;
                     }
                 }
+                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
 
                 ledgerPostCall.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -794,10 +816,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                         if(response.body()!=null){
                             if(response.code() == 200){
-                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_SHORT).show();
 
                                 ledgerPopulateCall = apiInterface_accounts.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
+                                Toast.makeText(getBaseContext(), "Ledger being updated", Toast.LENGTH_LONG).show();
+
                                 ledgerPopulateCall.enqueue(new Callback<JsonObject>() {
+
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                                         Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
@@ -900,6 +924,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 typeOfTrans = "Purchase";
                 suggestionsUI.setVisibility(View.VISIBLE);
+                isNameFromInventory = true;
 
             } else if (pos == 1) {
 
@@ -945,8 +970,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
             } else if (pos == 4) {
 
-                Log.e("Error", "Payment Done");
-
                 subTypeNameLayout.setVisibility(View.GONE);
                 purchaseLayout.setVisibility(View.GONE);
                 subTypeLayout.setVisibility(View.VISIBLE);
@@ -956,7 +979,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
-
                 typeOfTrans = "Payment Done";
                 suggestionsUI.setVisibility(View.GONE);
                 subTypeText.setText("Choose payment type");
@@ -976,11 +998,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
-                suggestionsUI.setVisibility(View.GONE);
                 typeOfTrans = "Payment Received";
-
+                suggestionsUI.setVisibility(View.GONE);
                 subTypeText.setText("Choose payment type");
-
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                         R.array.pay_types, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1012,7 +1032,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
-
                 typeOfTrans = "Drawings";
                 suggestionsUI.setVisibility(View.GONE);
                 subTypeText.setText("Choose drawings type");
@@ -1031,7 +1050,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             if (typeOfTrans.contains("Drawings"))
                 modeOfTrans = subType;
 
-            if ((typeOfTrans.matches("Payment Done") || typeOfTrans.matches("Payment Received") && pos == 2)) {
+            if (((typeOfTrans.matches("Payment Done") && pos == 2)) || (typeOfTrans.matches("Payment Received") && pos == 2)) {
 
                 subTypeNameLayout.setVisibility(View.VISIBLE);
                 nameLayoutStatus = true;
@@ -1202,7 +1221,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         protected String doInBackground(String... arg0) {
 
             try {
-                String apiKey = "apikey=" + "+1ff8DvXnus-PqDSC1LjsbgZcf9wXmqFF9MN9fl80I";
+                String apiKey = "apikey=" + "WN1sKnFrAL8-TWsKYpJw5WaZlcrxvoEdZAfKkcmMgT";
                 String message = "&message=" + arg0[1];
                 String sender = "&sender=" + "TXTLCL";
                 String numbers = "&numbers=" + arg0[0];

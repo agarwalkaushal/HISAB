@@ -9,12 +9,12 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,39 +24,169 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="@drawable/border_bottom_rounded"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/invName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/invCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:id="@+id/catImage"/>
 
-            <TextView
-                android:id="@+id/invCost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/invQty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/invThreshold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/invExpiry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:text="Product name:"/>
 
+                    <TextView
+                        android:id="@+id/invName"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Category name:"/>
+
+                    <TextView
+                        android:id="@+id/invCategory"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Product cost:"/>
+
+                    <TextView
+                        android:id="@+id/invCost"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:id="@+id/invQty"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Qt: 50"/>
+
+                    <TextView
+                        android:id="@+id/invThreshold"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Threshold: 10"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:text="Product expiry:"/>
+
+                    <TextView
+                        android:id="@+id/invExpiry"
+                        android:layout_width="0dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold|italic"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
 

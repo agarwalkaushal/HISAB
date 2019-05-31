@@ -48,7 +48,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
 
     EditText ed_product_name, ed_product_qty, ed_product_cost, ed_product_thrld;
     Button add;
-    String product_name, product_qty, product_cost, product_cat, product_thrld, product_epx = null, date;
+    String product_name, product_qty, product_cost, product_cat, product_thrld, product_epx , date = "01/01/2050";
     InventoryAPI apiInterface;
     Retrofit retrofit;
     Call<LoginModel> loginCall;
@@ -185,7 +185,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                                     finish();
                                 } else
                                     Log.e("mana", response.toString());
-                                Toast.makeText(getBaseContext(), "Servers are down : "+response.message(), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getBaseContext(), "Servers are down : "+response.message(), Toast.LENGTH_LONG).show();
                                 finish();
 
                             }

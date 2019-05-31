@@ -18,14 +18,15 @@
             android:id="@+id/nav_finance"
             android:icon="@drawable/money"
             android:title="Finance" />
+
+        <item
+            android:id="@+id/nav_general"
+            android:icon="@drawable/boxes"
+            android:title="Rack Management" />
     </group>
 
     <item android:title="Settings">
         <menu>
-            <item
-                android:id="@+id/nav_general"
-                android:icon="@drawable/settings"
-                android:title="General" />
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/student"

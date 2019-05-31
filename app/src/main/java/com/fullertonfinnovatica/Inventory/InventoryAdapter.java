@@ -3,12 +3,15 @@ package com.fullertonfinnovatica.Inventory;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.fullertonfinnovatica.Networking.NetworkingModel;
+import com.bumptech.glide.Glide;
 import com.fullertonfinnovatica.R;
 
 import java.util.List;
@@ -46,6 +49,20 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
         recyclerViewHolder.qty.setText(modelList.getInventory_qty() + "units");
 
 
+        String[] inventoryCat = context.getResources().getStringArray(R.array.inventory_categories);
+        String[] inventoryTags = context.getResources().getStringArray(R.array.inventory_tags);
+
+        int c=0;
+        for (String temp: inventoryCat) {
+            if(modelList.getInventory_category().substring(1,modelList.getInventory_category().length()-1).matches(temp.trim().toLowerCase()))
+            {
+                break;
+            }
+            c++;
+        }
+        Glide.with(context).load(context.getResources().getIdentifier(inventoryTags[c], "drawable", context.getPackageName()))
+                .error(R.drawable.back)
+                .into(recyclerViewHolder.cat);
     }
 
     @Override
@@ -56,12 +73,14 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Recy
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView name,qty,cost;
+        ImageView cat;
 
         public RecyclerViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.prodName);
             qty= (TextView) view.findViewById(R.id.prodqty);
             cost = view.findViewById(R.id.prodCost);
+            cat = (ImageView) view.findViewById(R.id.prodCat);
 
         }
     }
