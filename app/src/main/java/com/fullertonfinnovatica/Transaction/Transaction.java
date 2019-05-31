@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
@@ -49,9 +50,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,6 +88,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
     private String[] products, qty;
+    private String productsTransaction = "\nName   Rate    Quantity\n";
 
 
     private AutoCompleteTextView name;
@@ -444,6 +450,69 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loginCall = apiInterface_inventory.login("demo", "demo");
+        loginCall.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                inventoryCall = apiInterface_inventory.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
+
+                inventoryCall.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                        if (response.body() != null) {
+                            JsonObject bodyyy = response.body();
+                            JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
+                            product = "";
+                            for (int i = 0; i < bodyy.size(); i++) {
+
+                                inventoryModel = new InventoryModel();
+                                JsonObject jsonObject = (JsonObject) bodyy.get(i);
+
+                                inventoryModel.setInventory_category(jsonObject.get("category").toString());
+                                inventoryModel.setInventory_cost(jsonObject.get("cost").toString());
+                                inventoryModel.setInventory_name(jsonObject.get("name").toString());
+                                inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
+                                list.add(inventoryModel);
+                                product += inventoryModel.getInventory_name().substring(1, inventoryModel.getInventory_name().length() - 1) + ",";
+//                                qtyString+=inventoryModel.getInventory_qty()+",";
+
+                            }
+
+                            //Toast.makeText(getBaseContext(), "Products updated from Inventory", Toast.LENGTH_LONG).show();
+                            Log.e("Products: ",product);
+                            products = product.split(",");
+                            products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
+                            name.setAdapter(products_adapter);
+
+                        } else {
+                            Toast.makeText(getBaseContext(), "Servers are down " + response.toString(), Toast.LENGTH_LONG).show();
+                            //finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                        //finish();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+                Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                //finish();
+
+            }
+        });
+    }
+
     private void checkNameFromInventory() {
         String inputName = name.getText().toString();
         int c = 0;
@@ -484,8 +553,91 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         listView.setLayoutParams(params);
     }
 
-    private void doneClicked() {
+    private void addItem() {
 
+        itemName = name.getText().toString();
+
+        checkNameFromInventory();
+
+        try {
+            itemRate = rate.getText().toString();
+            itemQuantity = quantity.getText().toString();
+        } catch (NumberFormatException nfe) {
+            Toast.makeText(getApplicationContext(), "Invalid number", Toast.LENGTH_SHORT).show();
+            nfe.printStackTrace();
+            return;
+        }
+
+
+        if (isNameFromInventory) {
+
+            if (itemName.length() > 1) {
+
+                if (itemQuantity.length() != 0 && Double.parseDouble(itemQuantity) > 0.0) {
+
+                    if (itemRate.length() != 0 && Double.parseDouble(itemRate) > 0.0) {
+                        addItem(itemName, Double.parseDouble(itemRate), Double.parseDouble(itemQuantity));
+                        productsTransaction+=itemName+"    "+itemRate+"    "+itemQuantity+"\n";
+                        setListViewHeightBasedOnChildren(listView);
+                        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
+                        suggestion1.startAnimation(aniFade);
+                        suggestion2.startAnimation(aniFade);
+                        suggestion3.startAnimation(aniFade);
+                        suggestion4.startAnimation(aniFade);
+                        suggestion5.startAnimation(aniFade);
+                        changeSuggestions(itemName);
+                        aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+                        suggestion1.startAnimation(aniFade);
+                        suggestion2.startAnimation(aniFade);
+                        suggestion3.startAnimation(aniFade);
+                        suggestion4.startAnimation(aniFade);
+                        suggestion5.startAnimation(aniFade);
+                        name.getText().clear();
+                        rate.getText().clear();
+                        quantity.getText().clear();
+                    } else {
+                        rate.setError("Enter correct value");
+                    }
+                } else {
+                    quantity.setError("Enter correct value");
+                }
+            } else {
+                name.setError("Name error! Length cannot be 1");
+            }
+        } else {
+            name.setError("Name error! Item not in inventory");
+        }
+
+    }
+
+    public void addItem(String itemName, double itemRate, double itemQuantity) {
+        totalAmount += itemQuantity * itemRate;
+        dataRows.add(new DataRow(itemName, itemRate, itemQuantity));
+        total.setText("Rs. " + String.valueOf(totalAmount));
+        dataAdapter.notifyDataSetChanged();
+    }
+
+    private void changeSuggestions(String suggestion) {
+        words.add(suggestion);
+
+        if (suggestion.matches("sugar")) {
+            suggestion1.setText("Salt");
+            suggestion2.setText("Tea");
+            suggestion3.setText("Coffee");
+            suggestion4.setText("Curd");
+            suggestion5.setText("Milk");
+        }
+        if (suggestion.matches("milano")) {
+            suggestion1.setText("Good Day");
+            suggestion2.setText("Parle G");
+            suggestion3.setText("Dark Fantasy");
+            suggestion4.setText("Time Pass");
+            suggestion5.setText("Nice Time");
+        }
+
+    }
+
+    private void doneClicked() {
 
         if (amountLayoutStatus) {
             if (amount.getText().toString().matches("")) {
@@ -548,27 +700,35 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                 String narration;
 
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
                 if (typeOfTrans.toLowerCase().contains("purchase")) {
 
                     if (modeOfTrans.toLowerCase().contains("cash")) {
                         if (typeOfTrans.toLowerCase().contains("return")) {
+                            narration = "Goods being purchased for " + modeOfTrans + ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                            narration = "Purchased goods being returned for " + modeOfTrans;
+                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount)
+                                    ,narration );
                         } else {
+                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                            narration = "Goods being purchased for " + modeOfTrans;
+                                    typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
                         }
                     } else {
                         if (typeOfTrans.toLowerCase().contains("return")) {
+                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                            narration = "Purchased goods being returned to " + creditName;
+                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
+                            new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
+                            narration = "Goods being purchased for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being purchased for " + modeOfTrans);
-                            narration = "Goods being purchased from " + creditName;
+                                    typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
+                            new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
                 } else if (typeOfTrans.toLowerCase().contains("sales")) {
@@ -576,23 +736,29 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     if (modeOfTrans.toLowerCase().contains("cash")) {
 
                         if (modeOfTrans.toLowerCase().contains("return")) {
+                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                            narration = "Sold goods being returned for " + modeOfTrans;
+                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
                         } else {
+                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                            narration = "Goods being sold for " + modeOfTrans;
+                                    modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
                         }
                     } else {
                         if (modeOfTrans.toLowerCase().contains("return")) {
+                            narration = "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                            narration = "Sold goods being returned from " + creditName;
+                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
+                            new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
+                            narration =  "Goods being sold for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Goods being sold for " + modeOfTrans);
-                            narration = "Goods being sold to " + creditName;
+                                    creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    narration);
+                            new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
                 } else if (typeOfTrans.toLowerCase().contains("drawings")) {
@@ -618,10 +784,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     } else {
                         ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                 typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + nameCredit);
-                        //pnlPostCall = apiInterface.pnlPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                        //typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + nameCredit);
-                        //trialPostCall = apiInterface.trialPost(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                        //typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + nameCredit);
                         narration = "Commission given to " + creditName;
                     }
                 }
@@ -633,12 +795,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         if(response.body()!=null){
                             if(response.code() == 200){
                                 Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
 
                                 ledgerPopulateCall = apiInterface_accounts.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
                                 ledgerPopulateCall.enqueue(new Callback<JsonObject>() {
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                        Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
                                         Log.e("lcheck","Ledger populated");
                                         finish();
                                     }
@@ -664,65 +826,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     }
                 });
 
-//                entryCall.enqueue(new Callback<JournalEntryModel>() {
-//                    @Override
-//                    public void onResponse(Call<JournalEntryModel> call, Response<JournalEntryModel> response) {
-//                        Toast.makeText(getBaseContext(), "Entry successfully made..", Toast.LENGTH_SHORT).show();
-//                        finish();
-//                    }
 //
-//                    @Override
-//                    public void onFailure(Call<JournalEntryModel> call, Throwable t) {
-//                        Toast.makeText(getBaseContext(), "An error occured: " + t.toString(), Toast.LENGTH_LONG).show();
-//                        progressParent.setVisibility(View.GONE);
-//                        doneButton.setVisibility(View.VISIBLE);
-//                    }
-//                });
-//
-//                ledgerPostCall.enqueue(new Callback<JsonObject>() {
-//                    @Override
-//                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//
-//                        Toast.makeText(getBaseContext(), String.valueOf(response), Toast.LENGTH_LONG).show();
-//                        //Toast.makeText(getBaseContext(), narration, Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<JsonObject> call, Throwable t) {
-//                        Log.e("apiCheck", "Ledger post fail " + t.toString());
-//                        doneButton.setVisibility(View.VISIBLE);
-//                        progressParent.setVisibility(View.GONE);
-//                    }
-//                });
-
-                /*
-
-                pnlPostCall.enqueue(new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        Log.e("apiCheck", "P&L post success");
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Log.e("apiCheck", "P&L post fail " + t.toString());
-                    }
-                });
-
-                trialPostCall.enqueue(new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        Log.e("apiCheck", "Trial post success");
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Log.e("apiCheck", "Trial post fail " + t.toString());
-                    }
-                });
-
-                */
-
             }
 
             @Override
@@ -732,89 +836,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         });
 
         //finish();
-
-    }
-
-    private void addItem() {
-
-        itemName = name.getText().toString();
-
-        //TODO: Check if itemName exists in inventory and accordingly change isNameFromInventory
-
-        try {
-            itemRate = rate.getText().toString();
-            itemQuantity = quantity.getText().toString();
-        } catch (NumberFormatException nfe) {
-            Toast.makeText(getApplicationContext(), "Invalid number", Toast.LENGTH_SHORT).show();
-            nfe.printStackTrace();
-            return;
-        }
-
-
-        if (isNameFromInventory) {
-
-            if (itemName.length() > 1) {
-
-                if (itemQuantity.length() != 0 && Double.parseDouble(itemQuantity) > 0.0) {
-
-                    if (itemRate.length() != 0 && Double.parseDouble(itemRate) > 0.0) {
-                        addItem(itemName, Double.parseDouble(itemRate), Double.parseDouble(itemQuantity));
-                        setListViewHeightBasedOnChildren(listView);
-                        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-                        suggestion1.startAnimation(aniFade);
-                        suggestion2.startAnimation(aniFade);
-                        suggestion3.startAnimation(aniFade);
-                        suggestion4.startAnimation(aniFade);
-                        suggestion5.startAnimation(aniFade);
-                        changeSuggestions(itemName);
-                        aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-                        suggestion1.startAnimation(aniFade);
-                        suggestion2.startAnimation(aniFade);
-                        suggestion3.startAnimation(aniFade);
-                        suggestion4.startAnimation(aniFade);
-                        suggestion5.startAnimation(aniFade);
-                        name.getText().clear();
-                        rate.getText().clear();
-                        quantity.getText().clear();
-                    } else {
-                        rate.setError("Enter correct value");
-                    }
-                } else {
-                    quantity.setError("Enter correct value");
-                }
-            } else {
-                name.setError("Name error! Length cannot be 1");
-            }
-        } else {
-            name.setError("Name error! Item not in inventory");
-        }
-
-    }
-
-    public void addItem(String itemName, double itemRate, double itemQuantity) {
-        totalAmount += itemQuantity * itemRate;
-        dataRows.add(new DataRow(itemName, itemRate, itemQuantity));
-        total.setText("Rs. " + String.valueOf(totalAmount));
-        dataAdapter.notifyDataSetChanged();
-    }
-
-    private void changeSuggestions(String suggestion) {
-        words.add(suggestion);
-
-        if (suggestion.matches("sugar")) {
-            suggestion1.setText("Salt");
-            suggestion2.setText("Tea");
-            suggestion3.setText("Coffee");
-            suggestion4.setText("Curd");
-            suggestion5.setText("Milk");
-        }
-        if (suggestion.matches("milano")) {
-            suggestion1.setText("Good Day");
-            suggestion2.setText("Parle G");
-            suggestion3.setText("Dark Fantasy");
-            suggestion4.setText("Time Pass");
-            suggestion5.setText("Nice Time");
-        }
 
     }
 
@@ -1073,21 +1094,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        SharedPreferences.Editor prefEditor = prefs.edit();
-//
-//        product = prefs.getString("products", "Milk,");
-//        products = product.split(",");
-
-//        Log.e("Products", product);
-//
-//        ArrayAdapter<String> products_adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, products);
-//        name.setAdapter(products_adapter);
-    }
 
     public static String getAuthToken(String userName, String password) {
         byte[] data = new byte[0];
@@ -1098,25 +1104,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         }
         Log.e("chekin2", "Basic " + Base64.encodeToString(data, Base64.NO_WRAP));
         return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        AlertDialog b = new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", null).show();
-
-        Button nbutton = b.getButton(DialogInterface.BUTTON_NEGATIVE);
-        nbutton.setTextColor(Color.BLACK);
-        Button pbutton = b.getButton(DialogInterface.BUTTON_POSITIVE);
-        pbutton.setTextColor(Color.BLACK);
     }
 
     private void promptSpeechInput() {
@@ -1208,4 +1195,66 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
+    public class executeRequest extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute(){}
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+                String apiKey = "apikey=" + "+1ff8DvXnus-PqDSC1LjsbgZcf9wXmqFF9MN9fl80I";
+                String message = "&message=" + arg0[1];
+                String sender = "&sender=" + "TXTLCL";
+                String numbers = "&numbers=" + arg0[0];
+
+                // Send data
+                HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
+                String data = apiKey + numbers + message + sender;
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+                conn.getOutputStream().write(data.getBytes("UTF-8"));
+                final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                final StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    stringBuffer.append(line);
+                }
+                rd.close();
+
+                return stringBuffer.toString();
+
+            }
+            catch(Exception e){
+                System.out.println("Error SMS "+e);
+                return "Error "+e;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(),"Messge sent successfully",Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog b = new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null).show();
+
+        Button nbutton = b.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.BLACK);
+        Button pbutton = b.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLACK);
+    }
 }

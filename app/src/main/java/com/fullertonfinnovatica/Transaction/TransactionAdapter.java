@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fullertonfinnovatica.Accounts.JournalEntryModel;
 import com.fullertonfinnovatica.R;
@@ -19,6 +21,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     List<JournalEntryModel> list;
     Context context;
+    String narration;
 
     public TransactionAdapter(List<JournalEntryModel> arrayList2, Context context)
     {
@@ -42,7 +45,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         JournalEntryModel modelList = list.get(i);
         String typeOfTransaction = modelList.getFrom().toLowerCase().trim();
-
+        narration = modelList.getNarration().get(0);
 
         recyclerViewHolder.date.setText(modelList.getDate().substring(4));
         recyclerViewHolder.credit.setText("₹ "+modelList.getCredit());
@@ -81,6 +84,15 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         }
     }
+
+    public AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id)
+        {
+            // Display a messagebox.
+            Toast.makeText(context,narration,Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
 
 }

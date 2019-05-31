@@ -544,6 +544,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginBottom="30dp"
                     android:paddingBottom="20dp">
 
                     <TextView
@@ -605,6 +606,7 @@
 
     <Button
         android:id="@+id/doneButtonTrans"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"

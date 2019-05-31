@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dashboard"
@@ -94,7 +95,7 @@
             android:padding="5dp"
             android:text="Product Name"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"/>
 
@@ -105,7 +106,7 @@
             android:layout_weight=".75"
             android:padding="5dp"
             android:text="Rate"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center"/>
 
@@ -116,7 +117,7 @@
             android:layout_weight="1"
             android:padding="5dp"
             android:text="Qt."
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center"/>
 
@@ -125,6 +126,7 @@
 
 
     <android.support.v7.widget.RecyclerView
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"

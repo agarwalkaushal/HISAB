@@ -91,7 +91,7 @@ public class JournalRetrieve extends AppCompatActivity {
                             recyclerView1.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                             recyclerView1.setAdapter(dataAdapter);
                         }else{
-                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "No entries found!", Toast.LENGTH_LONG).show();
                             finish();
                         }
                         //Log.e("jknks", response.body().getContacts().get(0).getFrom().toString());

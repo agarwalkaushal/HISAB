@@ -149,6 +149,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
                 product_thrld = ed_product_thrld.getText().toString();
                 int selectedId = product_category.getCheckedRadioButtonId();
                 ed_product_cat = (RadioButton) findViewById(selectedId);
+                ed_product_cat.getText();
 
                 String[] inventoryCategories = getResources().getStringArray(R.array.inventory_categories);
                 String[] inventoryTags = getResources().getStringArray(R.array.inventory_tags);

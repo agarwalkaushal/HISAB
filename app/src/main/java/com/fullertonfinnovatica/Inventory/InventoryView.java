@@ -154,7 +154,7 @@ public class InventoryView extends AppCompatActivity {
 
 //                            Log.e("Pata", bodyy.toString());
                         }else{
-                            Toast.makeText(getBaseContext(), "Servers are down "+response.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Inventory empty"+response.toString(), Toast.LENGTH_LONG).show();
                             finish();
                         }
 

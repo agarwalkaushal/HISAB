@@ -130,7 +130,7 @@ public class Trialbalance extends AppCompatActivity {
 
 
                         }else{
-                            Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "No entries found", Toast.LENGTH_LONG).show();
                             finish();
                         }
 
