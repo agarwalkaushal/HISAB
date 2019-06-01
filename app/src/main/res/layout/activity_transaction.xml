@@ -428,7 +428,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:inputType="textCapWords"
+                        android:inputType="textAutoComplete"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/cursor_design"
                         android:textSize="14sp" />
@@ -443,6 +443,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/main"
                 android:orientation="horizontal"
+                android:layout_marginBottom="30dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="30dp"
                 android:paddingRight="20dp"
@@ -520,7 +521,7 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:paddingTop="13dp"
                         android:text="Name: "
@@ -528,13 +529,14 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <android.support.v7.widget.AppCompatAutoCompleteTextView
                         android:id="@+id/credit_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:inputType="textCapWords"
+                        android:hint="Type for existing contacts"
+                        android:completionThreshold="1"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/cursor_design"
                         android:textSize="14sp" />
@@ -549,7 +551,7 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:paddingTop="13dp"
                         android:text="Number: "
@@ -557,12 +559,13 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/credit_number"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:completionThreshold="1"
                         android:inputType="number"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@drawable/cursor_design"

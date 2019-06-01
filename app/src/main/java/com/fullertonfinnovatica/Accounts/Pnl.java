@@ -178,7 +178,7 @@ public class Pnl extends AppCompatActivity {
 
         apiInterface = retrofit.create(AccountsAPI.class);
 
-        loginCall = apiInterface.login("demo", "demo");
+        loginCall = apiInterface.login(getString(R.string.user_id), getString(R.string.user_pass));
 
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
@@ -211,13 +211,15 @@ public class Pnl extends AppCompatActivity {
                                 accountName = String.valueOf(accountFields.get("name"));
 
 
+                                // TODO: Edit returns
+
                                 if (accountName.toLowerCase().equals("\"purchase\"")) {
                                     totalPurchase.setText(balanceAmt);
-                                } else if (accountName.toLowerCase().equals("\"purchase return\"")) {
+                                } else if (accountName.toLowerCase().equals("\"purchasereturn\"")) {
                                     totalPurchaseReturn.setText(balanceAmt);
                                 } else if (accountName.toLowerCase().equals("\"sales\"")) {
                                     totalSales.setText(balanceAmt);
-                                } else if (accountName.toLowerCase().equals("\"sales return\"")) {
+                                } else if (accountName.toLowerCase().equals("\"salesreturn\"")) {
                                     totalSalesReturn.setText(balanceAmt);
                                 } else if (accountName.toLowerCase().contains("rent")) {
                                     if (balanceType.contains("debit")) {
@@ -246,6 +248,7 @@ public class Pnl extends AppCompatActivity {
                                         totalCommission1.setText("");
                                         commissionText2.setText("By Commission");
                                         totalCommission2.setText(balanceAmt);
+                                        Log.e("credit add",balanceAmt);
                                         creditAmountsPnl.add(Integer.valueOf(balanceAmt));
                                     }
                                 } else if (accountName.toLowerCase().contains("discount")) {
@@ -264,7 +267,7 @@ public class Pnl extends AppCompatActivity {
                                     }
                                 } else if (accountName.toLowerCase().contains("salary")) {
                                     totalSalaries.setText(balanceAmt);
-                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt.substring(1, balanceAmt.length() - 1)));
+                                    debitAmountsPnl.add(Integer.valueOf(balanceAmt));
                                 } else if (accountName.toLowerCase().contains("cash")) {
                                     cash = balanceAmt;
                                 } else if (accountName.toLowerCase().contains("bank")) {
@@ -311,23 +314,8 @@ public class Pnl extends AppCompatActivity {
 
         differencePurchase.setText(String.valueOf(Integer.valueOf(totalPurchase.getText().toString()) - Integer.valueOf(totalPurchaseReturn.getText().toString())));
         differenceSales.setText(String.valueOf(Integer.valueOf(totalSales.getText().toString()) - Integer.valueOf(totalSalesReturn.getText().toString())));
-
         os.setText(adjustments.get(0));
         cs.setText(adjustments.get(1));
-        dm.setText(String.valueOf(round(Double.parseDouble(adjustments.get(5)) * Double.parseDouble(adjustments.get(7)) / 100)));
-        debitAmountsPnl.add(Integer.parseInt(dm.getText().toString()));
-        bd.setText(String.valueOf(Integer.parseInt(adjustments.get(6))));
-        debitAmountsPnl.add(Integer.parseInt(bd.getText().toString()));
-        ii.setText(String.valueOf(round(Double.parseDouble(adjustments.get(4)) * Double.parseDouble(adjustments.get(13)) / 100)));
-        creditAmountsPnl.add(Integer.parseInt(ii.getText().toString()));
-        ic.setText(String.valueOf(Integer.parseInt(adjustments.get(2)) * Integer.parseInt(adjustments.get(10))));
-        debitAmountsPnl.add(Integer.parseInt(ic.getText().toString()));
-        ibl.setText(String.valueOf(round(Double.parseDouble(adjustments.get(3)) * Double.parseDouble(adjustments.get(11)) / 100)));
-        debitAmountsPnl.add(Integer.parseInt(ibl.getText().toString()));
-        dd.setText(String.valueOf(sumSundryDebtors * Integer.parseInt(adjustments.get(8)) / 100));
-        debitAmountsPnl.add(Integer.parseInt(dd.getText().toString()));
-        dc.setText(String.valueOf(sumSundryCreditors * Integer.parseInt(adjustments.get(9)) / 100));
-        creditAmountsPnl.add(Integer.parseInt(dc.getText().toString()));
 
         Integer debitSideTotal =
                 Integer.valueOf(os.getText().toString()) +
@@ -353,7 +341,7 @@ public class Pnl extends AppCompatActivity {
             grossprofitvalue2.setText("");
             debitAmountsPnl.add(debitSideTotal - creditSideTotal);
         } else {
-            grossprofittext1.setText("By Gross Profit");
+            grossprofittext1.setText("To Gross Profit");
             grossprofitvalue1.setText(String.valueOf(creditSideTotal - debitSideTotal));
             grosslosstext1.setText("");
             grosslossvalue1.setText("");
@@ -367,8 +355,25 @@ public class Pnl extends AppCompatActivity {
             creditAmountsPnl.add(creditSideTotal - debitSideTotal);
         }
 
+        dm.setText(String.valueOf(round(Double.parseDouble(adjustments.get(5)) * Double.parseDouble(adjustments.get(7)) / 100)));
+        debitAmountsPnl.add(Integer.parseInt(dm.getText().toString()));
+        bd.setText(String.valueOf(Integer.parseInt(adjustments.get(6))));
+        debitAmountsPnl.add(Integer.parseInt(bd.getText().toString()));
+        ic.setText(String.valueOf(Integer.parseInt(adjustments.get(2)) * Integer.parseInt(adjustments.get(10))));
+        debitAmountsPnl.add(Integer.parseInt(ic.getText().toString()));
+        ibl.setText(String.valueOf(round(Double.parseDouble(adjustments.get(3)) * Double.parseDouble(adjustments.get(11)) / 100)));
+        debitAmountsPnl.add(Integer.parseInt(ibl.getText().toString()));
+        dd.setText(String.valueOf(sumSundryDebtors * Integer.parseInt(adjustments.get(8)) / 100));
+        debitAmountsPnl.add(Integer.parseInt(dd.getText().toString()));
+
+        ii.setText(String.valueOf(round(Double.parseDouble(adjustments.get(4)) * Double.parseDouble(adjustments.get(13)) / 100)));
+        creditAmountsPnl.add(Integer.parseInt(ii.getText().toString()));
+        dc.setText(String.valueOf(sumSundryCreditors * Integer.parseInt(adjustments.get(9)) / 100));
+        creditAmountsPnl.add(Integer.parseInt(dc.getText().toString()));
         idl.setText(String.valueOf(round(Double.parseDouble(drawing) * Double.parseDouble(adjustments.get(13)) / 100)));
         creditAmountsPnl.add(Integer.parseInt(idl.getText().toString()));
+
+
 
         int debitSideTotalPnl = 0, creditSideTotalPnl = 0;
 
@@ -377,6 +382,9 @@ public class Pnl extends AppCompatActivity {
 
         for (Integer i : creditAmountsPnl)
             creditSideTotalPnl += i;
+
+        Log.e("debit total pnl", String.valueOf(debitSideTotalPnl));
+        Log.e("credit total pnl", String.valueOf(creditSideTotalPnl));
 
         if (debitSideTotalPnl > creditSideTotalPnl) {
             netprofittext.setText("");

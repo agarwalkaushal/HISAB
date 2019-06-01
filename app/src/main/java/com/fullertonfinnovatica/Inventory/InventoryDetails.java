@@ -41,7 +41,7 @@ public class InventoryDetails extends AppCompatActivity {
 
         tName.setText(name.toUpperCase());
         tThreshold.setText("Threshold: "+threshold);
-        tQty.setText("Quantity:"+qty);
+        tQty.setText("Quantity: "+qty);
         tExpiry.setText(expiry);
         tCategory.setText(category.toUpperCase());
         tCost.setText(cost);

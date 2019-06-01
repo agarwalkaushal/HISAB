@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fullertonfinnovatica.Accounts.AccountsAPI;
 import com.fullertonfinnovatica.Accounts.AccountsMain;
+import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Analytics.AnalyticsMain;
 import com.fullertonfinnovatica.Finance.FinanceMain;
 import com.fullertonfinnovatica.Inventory.InventoryCategories;
@@ -32,14 +35,23 @@ import com.fullertonfinnovatica.Networking.NetworkingShopsViewMap;
 import com.fullertonfinnovatica.Notifications.Notifications;
 import com.fullertonfinnovatica.Rack.RackMain;
 import com.fullertonfinnovatica.Transaction.Transaction;
+import com.fullertonfinnovatica.Transaction.TransactionAPIs;
 import com.fullertonfinnovatica.Transaction.TransactionView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.fullertonfinnovatica.Accounts.JournalEntryModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.fullertonfinnovatica.Transaction.Transaction.getAuthToken;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +67,10 @@ public class Dashboard extends AppCompatActivity
     private CardView messages;
     private ActionMode mActionMode;
     private SharedPreferences prefs;
+    Call<JsonObject> ledgerPopulateCall;
+    Call<LoginModel> loginCall;
+    AccountsAPI apiInterface_accounts;
+    TransactionAPIs apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +249,6 @@ public class Dashboard extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         changeUserData();
-
     }
 
     private void changeUserData()

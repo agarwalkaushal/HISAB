@@ -105,8 +105,7 @@ public class InventoryAdd extends AppCompatActivity implements DatePickerDialog.
 
         apiInterface = retrofit.create(InventoryAPI.class);
 
-        loginCall = apiInterface.login("demo", "demo");
-
+        loginCall = apiInterface.login(getString(R.string.user_id), getString(R.string.user_pass));
         rootLayout = findViewById(R.id.add);
         ed_product_cost = findViewById(R.id.product_rate);
         ed_product_qty = findViewById(R.id.product_quantity);

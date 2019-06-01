@@ -81,7 +81,7 @@ public class Trialbalance extends AppCompatActivity {
                 .build();
 
         apiInterface = retrofit.create(AccountsAPI.class);
-        loginCall = apiInterface.login("demo", "demo");
+        loginCall = apiInterface.login(getString(R.string.user_id), getString(R.string.user_pass));
 
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override

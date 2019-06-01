@@ -59,7 +59,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         else
             recyclerViewHolder.modeOfTransaction.setImageDrawable(context.getResources().getDrawable(R.drawable.bank_building));
 
-        if(typeOfTransaction.contains("purchase") || typeOfTransaction.contains("sale return") || narration.contains("payment done") || (typeOfTransaction.contains("commission") && narration.contains("given" )) || typeOfTransaction.contains("drawings"))
+        if((narration.contains("purchased") && !narration.contains("returned")) || (narration.contains("sold") && narration.contains("returned")) || narration.contains("done") || narration.contains("paid")
+                || (typeOfTransaction.contains("commission") && narration.contains("given" )) || typeOfTransaction.contains("drawings"))
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.red_orignal));
         else
             recyclerViewHolder.credit.setTextColor(context.getResources().getColor(R.color.green_orignal));

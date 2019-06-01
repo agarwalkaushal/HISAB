@@ -13,6 +13,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -62,6 +63,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.JavaNetCookieJar;
@@ -76,7 +78,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     private double totalAmount = 0;
 
-    String qtyString;
     private String type;
     private String subType;
     private String itemName;
@@ -87,15 +88,15 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String product = "milk,sugar,eggs";
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
-    private String[] products, qty;
+    private String[] products;
     private String productsTransaction = "\nName   Rate    Quantity\n";
+    private String names, numbers;
 
 
-    private AutoCompleteTextView name;
+    private AutoCompleteTextView name, numberCredit;
+    private AppCompatAutoCompleteTextView nameCredit;
     private EditText rate;
     private EditText quantity;
-    private EditText nameCredit;
-    private EditText numberCredit;
     private EditText amount;
     private EditText subTypeName;
 
@@ -117,7 +118,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     private ListView listView;
 
-    private Button suggestion1, suggestion2, suggestion3, suggestion4, suggestion5;
+    private Button suggestion1, suggestion2, suggestion3, suggestion4, suggestion5, doneButton;
 
     private RadioButton cashSelected;
     private RadioButton creditSelected;
@@ -136,12 +137,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     ArrayList<DataRow> dataRows = new ArrayList<>();
     ArrayAdapter<String> products_adapter;
-
-    Call<JournalEntryModel> entryCall;
+    List<String> words;
     Call<JsonObject> ledgerPostCall;
     Call<JsonObject> ledgerPopulateCall;
-    Call<JsonObject> pnlPostCall;
-    Call<JsonObject> trialPostCall;
     Call<JsonObject> inventoryCall;
     Call<LoginModel> loginCall;
     TransactionAPIs apiInterface;
@@ -152,13 +150,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     List<InventoryModel> list;
 
     CircularProgressBar circularProgressBar;
-
-    Button doneButton;
-
-    List<String> words;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
     TextToSpeech t1;
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +176,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         circularProgressBar = (CircularProgressBar) findViewById(R.id.progress);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor prefEditor = prefs.edit();
+        names = prefs.getString("Names","Empty");
+        numbers = prefs.getString("Numbers","Empty");
+
         list = new ArrayList<>();
 
         name = (AutoCompleteTextView) findViewById(R.id.name);
@@ -202,8 +198,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
-        nameCredit = (EditText) findViewById(R.id.credit_name);
-        numberCredit = (EditText) findViewById(R.id.credit_number);
+        nameCredit = findViewById(R.id.credit_name);
+        numberCredit = findViewById(R.id.credit_number);
         amount = (EditText) findViewById(R.id.amount);
         subTypeName = (EditText) findViewById(R.id.sub_type_name);
 
@@ -225,6 +221,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         suggestion4 = findViewById(R.id.suggestion4);
         suggestion5 = findViewById(R.id.suggestion5);
 
+        names = names.toLowerCase();
+        final String[] namesPref =  names.split(" ");
+        final String[] numbersPref = numbers.split(" ");
+        //TODO: Error here
+        nameCredit.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,namesPref));//set
+
         listView.setOnTouchListener(new View.OnTouchListener() {
             // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
@@ -242,7 +244,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 R.array.types_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
 
         dataAdapter = new DataAdapter(dataRows, this);
         listView.setAdapter(dataAdapter);
@@ -317,7 +318,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         apiInterface_inventory = retrofit_inventory.create(InventoryAPI.class);
         apiInterface_accounts = retrofit_accounts.create(AccountsAPI.class);
 
-        loginCall = apiInterface_inventory.login("demo", "demo");
+        loginCall = apiInterface.login(getString(R.string.user_id), getString(R.string.user_pass));
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
@@ -342,7 +343,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 list.add(inventoryModel);
                                 product += inventoryModel.getInventory_name().substring(1, inventoryModel.getInventory_name().length() - 1) + ",";
-//                                qtyString+=inventoryModel.getInventory_qty()+",";
 
                             }
 
@@ -401,17 +401,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
-
-//        name.setThreshold(1);
-//        name.setAdapter(products_adapter);
-//                        qty = qtyString.split(",");
-
-
         suggestion1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 name.setText(suggestion1.getText().toString().toLowerCase());
-                checkNameFromInventory();
+                if(!typeOfTrans.matches("Purchase"))
+                    checkNameFromInventory();
             }
         });
 
@@ -419,7 +414,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View view) {
                 name.setText(suggestion2.getText().toString().toLowerCase());
-                checkNameFromInventory();
+                if(!typeOfTrans.matches("Purchase"))
+                    checkNameFromInventory();
             }
         });
 
@@ -427,7 +423,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View view) {
                 name.setText(suggestion3.getText().toString().toLowerCase());
-                checkNameFromInventory();
+                if(!typeOfTrans.matches("Purchase"))
+                    checkNameFromInventory();
             }
         });
 
@@ -435,7 +432,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View view) {
                 name.setText(suggestion4.getText().toString().toLowerCase());
-                checkNameFromInventory();
+                if(!typeOfTrans.matches("Purchase"))
+                    checkNameFromInventory();
             }
         });
 
@@ -443,17 +441,17 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View view) {
                 name.setText(suggestion5.getText().toString().toLowerCase());
-                checkNameFromInventory();
+                if(!typeOfTrans.matches("Purchase"))
+                    checkNameFromInventory();
             }
         });
-
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loginCall = apiInterface_inventory.login("demo", "demo");
+        loginCall = apiInterface.login(getApplicationContext().getResources().getString(R.string.user_id), getApplicationContext().getResources().getString(R.string.user_pass));
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
@@ -619,22 +617,72 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
     private void changeSuggestions(String suggestion) {
         words.add(suggestion);
-
-        if (suggestion.matches("sugar")) {
-            suggestion1.setText("Salt");
-            suggestion2.setText("Tea");
-            suggestion3.setText("Coffee");
-            suggestion4.setText("Curd");
-            suggestion5.setText("Milk");
+        suggestion = suggestion.toLowerCase();
+        String[] suggestions = {"Sugar","Tea","Coffee","Curd","Milk",
+                "Good Day","Parle G","Nice Time","Milano","Dark Fantasy",
+                "Perk","Munch","Diary Milk","5 Star","Eclairs",
+                "Salt","Dal","Rice","Butter","Cheese",
+                "Coffee Maker","Mayo","Bread","Bun","Toaster",
+                "Eraser","Pen Stand","Pencil","Pen","Notebook",
+                "Crayons","Water Colors","Pencil Colours","Drawing Copy","Stencils"
+        };
+        if(suggestion.matches("pen"))
+        {
+            suggestion1.setText(suggestions[26]);
+            suggestion2.setText(suggestions[29]);
+            suggestion3.setText(suggestions[33]);
+            suggestion4.setText(suggestions[25]);
+            suggestion5.setText(suggestions[34]);
         }
-        if (suggestion.matches("milano")) {
-            suggestion1.setText("Good Day");
-            suggestion2.setText("Parle G");
-            suggestion3.setText("Dark Fantasy");
-            suggestion4.setText("Time Pass");
-            suggestion5.setText("Nice Time");
+        else if(suggestion.matches("crayons"))
+        {
+            suggestion1.setText(suggestions[34]);
+            suggestion2.setText(suggestions[32]);
+            suggestion3.setText(suggestions[33]);
+            suggestion4.setText(suggestions[27]);
+            suggestion5.setText(suggestions[31]);
         }
-
+        else if (suggestion.matches("sugar")) {
+            suggestion1.setText(suggestions[2]);
+            suggestion2.setText(suggestions[7]);
+            suggestion3.setText(suggestions[4]);
+            suggestion4.setText(suggestions[3]);
+            suggestion5.setText(suggestions[1]);
+        }
+        else if (suggestion.matches("milano")) {
+            suggestion1.setText(suggestions[5]);
+            suggestion2.setText(suggestions[7]);
+            suggestion3.setText(suggestions[9]);
+            suggestion4.setText(suggestions[6]);
+            suggestion5.setText(suggestions[11]);
+        }
+        else if (suggestion.matches("coffee")) {
+            suggestion1.setText(suggestions[0]);
+            suggestion2.setText(suggestions[4]);
+            suggestion3.setText(suggestions[20]);
+            suggestion4.setText(suggestions[23]);
+            suggestion5.setText(suggestions[1]);
+        }
+        else if (suggestion.matches("cheese")) {
+            suggestion1.setText(suggestions[18]);
+            suggestion2.setText(suggestions[22]);
+            suggestion3.setText(suggestions[23]);
+            suggestion4.setText(suggestions[3]);
+            suggestion5.setText(suggestions[4]);
+        }else
+        {
+            Random rand = new Random();
+            int n = rand.nextInt(34);
+            suggestion1.setText(suggestions[n]);
+            n = rand.nextInt(34);
+            suggestion2.setText(suggestions[n]);
+            n = rand.nextInt(34);
+            suggestion3.setText(suggestions[n]);
+            n = rand.nextInt(34);
+            suggestion4.setText(suggestions[n]);
+            n = rand.nextInt(34);
+            suggestion5.setText(suggestions[n]);
+        }
     }
 
     private void doneClicked() {
@@ -650,10 +698,10 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             return;
         }
 
-        if (creditLayoutStatus == false) {
-            creditName = null;
-            creditNumber = null;
-        } else {
+        creditName = "";
+        creditNumber = "";
+
+        if (creditLayoutStatus){
 
             if (nameCredit.getText().toString().matches("")) {
                 nameCredit.setError("Required");
@@ -669,10 +717,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             creditNumber = numberCredit.getText().toString();
         }
 
-        if (nameLayoutStatus == false) {
-            creditName = null;
-        }
-        else
+        if (nameLayoutStatus)
         {
             if (subTypeName.getText().toString().matches("")) {
                 subTypeName.setError("Required");
@@ -688,7 +733,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         //Toast.makeText(getBaseContext(), "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber, Toast.LENGTH_LONG).show();
         Log.e("Done click: ", "Date: " + dateee + "Type of Trans: " + typeOfTrans + "Sub type: " + subType + "Total amt: " + totalAmount + "Mode of transaction: " + modeOfTrans + "Credit Name: " + creditName + "Credit no: " + creditNumber);
 
-        loginCall = apiInterface.login("demo", "demo");
+        loginCall = apiInterface.login(getApplicationContext().getResources().getString(R.string.user_id), getApplicationContext().getResources().getString(R.string.user_pass));
         doneButton.setVisibility(View.GONE);
         progressParent.setVisibility(View.VISIBLE);
         circularProgressBar.enableIndeterminateMode(true);
@@ -697,10 +742,11 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
+                //Toast.makeText(getBaseContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
                 String narration;
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+                Log.e("Type of transaction: ",typeOfTrans.toLowerCase());
                 if (typeOfTrans.toLowerCase().contains("purchase")) {
 
                     if (modeOfTrans.toLowerCase().contains("cash")) {
@@ -721,12 +767,16 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
+                            prefs.edit().putString("Names",names+" "+creditName).apply();
+                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
                             narration = "Goods purchased for " + modeOfTrans+" from "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
+                            prefs.edit().putString("Names",names+" "+creditName).apply();
+                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
@@ -734,7 +784,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                     if (modeOfTrans.toLowerCase().contains("cash")) {
 
-                        if (modeOfTrans.toLowerCase().contains("return")) {
+                        if (typeOfTrans.toLowerCase().contains("return")) {
                             narration = "Sold goods returned for " + modeOfTrans+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
@@ -746,17 +796,22 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                     narration);
                         }
                     } else {
-                        if (modeOfTrans.toLowerCase().contains("return")) {
+                        if (typeOfTrans.toLowerCase().contains("return")) {
                             narration = "Sold goods returned from " +creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
+                            prefs.edit().putString("Names",names+" "+creditName).apply();
+                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
+
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
                             narration =  "Goods being sold for " + modeOfTrans+ " to "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
+                            prefs.edit().putString("Names",names+" "+creditName).apply();
+                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
@@ -770,77 +825,70 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         if(subType.contains("settlement")) {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
-                                    "Payment done to" + creditName+ " for settlement");
+                                    "Payment done to " + creditName+ " for settlement");
                             narration = "Payment done to " + creditName;
                         }
                         else
                         {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
-                                    subType+" Paid");
-                            narration = subType+" Paid";
+                                    subType+" Paid via "+modeOfTrans);
+                            narration = subType+" Paid via "+modeOfTrans;
                         }
                     } else {
                         if(subType.contains("settlement")) {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
-                                    "Payment received from" + creditName + " for settlement");
+                                    "Payment received from " + creditName + " for settlement");
                             narration = "Payment received from " + creditName;
                         }
                         else
                         {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
-                                    subType+" Received");
-                            narration = subType+" Received";
+                                    subType+" Received via "+modeOfTrans);
+                            narration = subType+" Received via "+modeOfTrans;
                         }
 
                     }
 
                 } else {
-                    if (typeOfTrans.toLowerCase().contains("received")) {
+                    if (subType.toLowerCase().contains("received")) {
                         ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission received from " + creditName);
-                        narration = "Commission received from " + creditName;
+                                modeOfTrans, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission received from " + creditName+" via "+modeOfTrans);
+                        narration = "Commission received from " + creditName + " via "+modeOfTrans;
                     } else {
                         ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + creditName);
-                        narration = "Commission given to " + creditName;
+                                typeOfTrans, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount), "Commission given to " + creditName+" via "+modeOfTrans);
+                        narration = "Commission given to " + creditName + " via "+modeOfTrans;
                     }
                 }
-                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
 
                 ledgerPostCall.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        if(response.body()!=null){
-                            if(response.code() == 200){
+                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
 
                                 ledgerPopulateCall = apiInterface_accounts.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
-                                Toast.makeText(getBaseContext(), "Ledger being updated", Toast.LENGTH_LONG).show();
 
                                 ledgerPopulateCall.enqueue(new Callback<JsonObject>() {
 
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                                         Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
-                                        Log.e("lcheck","Ledger populated");
+                                        Log.e("lcheck","Ledger updated");
                                         finish();
                                     }
 
                                     @Override
                                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                                        Log.e("lcheck","Ledger populated");
+                                        Log.e("lcheck", String.valueOf(t));
                                         finish();
                                     }
                                 });
-//                                finish();
-                            }else{
-                                Toast.makeText(getBaseContext(), "Servers are down" , Toast.LENGTH_LONG).show();
-                            }
-                        }
-
+                                finish();
                     }
 
                     @Override
@@ -855,7 +903,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
-
+                Toast.makeText(getBaseContext(), "Servers are down" , Toast.LENGTH_LONG).show();
             }
         });
 
@@ -952,7 +1000,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 amountLayoutStatus = false;
                 credit = true;
                 suggestionsUI.setVisibility(View.VISIBLE);
-                typeOfTrans = "Purchase Return";
+                typeOfTrans = "PurchaseReturn";
 
             } else if (pos == 3) {
 
@@ -966,7 +1014,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 amountLayoutStatus = false;
                 credit = true;
                 suggestionsUI.setVisibility(View.VISIBLE);
-                typeOfTrans = "Sales Return";
+                typeOfTrans = "SalesReturn";
 
             } else if (pos == 4) {
 
@@ -979,7 +1027,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
-                typeOfTrans = "Payment Done";
+                typeOfTrans = "Payment_Done";
                 suggestionsUI.setVisibility(View.GONE);
                 subTypeText.setText("Choose payment type");
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -998,7 +1046,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 nameLayoutStatus = false;
                 amountLayoutStatus = true;
                 credit = false;
-                typeOfTrans = "Payment Received";
+                typeOfTrans = "Payment_Received";
                 suggestionsUI.setVisibility(View.GONE);
                 subTypeText.setText("Choose payment type");
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -1047,10 +1095,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
             subType = parent.getItemAtPosition(pos).toString();
 
-            if (typeOfTrans.contains("Drawings"))
+            if (typeOfTrans.contains("Drawings")) {
                 modeOfTrans = subType;
+            }
 
-            if (((typeOfTrans.matches("Payment Done") && pos == 2)) || (typeOfTrans.matches("Payment Received") && pos == 2)) {
+
+            if (((typeOfTrans.matches("Payment_Done") && pos == 2)) || (typeOfTrans.matches("Payment_Received") && pos == 2)) {
 
                 subTypeNameLayout.setVisibility(View.VISIBLE);
                 nameLayoutStatus = true;
@@ -1060,11 +1110,14 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 suggestionsUI.setVisibility(View.VISIBLE);
                 amountLayout.setVisibility(View.GONE);
                 amountLayoutStatus = false;
+                nameLayoutStatus = false;
             } else {
                 subTypeNameLayout.setVisibility(View.GONE);
                 purchaseLayout.setVisibility(View.GONE);
                 amountLayout.setVisibility(View.VISIBLE);
+                suggestionsUI.setVisibility(View.GONE);
                 nameLayoutStatus = false;
+                amountLayoutStatus = true;
             }
         }
     }
@@ -1102,14 +1155,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     creditLayoutStatus = false;
                 }
                 break;
-                /*
             case R.id.given:
                 subType = "Given";
                 break;
             case R.id.received:
                 subType = "Received";
                 break;
-                */
         }
     }
 
@@ -1174,7 +1225,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         String prodName = "";
                         String prodRate = "";
                         String prodQty = "";
-                        for (int i = 0; i < user_input.length; i++) {
+                        for (int i = 0; i < user_input.length-1; i++) {
                             if (!user_input[i].toLowerCase().equals("rate")) {
                                 if (!user_input[i].toLowerCase().equals("item"))
                                     prodName += user_input[i];
@@ -1183,12 +1234,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 break;
                             }
                         }
-                        for (int i = 0; i < user_input.length; i++) {
+                        for (int i = 0; i < user_input.length-1; i++) {
                             if (user_input[i].equals("rate")) {
-                                prodRate = user_input[i + 1];
+                                prodRate = user_input[i+1];
                             }
                             if (user_input[i].equals("quantity")) {
-                                prodQty = user_input[i + 1];
+                                prodQty = user_input[i+1];
                             }
                         }
 //                        String[] tTypes = getResources().getStringArray(R.array.types_array);
