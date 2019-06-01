@@ -149,6 +149,15 @@ public class InventoryEdit extends AppCompatActivity {
                                 }
                             });
 
+                            update_product.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+
+
+                                }
+                            });
+
 
                         }else{
                             Toast.makeText(getBaseContext(), "Servers are down", Toast.LENGTH_LONG).show();

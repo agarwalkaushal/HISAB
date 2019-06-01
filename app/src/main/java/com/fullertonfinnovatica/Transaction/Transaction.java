@@ -86,9 +86,10 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String creditName;
     private String creditNumber;
     private String product = "milk,sugar,eggs";
+    private String categories;
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
-    private String[] products;
+    private String[] products, categoriesArray;
     private String productsTransaction = "\nName   Rate    Quantity\n";
     private String names, numbers;
 
@@ -138,6 +139,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     ArrayList<DataRow> dataRows = new ArrayList<>();
     ArrayAdapter<String> products_adapter;
     List<String> words;
+    Call<JsonObject> inventoryUpdateCall;
     Call<JsonObject> ledgerPostCall;
     Call<JsonObject> ledgerPopulateCall;
     Call<JsonObject> inventoryCall;
@@ -153,6 +155,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     TextToSpeech t1;
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    String category = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,6 +335,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             JsonObject bodyyy = response.body();
                             JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
                             product = "";
+                            categories = "";
                             for (int i = 0; i < bodyy.size(); i++) {
 
                                 inventoryModel = new InventoryModel();
@@ -343,12 +347,16 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 list.add(inventoryModel);
                                 product += inventoryModel.getInventory_name().substring(1, inventoryModel.getInventory_name().length() - 1) + ",";
-
+                                categories += inventoryModel.getInventory_category().substring(1, inventoryModel.getInventory_category().length()-1)+",";
                             }
 
                             Toast.makeText(getBaseContext(), "Products loaded from Inventory", Toast.LENGTH_LONG).show();
                             Log.e("Products: ",product);
                             products = product.split(",");
+                            Log.e("bnmbnm", categories);
+                            categoriesArray = categories.split(",");
+                            for(int i=0;i<categoriesArray.length;i++)
+                                Log.e("bnmbnm", categoriesArray[i]);
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
                             name.setAdapter(products_adapter);
 
@@ -613,6 +621,31 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         dataRows.add(new DataRow(itemName, itemRate, itemQuantity));
         total.setText("Rs. " + String.valueOf(totalAmount));
         dataAdapter.notifyDataSetChanged();
+
+        for (int i=0;i<products.length;i++){
+            if(itemName.equals(products[i])){
+                category = categoriesArray[i];
+            }
+        }
+
+        Log.e("gggg", itemName+" - "+category+"-"+itemQuantity + " -- " + categories + "[[" + product);
+
+        inventoryUpdateCall = apiInterface_inventory.updateInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"), itemName, category, (int) itemQuantity);
+
+        inventoryUpdateCall.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.e("gggg", response.toString() + " " + itemName+" - "+category+"-"+itemQuantity);
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void changeSuggestions(String suggestion) {

@@ -29,6 +29,10 @@ public interface InventoryAPI {
     @POST("inventory/add")
     Call<InventoryModel> postInventory(@Header("authorization") String header, @Field("name") String invName, @Field("category") String invCategory, @Field("quantity") int invQty, @Field("cost") int invCost, @Field("expiry") String expiry, @Field("thresholdQuantity") String thrhld);
 
+    @FormUrlEncoded
+    @POST("inventory/update")
+    Call<JsonObject> updateInventory(@Header("authorization") String header, @Field("name") String invName, @Field("category") String invCategory, @Field("usedQuantity") int invQty);
+
     @GET("inventory")
     Call<JsonObject> getInventoryy(@Header("authorization") String header);
 
