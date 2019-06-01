@@ -90,12 +90,13 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String typeOfTrans;
     private String modeOfTrans = "Cash";
     private String[] products, categoriesArray;
+    private String[] namesPref, numbersPref;
     private String productsTransaction = "\nName   Rate    Quantity\n";
     private String names, numbers;
 
 
-    private AutoCompleteTextView name, numberCredit;
-    private AppCompatAutoCompleteTextView nameCredit;
+    private AutoCompleteTextView name, nameCredit;
+    private EditText numberCredit;
     private EditText rate;
     private EditText quantity;
     private EditText amount;
@@ -137,7 +138,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private RadioButton commissionType;
 
     ArrayList<DataRow> dataRows = new ArrayList<>();
-    ArrayAdapter<String> products_adapter;
+    ArrayAdapter<String> products_adapter, names_Adapter;
     List<String> words;
     Call<JsonObject> inventoryUpdateCall;
     Call<JsonObject> ledgerPostCall;
@@ -180,7 +181,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         names = prefs.getString("Names","Empty");
-        numbers = prefs.getString("Numbers","Empty");
 
         list = new ArrayList<>();
 
@@ -201,7 +201,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
-        nameCredit = findViewById(R.id.credit_name);
+        nameCredit = (AutoCompleteTextView)findViewById(R.id.credit_name);
         numberCredit = findViewById(R.id.credit_number);
         amount = (EditText) findViewById(R.id.amount);
         subTypeName = (EditText) findViewById(R.id.sub_type_name);
@@ -224,12 +224,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         suggestion4 = findViewById(R.id.suggestion4);
         suggestion5 = findViewById(R.id.suggestion5);
 
-        names = names.toLowerCase();
-        final String[] namesPref =  names.split(" ");
-        final String[] numbersPref = numbers.split(" ");
-        //TODO: Error here
-        nameCredit.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,namesPref));//set
-
+        setNamesAdapter();
         listView.setOnTouchListener(new View.OnTouchListener() {
             // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
@@ -459,6 +454,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onResume() {
         super.onResume();
+        setNamesAdapter();
         loginCall = apiInterface.login(getApplicationContext().getResources().getString(R.string.user_id), getApplicationContext().getResources().getString(R.string.user_pass));
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
@@ -742,7 +738,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             }
 
             if (numberCredit.getText().toString().matches("")) {
-                nameCredit.setError("Required");
+                numberCredit.setError("Required");
                 return;
             }
 
@@ -1359,5 +1355,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         nbutton.setTextColor(Color.BLACK);
         Button pbutton = b.getButton(DialogInterface.BUTTON_POSITIVE);
         pbutton.setTextColor(Color.BLACK);
+    }
+
+    private void setNamesAdapter()
+    {
+        String[] temp = getResources().getStringArray(R.array.inventory_categories);
+        nameCredit.setAdapter(new ArrayAdapter<String >(this, android.R.layout.simple_dropdown_item_1line, temp));
+        Log.e("Popup", String.valueOf(nameCredit.isPopupShowing()));
     }
 }
