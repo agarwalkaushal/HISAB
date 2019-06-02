@@ -54,7 +54,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             recyclerViewHolder.img.setImageResource(R.drawable.threshold);
         }
         else{
-            recyclerViewHolder.img.setImageResource(R.drawable.money);
+            recyclerViewHolder.img.setImageResource(R.drawable.bank_building);
         }
 
 

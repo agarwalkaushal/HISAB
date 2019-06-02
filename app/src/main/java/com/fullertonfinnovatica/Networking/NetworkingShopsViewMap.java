@@ -49,6 +49,7 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
     List<String> shops_long = new ArrayList<>();
     List<String> shops_name = new ArrayList<>();
     List<String> shops_num = new ArrayList<>();
+    List<String> shops_type = new ArrayList<>();
     int MY_PERMISSIONS_REQUEST_READ_LOCATION;
 
 
@@ -98,6 +99,7 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
                     shops_long.add(list.get(i).getLongitude());
                     shops_name.add(list.get(i).getBname());
                     shops_num.add(list.get(i).getPno());
+                    shops_type.add("Retailer");
                 }
 
                 mapView.getMapAsync(NetworkingShopsViewMap.this);

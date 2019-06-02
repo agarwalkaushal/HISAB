@@ -20,7 +20,9 @@ import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,7 +70,7 @@ public class Notifications extends AppCompatActivity {
 
         apiInterface = retrofit.create(InventoryAPI.class);
 
-        loginCall = apiInterface.login("demo", "demo");
+        loginCall = apiInterface.login(getString(R.string.user_id), getString(R.string.user_pass));
 
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
@@ -95,24 +97,69 @@ public class Notifications extends AppCompatActivity {
                                 inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 inventoryModel.setThreshold(jsonObject.get("thresholdQuantity").toString());
                                 inventoryModel.setExpiryDate(jsonObject.get("expiry").toString());
-                                Log.e("lolo", jsonObject.get("category").toString() + ", " + jsonObject.get("cost").toString() + ", " + jsonObject.get("name").toString() + ", " + jsonObject.get("quantity").toString());
+                                Log.e("lolo", inventoryModel.getInventory_qty() + "-" + inventoryModel.getThreshold());
 
                                 if(Integer.valueOf(inventoryModel.getInventory_qty())<=Integer.valueOf(inventoryModel.getThreshold())){
 
-                                    model.setBody(inventoryModel.getInventory_name()+" stock is running out!");
+                                    model = new NotificationsModel();
+                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" stock is running out!");
                                     model.setTitle("LOW STOCK ALERT");
                                     model.setImg("threshold");
                                     list.add(model);
 
                                 }
 
-                                //TODO: Check expiry date conditions
-//                                model.setBody("GoodDay is approaching expiry");
-//                                model.setTitle("EXPIRY ALERT");
-//                                model.setImg("expiry");
+                                String expiry = inventoryModel.getExpiryDate().split("T")[0].substring(1);
+                                String pattern = "MM/dd/yyyy";
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                                final String dateee = simpleDateFormat.format(new Date());
+
+                                model = new NotificationsModel();
+
+                                int month = Integer.valueOf(dateee.split("/")[0]);
+                                int day = Integer.valueOf(dateee.split("/")[1]);
+                                int year = Integer.valueOf(dateee.split("/")[2]);
+
+                                int expiryMonth = Integer.valueOf(expiry.split("-")[1]);
+                                int expiryYear = Integer.valueOf(expiry.split("-")[0]);
+                                int expiryDay = Integer.valueOf(expiry.split("-")[2]);
+
+                                Log.e("njj", month + " " + expiryMonth);
+                                Log.e("njj", day + " " + expiryDay);
+                                Log.e("njj", year + " " + expiryYear);
+
+
+                                if(month == expiryMonth && year == expiryYear) {
+                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" is approaching expiry");
+                                    model.setTitle("EXPIRY ALERT");
+                                    model.setImg("expiry");
+                                    list.add(model);
+                                }
+//
+                                if((expiryMonth <= month && year == expiryYear) || year>expiryYear) {
+                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" has expired");
+                                    model.setTitle("EXPIRY ALERT");
+                                    model.setImg("expiry");
+                                    list.add(model);
+                                }
 //
                                 }
-                            }
+
+                            model = new NotificationsModel();
+                            model.setBody("Ramesh General Stores is now open nearby");
+                            model.setTitle("NEW RETAILER");
+                            model.setImg("shop");
+                            list.add(model);
+
+                            recyclerView = findViewById(R.id.recycler);
+                            dataAdapter = new NotificationsAdapter(list, getBaseContext(), view);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                            recyclerView.setAdapter(dataAdapter);
+                            ItemTouchHelper itemTouchHelper = new
+                                    ItemTouchHelper(new SwipeToDeleteCallback(dataAdapter));
+                            itemTouchHelper.attachToRecyclerView(recyclerView);
+
+                        }
 
                     }
 
@@ -130,21 +177,21 @@ public class Notifications extends AppCompatActivity {
             }
         });
 
-        model.setBody("GoodDay is approaching expiry");
-        model.setTitle("EXPIRY ALERT");
-        model.setImg("expiry");
-        list.add(model);
-        list.add(model);
-        list.add(model);
-        list.add(model);
-
-        recyclerView = findViewById(R.id.recycler);
-        dataAdapter = new NotificationsAdapter(list, getBaseContext(), view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        recyclerView.setAdapter(dataAdapter);
-        ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteCallback(dataAdapter));
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+//        model.setBody("GoodDay is approaching expiry");
+//        model.setTitle("EXPIRY ALERT");
+//        model.setImg("expiry");
+//        list.add(model);
+//        list.add(model);
+//        list.add(model);
+//        list.add(model);
+//
+//        recyclerView = findViewById(R.id.recycler);
+//        dataAdapter = new NotificationsAdapter(list, getBaseContext(), view);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+//        recyclerView.setAdapter(dataAdapter);
+//        ItemTouchHelper itemTouchHelper = new
+//                ItemTouchHelper(new SwipeToDeleteCallback(dataAdapter));
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
 
