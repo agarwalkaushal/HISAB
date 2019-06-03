@@ -99,7 +99,7 @@ public class NetworkingShopsViewMap extends AppCompatActivity implements OnMapRe
                     shops_long.add(list.get(i).getLongitude());
                     shops_name.add(list.get(i).getBname());
                     shops_num.add(list.get(i).getPno());
-                    shops_type.add("Retailer");
+                    shops_type.add(list.get(i).getType());
                 }
 
                 mapView.getMapAsync(NetworkingShopsViewMap.this);

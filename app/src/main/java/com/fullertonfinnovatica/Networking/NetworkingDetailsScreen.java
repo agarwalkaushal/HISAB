@@ -24,8 +24,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapReadyCallback {
 
-    String lat, lon, pno, name;
-    TextView t_lat, t_lon, t_pno, t_name;
+    String lat, lon, pno, name, type;
+    TextView t_lat, t_lon, t_pno, t_name, t_type;
 
     private MapView mapView;
     private GoogleMap gmap;
@@ -55,16 +55,19 @@ public class NetworkingDetailsScreen extends AppCompatActivity implements OnMapR
         lon = getIntent().getStringExtra("b_long");
         pno = getIntent().getStringExtra("b_pno");
         name = getIntent().getStringExtra("b_name");
+        type = getIntent().getStringExtra("b_type");
 
         t_lat = findViewById(R.id.blat);
         t_lon = findViewById(R.id.blong);
         t_name = findViewById(R.id.bname);
         t_pno = findViewById(R.id.bpno);
+        t_type = findViewById(R.id.type);
 
         t_lat.setText("Lat: " + lat);
         t_pno.setText(pno);
         t_lon.setText("Long: " + lon);
         t_name.setText(name);
+        t_type.setText(type);
 
         phoneLayout.setOnClickListener(new View.OnClickListener() {
             @Override

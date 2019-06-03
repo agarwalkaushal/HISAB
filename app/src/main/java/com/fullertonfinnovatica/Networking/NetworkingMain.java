@@ -114,6 +114,7 @@ public class NetworkingMain extends AppCompatActivity implements GoogleApiClient
                         in.putExtra("b_lat",pojo.getLatitude());
                         in.putExtra("b_long",pojo.getLongitude());
                         in.putExtra("b_pno",pojo.getPno());
+                        in.putExtra("b_type", pojo.getType());
                         startActivity(in);
                     }
 

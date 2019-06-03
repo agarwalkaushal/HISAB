@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class NetworkingModel implements Serializable {
 
-    String bname, pno, latitude, longitude;
+    String bname, pno, latitude, longitude, type;
 
     public String getBname() {
         return bname;
@@ -36,5 +36,13 @@ public class NetworkingModel implements Serializable {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
