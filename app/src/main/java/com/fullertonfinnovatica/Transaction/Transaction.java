@@ -626,26 +626,27 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         Log.e("gggg", itemName+" - "+category+"-"+itemQuantity + " -- " + categories + "[[" + product);
 
-        if(typeOfTrans.toLowerCase() == "purchase" || typeOfTrans.toLowerCase() == "sales return")
-            itemQuantity *= itemQuantity*-1;
+//        if(typeOfTrans.toLowerCase() == "purchase" || typeOfTrans.toLowerCase() == "sales return")
+//            itemQuantity *= itemQuantity*-1;
 
 
-        inventoryUpdateCall = apiInterface_inventory.updateInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"), itemName, category, (int) itemQuantity);
+        if(typeOfTrans.toLowerCase().equals("sales") && isNameFromInventory) {
+            inventoryUpdateCall = apiInterface_inventory.updateInventory(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"), itemName, category, (int) itemQuantity);
 
-        inventoryUpdateCall.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            inventoryUpdateCall.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                Log.e("gggg", response.toString());
+                    Log.e("gggg", response.toString());
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
 
     private void changeSuggestions(String suggestion) {

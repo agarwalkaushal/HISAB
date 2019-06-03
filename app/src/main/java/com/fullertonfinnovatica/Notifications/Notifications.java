@@ -114,8 +114,6 @@ public class Notifications extends AppCompatActivity {
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                                 final String dateee = simpleDateFormat.format(new Date());
 
-                                model = new NotificationsModel();
-
                                 int month = Integer.valueOf(dateee.split("/")[0]);
                                 int day = Integer.valueOf(dateee.split("/")[1]);
                                 int year = Integer.valueOf(dateee.split("/")[2]);
@@ -128,16 +126,17 @@ public class Notifications extends AppCompatActivity {
                                 Log.e("njj", day + " " + expiryDay);
                                 Log.e("njj", year + " " + expiryYear);
 
-
-                                if(month == expiryMonth && year == expiryYear) {
-                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" is approaching expiry");
+                                if((expiryMonth < month && year == expiryYear) || year>expiryYear || (expiryDay<=day && expiryMonth == month && year == expiryYear)) {
+                                    model = new NotificationsModel();
+                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" has expired");
                                     model.setTitle("EXPIRY ALERT");
                                     model.setImg("expiry");
                                     list.add(model);
                                 }
-//
-                                if((expiryMonth <= month && year == expiryYear) || year>expiryYear) {
-                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" has expired");
+
+                                if(month == expiryMonth && year == expiryYear && expiryDay>day) {
+                                    model = new NotificationsModel();
+                                    model.setBody(inventoryModel.getInventory_name().substring(1,inventoryModel.getInventory_name().length()-1)+" is approaching expiry");
                                     model.setTitle("EXPIRY ALERT");
                                     model.setImg("expiry");
                                     list.add(model);
