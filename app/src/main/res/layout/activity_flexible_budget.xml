@@ -47,7 +47,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="10dp"
                         android:padding="5dp"
-                        android:text="Business Proportion %"
+                        android:text="Business Capacity %"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 

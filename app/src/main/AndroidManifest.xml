@@ -20,8 +20,6 @@
         <activity android:name=".Finance.Ratios" />
         <activity android:name=".Rack.AddRack"></activity>
         <activity android:name=".Rack.RackMain" />
-        <activity android:name=".Finance.Ratios" />
-        <activity android:name=".Inventory.InventoryEdit" />
         <activity android:name=".Finance.FlexibleBudget" />
         <activity android:name=".Finance.CashBudget" />
         <activity android:name=".Finance.FinanceMain" />

@@ -9,6 +9,7 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.fullertonfinnovatica.Accounts.LoginModel;
 import com.fullertonfinnovatica.Inventory.InventoryAPI;
@@ -16,6 +17,7 @@ import com.fullertonfinnovatica.Inventory.InventoryModel;
 import com.fullertonfinnovatica.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.CookieManager;
@@ -44,6 +46,7 @@ public class Notifications extends AppCompatActivity {
     Call<LoginModel> loginCall;
     Call<JsonObject> inventoryCall;
     InventoryAPI apiInterface;
+    RelativeLayout progressParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,10 @@ public class Notifications extends AppCompatActivity {
         View view = findViewById(R.id.holder);
         model = new NotificationsModel();
         list = new ArrayList<>();
+
+        progressParent = findViewById(R.id.progressParent);
+        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
+        circularProgressBar.enableIndeterminateMode(true);
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -83,6 +90,9 @@ public class Notifications extends AppCompatActivity {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                         if(response.body()!=null) {
+
+                            progressParent.setVisibility(View.GONE);
+
                             JsonObject bodyyy = response.body();
                             JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
 

@@ -95,8 +95,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     private String names, numbers;
 
 
-    private AutoCompleteTextView name, nameCredit;
-    private EditText numberCredit;
+    private AutoCompleteTextView name;
+    private EditText numberCredit, nameCredit;
     private EditText rate;
     private EditText quantity;
     private EditText amount;
@@ -179,9 +179,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         progressParent.setVisibility(View.GONE);
         circularProgressBar = (CircularProgressBar) findViewById(R.id.progress);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        names = prefs.getString("Names","Empty");
-
         list = new ArrayList<>();
 
         name = (AutoCompleteTextView) findViewById(R.id.name);
@@ -201,7 +198,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         rate = (EditText) findViewById(R.id.rate);
         quantity = (EditText) findViewById(R.id.quantity);
-        nameCredit = (AutoCompleteTextView)findViewById(R.id.credit_name);
+        nameCredit = findViewById(R.id.credit_name);
         numberCredit = findViewById(R.id.credit_number);
         amount = (EditText) findViewById(R.id.amount);
         subTypeName = (EditText) findViewById(R.id.sub_type_name);
@@ -224,7 +221,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         suggestion4 = findViewById(R.id.suggestion4);
         suggestion5 = findViewById(R.id.suggestion5);
 
-        setNamesAdapter();
         listView.setOnTouchListener(new View.OnTouchListener() {
             // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
@@ -454,7 +450,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onResume() {
         super.onResume();
-        setNamesAdapter();
         loginCall = apiInterface.login(getApplicationContext().getResources().getString(R.string.user_id), getApplicationContext().getResources().getString(R.string.user_pass));
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
@@ -469,6 +464,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             JsonObject bodyyy = response.body();
                             JsonArray bodyy = bodyyy.getAsJsonArray("inventory");
                             product = "";
+                            categories = "";
                             for (int i = 0; i < bodyy.size(); i++) {
 
                                 inventoryModel = new InventoryModel();
@@ -480,15 +476,23 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                 inventoryModel.setInventory_qty(jsonObject.get("quantity").toString());
                                 list.add(inventoryModel);
                                 product += inventoryModel.getInventory_name().substring(1, inventoryModel.getInventory_name().length() - 1) + ",";
-//                                qtyString+=inventoryModel.getInventory_qty()+",";
+                                categories += inventoryModel.getInventory_category().substring(1, inventoryModel.getInventory_category().length()-1)+",";
+
+                                //                                qtyString+=inventoryModel.getInventory_qty()+",";
 
                             }
 
                             //Toast.makeText(getBaseContext(), "Products updated from Inventory", Toast.LENGTH_LONG).show();
                             Log.e("Products: ",product);
                             products = product.split(",");
+                            categoriesArray = categories.split(",");
+                            for(int i=0;i<categoriesArray.length;i++)
+                                Log.e("bnmbnm", categoriesArray[i]);
                             products_adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.select_dialog_item, products);
                             name.setAdapter(products_adapter);
+                            if(!typeOfTrans.matches("Purchase"))
+                                checkNameFromInventory();
+
 
                         } else {
                             Toast.makeText(getBaseContext(), "Servers are down " + response.toString(), Toast.LENGTH_LONG).show();
@@ -624,7 +628,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
             }
         }
 
-        Log.e("gggg", itemName+" - "+category+"-"+itemQuantity + " -- " + categories + "[[" + product);
+        //Log.e("gggg", itemName+" - "+category+"-"+itemQuantity + " -- " + categories + "[[" + product);
 
 //        if(typeOfTrans.toLowerCase() == "purchase" || typeOfTrans.toLowerCase() == "sales return")
 //            itemQuantity *= itemQuantity*-1;
@@ -637,13 +641,17 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                    Log.e("gggg", response.toString());
+                    if(response.code() == 400)
+                        Toast.makeText(getApplicationContext(),"Not sufficient stock for "+itemName,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(),"Inventory updated for "+itemName,Toast.LENGTH_SHORT).show();
+                    Log.e("onResponse", response.toString());
 
                 }
 
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                    Log.e("throwable", t.toString());
                 }
             });
         }
@@ -801,16 +809,12 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
-                            prefs.edit().putString("Names",names+" "+creditName).apply();
-                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
                             narration = "Goods purchased for " + modeOfTrans+" from "+creditName+ ". \nBill: "+productsTransaction;
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     typeOfTrans, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
-                            prefs.edit().putString("Names",names+" "+creditName).apply();
-                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
@@ -835,8 +839,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
-                            prefs.edit().putString("Names",names+" "+creditName).apply();
-                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
 
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         } else {
@@ -844,8 +846,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
                                     creditName, typeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     narration);
-                            prefs.edit().putString("Names",names+" "+creditName).apply();
-                            prefs.edit().putString("Numbers",numbers+" "+creditNumber).apply();
                             new executeRequest().execute("91"+creditNumber,narration+"\nRegards: "+prefs.getString("name", "User"));
                         }
                     }
@@ -855,10 +855,9 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     narration = "Drawings from " + modeOfTrans;
                 } else if (typeOfTrans.toLowerCase().contains("payment")) {
                     if (typeOfTrans.toLowerCase().contains("done")) {
-
                         if(subType.contains("settlement")) {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    subType, modeOfTrans, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    subType, creditName, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     "Payment done to " + creditName+ " for settlement");
                             narration = "Payment done to " + creditName;
                         }
@@ -872,7 +871,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     } else {
                         if(subType.contains("settlement")) {
                             ledgerPostCall = apiInterface.journalEntry(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"),
-                                    modeOfTrans, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
+                                    creditName, subType, dateee, String.valueOf((int) totalAmount), String.valueOf((int) totalAmount),
                                     "Payment received from " + creditName + " for settlement");
                             narration = "Payment received from " + creditName;
                         }
@@ -903,7 +902,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Entry successfully made", Toast.LENGTH_SHORT).show();
 
                                 ledgerPopulateCall = apiInterface_accounts.populateLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
@@ -911,7 +910,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                        Toast.makeText(getBaseContext(), narration, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
                                         Log.e("lcheck","Ledger updated");
                                         finish();
                                     }
@@ -922,6 +921,7 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                                         finish();
                                     }
                                 });
+                        Toast.makeText(getBaseContext(), "Updating Ledger, Trial Balance, PnL..", Toast.LENGTH_SHORT).show();
                                 finish();
                     }
 
@@ -1283,6 +1283,11 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
                         rate.setText(prodRate);
                         quantity.setText(prodQty);
 
+                        if(!typeOfTrans.matches("Purchase"))
+                            checkNameFromInventory();
+
+                        addItem();
+
                         t1.speak(prodName + " added!", TextToSpeech.QUEUE_FLUSH, null);
 
                         if (userInputString.toLowerCase().contains("delete")) {
@@ -1306,7 +1311,8 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         protected String doInBackground(String... arg0) {
 
             try {
-                String apiKey = "apikey=" + "WN1sKnFrAL8-TWsKYpJw5WaZlcrxvoEdZAfKkcmMgT";
+                //String apiKey = "apikey=" + getResources().getString(R.string.sms_api_key);
+                String apiKey = "apikey=" + "xSQhL++/sKI-QWr6SKbf1rRnaloDVVDZVvWQxuJFvG";
                 String message = "&message=" + arg0[1];
                 String sender = "&sender=" + "TXTLCL";
                 String numbers = "&numbers=" + arg0[0];
@@ -1338,7 +1344,6 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(),"Messge sent successfully",Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -1362,10 +1367,4 @@ public class Transaction extends AppCompatActivity implements AdapterView.OnItem
         pbutton.setTextColor(Color.BLACK);
     }
 
-    private void setNamesAdapter()
-    {
-        String[] temp = getResources().getStringArray(R.array.inventory_categories);
-        nameCredit.setAdapter(new ArrayAdapter<String >(this, android.R.layout.simple_dropdown_item_1line, temp));
-        Log.e("Popup", String.valueOf(nameCredit.isPopupShowing()));
-    }
 }

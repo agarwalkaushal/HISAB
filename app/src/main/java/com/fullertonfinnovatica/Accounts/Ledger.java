@@ -59,10 +59,7 @@ public class Ledger extends AppCompatActivity {
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.progress);
         circularProgressBar.enableIndeterminateMode(true);
 
-        debit_amt = new String[10000];
-        debit_name = new String[10000];
-        credit_name = new String[10000];
-        credit_amt = new String[10000];
+
         ledgerList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.ledgerRecycler);
@@ -88,8 +85,7 @@ public class Ledger extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
-                Log.e("kyu", response.toString());
-                Toast.makeText(getApplicationContext(),"Ledger requested",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Please hang on..",Toast.LENGTH_LONG).show();
                 ledgerCall = apiInterface.getLedger(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
                 ledgerCall.enqueue(new Callback<JsonObject>() {
@@ -102,7 +98,10 @@ public class Ledger extends AppCompatActivity {
                             JsonObject bodyy = response.body();
                             JsonArray ledgerAray = bodyy.getAsJsonArray("ledger");
                             for (int i = 0; i < ledgerAray.size(); i++) {
-
+                                debit_amt = new String[10000];
+                                debit_name = new String[10000];
+                                credit_name = new String[10000];
+                                credit_amt = new String[10000];
                                 JsonObject ledger = ledgerAray.get(i).getAsJsonObject();
 
                                 JsonObject account = ledger.getAsJsonObject("account");
@@ -112,7 +111,7 @@ public class Ledger extends AppCompatActivity {
                                 JsonArray creditsArray = ledger.getAsJsonArray("credits");
 
 
-//                            Log.e("blabla", ledger.getAsJsonArray("debits").toString() + " " + ledger.getAsJsonArray("debits").size());
+                                Log.e("Acc name", i+" "+account_name);
 
                                 for (int j = 0; j < debitsArray.size(); j++) {
 
@@ -121,7 +120,7 @@ public class Ledger extends AppCompatActivity {
                                     debit_amt[j] = String.valueOf(deb.get("amount"));
                                     JsonObject to = deb.getAsJsonObject("to");
                                     debit_name[j] = String.valueOf(to.get("name"));
-//                                Log.e("abcde", debit_amt[j] + " " + debit_name[j]);
+                                    Log.e("Debits", j+" "+debit_amt[j] + " " + debit_name[j]);
 
                                 }
 
@@ -132,6 +131,7 @@ public class Ledger extends AppCompatActivity {
                                     credit_amt[j] = String.valueOf(cred.get("amount"));
                                     JsonObject to = cred.getAsJsonObject("from");
                                     credit_name[j] = String.valueOf(to.get("name"));
+                                    Log.e("Credits", j+" "+credit_amt[j] + " " + credit_name[j]);
                                 }
 
                                 JsonObject balance = ledger.getAsJsonObject("balance");
@@ -151,8 +151,6 @@ public class Ledger extends AppCompatActivity {
                                 model.setCreditSize(creditsArray.size());
 
                                 ledgerList.add(model);
-
-//                                Log.e("blabla", balance_amt + balance_type);
 
                             }
 

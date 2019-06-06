@@ -110,6 +110,7 @@ public class InventoryView extends AppCompatActivity {
         loginCall.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                Toast.makeText(getApplicationContext(),"Please hang on..",Toast.LENGTH_LONG).show();
 
                 inventoryCall = apiInterface.getInventoryy(getAuthToken("adhikanshmittalcool@gmail.com", "adhikansh/123"));
 
@@ -193,8 +194,6 @@ public class InventoryView extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-
-                        Log.e("Pata", t.toString());
                         Toast.makeText(getBaseContext(), "Servers are down "+ t.toString(), Toast.LENGTH_LONG).show();
                         finish();
 
@@ -258,30 +257,6 @@ public class InventoryView extends AppCompatActivity {
             }
         });
 */
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inventory, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.edit_product) {
-            Intent intent = new Intent(InventoryView.this, InventoryEdit.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public static interface ClickListener{

@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fullertonfinnovatica.Inventory.InventoryEdit;
-import com.fullertonfinnovatica.Inventory.InventoryView;
 import com.fullertonfinnovatica.R;
-import com.google.gson.Gson;
 
 import static android.view.View.GONE;
 
@@ -73,7 +69,7 @@ public class RackMain extends AppCompatActivity {
 
     private void updateRacks() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String currentRacks = prefs.getString("Final", "Empty");
+        String currentRacks = prefs.getString("Nexus", "Empty");
 
         if (currentRacks.matches("Empty")) {
             header.setVisibility(GONE);
@@ -132,7 +128,7 @@ public class RackMain extends AppCompatActivity {
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            prefs.edit().remove("Final").apply();
+                            prefs.edit().remove("Nexus").apply();
                             updateRacks();
                         }
                     })
@@ -148,3 +144,4 @@ public class RackMain extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+

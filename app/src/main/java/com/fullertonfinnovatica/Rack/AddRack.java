@@ -39,7 +39,7 @@ public class AddRack extends AppCompatActivity {
         add = findViewById(R.id.addRack);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String currentRacks = prefs.getString("Final","Empty");
+        String currentRacks = prefs.getString("Nexus","Empty");
 
         if(currentRacks.matches("Empty"))
         {
@@ -62,10 +62,10 @@ public class AddRack extends AppCompatActivity {
                 {
                     if(productName.getText().toString().length()!=0)
                     {
-                        String toCommit = rno+1+" "+rackName.getText().toString()+" "+productName.getText().toString()+" ";
+                        String toCommit = rno+1+" "+rackName.getText().toString().replaceAll("\\s","")+" "+productName.getText().toString().replaceAll("\\s","")+" ";
                         if(!currentRacks.matches("Empty"))
                             toCommit = currentRacks+toCommit;
-                        prefs.edit().putString("Final",toCommit).apply();
+                        prefs.edit().putString("Nexus",toCommit).apply();
                         finish();
                     }
                     else

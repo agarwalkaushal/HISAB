@@ -42,17 +42,27 @@ public class LedgerAdapter extends RecyclerView.Adapter<LedgerAdapter.RecyclerVi
         recyclerViewHolder.toDebitFields.setText("");
         recyclerViewHolder.toCreditField.setText("");
 
+        String[] debit_name, debit_amt, credit_name, credit_amt;
+        int debit_size,credit_size;
+
+        debit_name = modelList.getDebit_name();
+        debit_amt = modelList.getDebit_amt();
+        credit_name = modelList.getCredit_name();
+        credit_amt = modelList.getCredit_amt();
+        debit_size = modelList.getDebitSize();
+        credit_size = modelList.getCreditSize();
+
         float total1 = 0, total2 = 0;
-        for(int j=0;j<modelList.getDebitSize();j++){
-            recyclerViewHolder.toDebitFields.append("To " + modelList.getDebit_name()[j].substring(1,modelList.getDebit_name()[j].length()-1) + " - ");
-            recyclerViewHolder.toDebitFields.append(modelList.getDebit_amt()[j] + "\n");
-            total1 += Float.valueOf(modelList.getDebit_amt()[j]);
+        for(int j=0;j<debit_size;j++){
+            String temp = "To " + debit_name[j].substring(1,debit_name[j].length()-1)+ " - "+debit_amt[j]+"\n";
+            recyclerViewHolder.toDebitFields.setText(String.valueOf(recyclerViewHolder.toDebitFields.getText())+temp);
+            total1 += Float.valueOf(debit_amt[j]);
         }
 
-        for(int j=0;j<modelList.getCreditSize();j++){
-            recyclerViewHolder.toCreditField.append("By " + modelList.getCredit_name()[j].substring(1,modelList.getCredit_name()[j].length()-1) + " - ");
-            recyclerViewHolder.toCreditField.append(modelList.getCredit_amt()[j] + "\n");
-            total2 += Float.valueOf(modelList.getCredit_amt()[j]);
+        for(int j=0;j<credit_size;j++){
+            String temp = "By " + credit_name[j].substring(1,credit_name[j].length()-1) + " - "+credit_amt[j] + "\n";
+            recyclerViewHolder.toCreditField.setText(String.valueOf(recyclerViewHolder.toCreditField.getText())+temp);
+            total2 += Float.valueOf(credit_amt[j]);
         }
 
         if(total1>total2) {

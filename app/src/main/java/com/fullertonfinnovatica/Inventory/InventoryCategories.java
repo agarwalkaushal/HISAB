@@ -51,25 +51,8 @@ public class InventoryCategories extends AppCompatActivity {
         inventoryEmpty = (TextView) findViewById(R.id.inventoryEmpty);
 
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent = new Intent(InventoryCategories.this, InventoryAdd.class);
-                startActivity(intent);
 
-            }
-        });
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getBoolean("empty",true)){
-            prefs.edit().putBoolean("empty",false).apply();
-            recyclerView.setVisibility(View.INVISIBLE);
-            emptyInventory.setVisibility(View.VISIBLE);
-            Typeface font = Typeface.createFromAsset(getAssets(), "fonts/COMIC.TTF");
-            inventoryEmpty.setTypeface(font);
-        }
-        else
-        {
             recyclerView.setVisibility(View.VISIBLE);
             emptyInventory.setVisibility(View.GONE);
 
@@ -100,7 +83,7 @@ public class InventoryCategories extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             }));
-        }
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -231,10 +214,5 @@ public class InventoryCategories extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        recyclerView.setVisibility(View.VISIBLE);
-        emptyInventory.setVisibility(View.GONE);
-    }
+
 }

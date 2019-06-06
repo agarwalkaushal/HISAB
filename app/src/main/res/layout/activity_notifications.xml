@@ -8,6 +8,26 @@
     android:background="@drawable/dashboard"
     android:id="@+id/holder">
 
+    <RelativeLayout
+        android:id="@+id/progressParent"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/progress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cpb_background_progressbar_color="@color/colorPrimaryLight"
+            app:cpb_background_progressbar_width="5.5dp"
+            app:cpb_progressbar_color="@color/colorPrimaryDark"
+            app:cpb_progressbar_width="8dp" />
+
+    </RelativeLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
